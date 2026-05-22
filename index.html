@@ -2554,7 +2554,7 @@ function PageShell({title,subtitle,accent,onMenu,onHome,children}){
       </div>
       <BackLink/>
       {children}
-      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
@@ -2611,7 +2611,7 @@ function Home({onNav,onMenu}){
       </div>
       <div style={{marginBottom:"1rem"}}><HomeTile icon="🗂️" name="EXERCISE LIBRARY" desc={T+tL(" exercises · 11 categories")} color="var(--accent-teal)" onClick={()=>onNav({type:"library"})} big/></div>
 
-      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>;
 }
@@ -3147,12 +3147,10 @@ function KumiteDrillsLibrary({onMenu,onHome}){
 function SportKumiteHub({onNav,onMenu,onHome}){
   const scoring=LANG==='pt'?[["YUKO","1 pt","Tsuki (soco) ou uchi (golpe) à cabeça ou ao tronco","#e9c46a"],["WAZA-ARI","2 pts","Geri (pontapé) ao tronco","#f4a261"],["IPPON","3 pts","Pontapé à cabeça, ou técnica pontuada sobre adversário projetado/no chão","#FF1943"]]:[["YUKO","1 pt","Tsuki (punch) or uchi (strike) to head or body","#e9c46a"],["WAZA-ARI","2 pts","Geri (kick) to the body","#f4a261"],["IPPON","3 pts","Kick to the head, or a scoring technique on a thrown/downed opponent","#FF1943"]];
   return <PageShell title={tL("Sport Kumite")} subtitle={LANG==='pt'?"Treino de competição WKF":"WKF competition training"} accent="var(--accent-red)" onMenu={onMenu} onHome={onHome}>
-    <p style={{color:"var(--text-muted)",fontSize:"0.9rem",lineHeight:1.7,margin:"0.4rem 0 0.9rem"}}>{LANG==='pt'?"Exercícios de combate de competição, sessões de treino prontas a usar, escalonamento por intensidade de papel e referência de pontuação WKF — o programa de kumite desportivo do NKS.":"Competition sparring drills, ready-to-run training sessions, role-intensity scaling and WKF scoring reference — the NKS sport-kumite programme."}</p>
+    <p style={{color:"var(--text-muted)",fontSize:"0.9rem",lineHeight:1.7,margin:"0.4rem 0 0.9rem"}}>{LANG==='pt'?"Uma biblioteca bilingue de 80 exercícios de kumite, sessões de treino prontas a usar, referência de pontuação WKF e sinais de árbitro — o programa de kumite desportivo do NKS.":"A bilingual library of 80 kumite drills, ready-to-run training sessions, WKF scoring reference and referee signals — the NKS sport-kumite programme."}</p>
     <div className="lvgrid">
-      <SectionTile icon={"🥋"} name={LANG==='pt'?"Exercícios de Kumite Desportivo":"Sport Kumite Drills"} desc={LANG==='pt'?"21 exercícios para combate de competição WKF":"21 drills for WKF competition sparring"} color="#FF1943" onClick={()=>onNav({type:"category",name:"Sport Kumite"})}/>
+      <SectionTile icon={"🥊"} name={LANG==='pt'?"Biblioteca de Exercícios de Kumite":"Kumite Drills Library"} desc={LANG==='pt'?"80 exercícios bilingues · 5 categorias · 3 níveis":"80 bilingual drills · 5 categories · 3 levels"} color="#FF1943" onClick={()=>onNav({type:"kumiteDrills"})}/>
       <SectionTile icon={"📋"} name={LANG==='pt'?"Biblioteca de Sessões":"Session Library"} desc={LANG==='pt'?"3 sessões de 60 min prontas a usar + índice de 30 exercícios":"3 ready-to-run 60-min sessions + 30-drill index"} color="#f4a261" onClick={()=>onNav({type:"sportKumiteSessions"})}/>
-      <SectionTile icon={"🔴"} name={LANG==='pt'?"Exercícios Wado-Ryū":"Wado-Ryū Drills"} desc={LANG==='pt'?"26 exercícios para o programa WIKF":"26 drills for the WIKF syllabus"} color="#457b9d" onClick={()=>onNav({type:"category",name:"Wado-Ryū Drills"})}/>
-      <SectionTile icon={"🤸"} name={LANG==='pt'?"Força e Flexibilidade":"Strength & Flexibility"} desc={LANG==='pt'?"Mobilidade e preparação física que alimenta o rendimento em competição":"Mobility & physical prep that feeds competition output"} color="#2a9d8f" onClick={()=>onNav({type:"category",name:"Flexibility & Mobility"})}/>
       <SectionTile icon={"📖"} name={LANG==='pt'?"Regras WKF":"WKF Rules"} desc={LANG==='pt'?"Regras de competição — pontuação, penalizações, decisões (2026.01)":"Competition rules — scoring, penalties, decisions (2026.01)"} color="var(--accent-aqua)" onClick={()=>onNav({type:"wkfRules"})}/>
       <SectionTile icon={"🚩"} name={LANG==='pt'?"Sinais de Árbitro":"Referee Signals"} desc={LANG==='pt'?"64 gestos de árbitro e sinais de bandeira":"64 referee gestures & flag signals"} color="var(--accent-purple)" onClick={()=>onNav({type:"wkfGestures"})}/>
     </div>
@@ -3480,7 +3478,7 @@ function GlossaryView({onMenu,onHome}){
       {g.terms.map((t,j)=><div key={j} style={{padding:"0.4rem 0",borderTop:j===0?"none":"1px solid var(--border)"}}><div style={{fontWeight:700,fontSize:"0.9rem",color:"var(--text-primary)"}}>{t.jp}</div><div style={{fontSize:"0.82rem",color:"var(--text-secondary)",marginTop:"0.1rem",lineHeight:1.5}}>{t.en}</div></div>)}
     </div>)}</div>
     {total===0&&<p style={{color:"var(--text-muted)",textAlign:"center",padding:"2rem 0",fontSize:"0.9rem"}}>No terms match your search.</p>}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 function CategoryView({name,onMenu,onHome}){
@@ -3495,7 +3493,7 @@ function CategoryView({name,onMenu,onHome}){
     {showSearch&&<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Filter..." autoFocus style={{width:"100%",background:"var(--bg-card)",border:"1px solid var(--border-active)",borderRadius:0,padding:"0.6rem 0.9rem",color:"var(--text-primary)",fontSize:"0.95rem",fontFamily:"'DM Sans',sans-serif",marginBottom:"0.6rem",outline:"none"}}/>}
     {subs.length>2&&<div style={{display:"flex",gap:"0.3rem",overflowX:"auto",WebkitOverflowScrolling:"touch",paddingBottom:"0.5rem",marginBottom:"0.45rem"}}>{subs.map(s=><button key={s} onClick={()=>setSub(s)} style={{fontFamily:mono,fontWeight:500,fontSize:"0.65rem",padding:"0.3rem 0.6rem",borderRadius:0,border:"1px solid "+(sub===s?color:"var(--border)"),background:sub===s?color+"18":"transparent",color:sub===s?color:"var(--text-dim)",cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}}>{s}</button>)}</div>}
     <div className="lvgrid">{filtered.map((ex,i)=>{const isOpen=exp===i;return <div key={i} style={{background:"var(--bg-card)",border:"1px solid "+(isOpen?"var(--border-active)":"var(--border)"),borderRadius:0}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:"0.5rem"}}><div style={{width:6,height:6,borderRadius:0,background:color,flexShrink:0,opacity:0.6}}/><span style={{flex:1,fontWeight:600,fontSize:"0.95rem",color:isOpen?"var(--text-primary)":"var(--text-secondary)",lineHeight:1.35}}>{ex.name}</span><span style={{fontSize:"0.7rem",color:"var(--text-dim)",transform:isOpen?"rotate(180deg)":"none",transition:"transform 0.15s"}}>▼</span></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"0.9rem",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}</div>
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -3507,7 +3505,7 @@ function SearchView({query,onMenu,onHome}){
     <BackLink/><input value={q} onChange={e=>setQ(e.target.value)} autoFocus placeholder={t('searchPlaceholder')} style={{width:"100%",background:"var(--bg-card)",border:"1px solid var(--border-active)",borderRadius:0,padding:"1rem",color:"var(--text-primary)",fontSize:"1rem",fontFamily:"'DM Sans',sans-serif",margin:"1rem 0",outline:"none"}} />
     <div style={{fontFamily:mono,fontWeight:500,fontSize:"0.75rem",color:monoLight,marginBottom:"0.6rem"}}>{results.length} result{results.length!==1?"s":""}</div>
     {results.map((ex,i)=>{const isOpen=exp===i;const eColor=CM.find(m=>m[0]===ex._cat)?.[2]||"var(--accent-red)";return <div key={i} style={{background:"var(--bg-card)",border:"1px solid var(--border)",borderRadius:0,marginBottom:"0.6rem"}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left"}}><div style={{fontWeight:600,fontSize:"0.95rem",color:"var(--text-primary)"}}>{ex.name}</div><div style={{fontSize:"0.7rem",color:eColor,fontFamily:mono,fontWeight:500,marginTop:"0.1rem"}}>{ex._cat}</div></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"0.9rem",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -3519,7 +3517,7 @@ function SyllabusView({onNav,onMenu,onHome}){
       <div style={{padding:"1rem 0 0.5rem"}}><h1 style={{fontSize:"1.4rem",fontWeight:700,fontFamily:mono,color:"var(--accent-red)"}}>{tL("WIKF Syllabus")}</h1><p style={{fontSize:"0.85rem",color:"var(--text-muted)",marginTop:"0.2rem"}}>{tL("Complete reference text. For structured content, use the dedicated sections below.")}</p></div><BackLink/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0.4rem",marginBottom:"1.2rem"}}>{[{icon:"🥋",name:"Kata",v:{type:"kata"}},{icon:"👊",name:"Kihon",v:{type:"kihon"}},{icon:"🤜",name:"Kumite Forms",v:{type:"kumiteForms"}},{icon:"🔪",name:"Weapons",v:{type:"weapons"}},{icon:"🏛️",name:"History",v:{type:"history"}},{icon:"☯️",name:"Principles",v:{type:"principles"}}].map(s=><button key={s.name} onClick={()=>onNav(s.v)} style={{background:"var(--bg-card)",border:"1px solid var(--border)",borderRadius:0,padding:"0.7rem",cursor:"pointer",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",gap:"0.4rem"}}><span>{s.icon}</span><span style={{fontSize:"0.85rem",color:"var(--text-secondary)",fontWeight:600}}>{tL(s.name)}</span></button>)}</div>
       <div ref={ref} className="syl" style={{paddingBottom:"2rem"}} />
-      <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v48 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v49 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
