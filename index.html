@@ -46,6 +46,9 @@ body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',system
 .syl code{font-family:'Space Mono',monospace;font-size:0.9rem;background:var(--bg-code);padding:0.15rem 0.4rem;border-radius:0;color:var(--accent-orange)}
 .syl pre{background:var(--bg-code);border:1px solid var(--border);border-radius:0;padding:1rem;margin:0.8rem 0;overflow-x:auto}
 .syl pre code{background:none;padding:0;font-size:0.85rem;color:var(--text-secondary)}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-items:stretch}
+.lib-filter-panel{overflow:hidden;max-height:0;transition:max-height .2s ease}
+.lib-filter-panel.open{max-height:680px}
 </style>
 <script>try{var _t=localStorage.getItem('wrh-theme');if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);}catch(e){}</script>
 <style>
@@ -2554,7 +2557,7 @@ function PageShell({title,subtitle,accent,onMenu,onHome,children}){
       </div>
       <BackLink/>
       {children}
-      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
@@ -2611,7 +2614,7 @@ function Home({onNav,onMenu}){
       </div>
       <div style={{marginBottom:"1rem"}}><HomeTile icon="💪" name="Strength & Mobility" desc="Strength · Mobility · Karate drills · Warm-up" color="var(--accent-teal)" onClick={()=>onNav({type:"strengthMobility"})} big/></div>
 
-      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>;
 }
@@ -3065,6 +3068,7 @@ function KumiteDrillsLibrary({onMenu,onHome}){
   const [fmt,setFmt]=useState('all');
   const [tag,setTag]=useState(null);
   const [open,setOpen]=useState(null);
+  const [fOpen,setFOpen]=useState(false);
   const L=function(s){return (s&&typeof s==='object')?(s[LANG]!==undefined?s[LANG]:s.en):s;};
   const cats=KUMITE_DRILLS.categories;
   const levels=KUMITE_DRILLS.levels;
@@ -3079,21 +3083,42 @@ function KumiteDrillsLibrary({onMenu,onHome}){
   const pillStyle=function(active,color){return {height:36,padding:"0 12px",fontSize:"0.8rem",borderRadius:18,border:"1px solid "+(active?color:"#2a2a30"),background:active?color:"#1e1e24",color:active?"#0a0d0e":"var(--text-secondary)",fontWeight:active?700:500,whiteSpace:"nowrap",cursor:"pointer",fontFamily:mono,flexShrink:0,display:"inline-flex",alignItems:"center",gap:6,lineHeight:1};};
   const pill=function(key,label,count,active,color,onClick){return <button key={key} onClick={onClick} style={pillStyle(active,color)}><span>{label}</span><span style={{fontSize:"0.7rem",opacity:0.85}}>{count}</span></button>;};
   const rowStyle={display:"flex",gap:"0.4rem",overflowX:"auto",paddingBottom:"0.45rem",WebkitOverflowScrolling:"touch"};
+  const labelStyle={fontSize:"0.75rem",textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--text-dim)",fontFamily:mono,fontWeight:700,margin:"0.55rem 0 0.3rem"};
+  const activeCount=(cat!=='all'?1:0)+(lvl!=='all'?1:0)+(fmt!=='all'?1:0);
+  const clearAll=function(){setCat('all');setLvl('all');setFmt('all');setTag(null);};
+  const sumPill=function(key,label,color,onClear){return <span key={key} style={{height:28,display:"inline-flex",alignItems:"center",gap:6,background:"#1e1e24",borderLeft:"3px solid "+color,borderRadius:6,padding:"0 4px 0 9px",fontSize:"0.75rem",fontFamily:mono,color:"var(--text-secondary)",whiteSpace:"nowrap"}}><span>{label}</span><button onClick={onClear} style={{background:"none",border:"none",color:"var(--text-muted)",cursor:"pointer",fontSize:"0.8rem",lineHeight:1,padding:"0 2px"}}>✕</button></span>;};
+  const fBtn=<button onClick={function(){setFOpen(!fOpen);}} style={{height:40,padding:"0 16px",display:"inline-flex",alignItems:"center",gap:8,background:"#1e1e24",border:"1px solid #2a2a32",borderRadius:20,color:"#f0eeeb",fontFamily:mono,fontSize:"0.82rem",fontWeight:600,cursor:"pointer"}}><span style={{fontSize:"0.9rem"}}>🔍</span><span>{LANG==='pt'?"Filtros":"Filters"}</span>{activeCount>0&&<span style={{background:accent,color:"#0a0d0e",borderRadius:10,minWidth:18,height:18,padding:"0 5px",fontSize:"0.7rem",fontWeight:700,display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{activeCount}</span>}<span style={{fontSize:"0.9rem",color:"var(--text-muted)",transform:fOpen?"rotate(180deg)":"none",transition:"transform .15s"}}>⌄</span></button>;
   return <PageShell title={LANG==='pt'?"Exercícios de Kumite":"Kumite Drills"} subtitle={LANG==='pt'?"80 exercícios de combate de competição WKF":"80 WKF competition sparring drills"} accent={accent} onMenu={onMenu} onHome={onHome}>
-    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.25rem",borderBottom:"1px solid var(--border)"}}>
-      <div style={rowStyle}>
-        {pill('c-all',allLbl,cnt({cat:'all'}),cat==='all',accent,function(){setCat('all');})}
-        {cats.map(function(c){return pill('c-'+c.id,L(c.name),cnt({cat:c.id}),cat===c.id,c.color,function(){setCat(cat===c.id?'all':c.id);});})}
+    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.5rem",borderBottom:"1px solid var(--border)"}}>
+      {fBtn}
+      <div className={"lib-filter-panel"+(fOpen?" open":"")}>
+        <div style={{background:"#131316",border:"1px solid #1e1e24",borderRadius:12,padding:16,marginTop:"0.5rem"}}>
+          <div style={labelStyle}>{LANG==='pt'?"Categoria":"Category"}</div>
+          <div style={rowStyle}>
+            {pill('c-all',allLbl,cnt({cat:'all'}),cat==='all',accent,function(){setCat('all');})}
+            {cats.map(function(c){return pill('c-'+c.id,L(c.name),cnt({cat:c.id}),cat===c.id,c.color,function(){setCat(cat===c.id?'all':c.id);});})}
+          </div>
+          <div style={labelStyle}>{LANG==='pt'?"Nível":"Level"}</div>
+          <div style={rowStyle}>
+            {pill('l-all',allLbl,cnt({lvl:'all'}),lvl==='all',accent,function(){setLvl('all');})}
+            {Object.keys(levels).map(function(k){return pill('l-'+k,L(levels[k].label),cnt({lvl:k}),lvl===k,levels[k].color,function(){setLvl(lvl===k?'all':k);});})}
+          </div>
+          <div style={labelStyle}>{LANG==='pt'?"Formato":"Format"}</div>
+          <div style={rowStyle}>
+            {pill('f-all',allLbl,cnt({fmt:'all'}),fmt==='all',accent,function(){setFmt('all');})}
+            {Object.keys(formats).map(function(k){return pill('f-'+k,L(formats[k].label),cnt({fmt:k}),fmt===k,"var(--accent-aqua)",function(){setFmt(fmt===k?'all':k);});})}
+          </div>
+          <div style={{textAlign:"right",marginTop:"0.4rem"}}>
+            <button onClick={clearAll} style={{background:"none",border:"none",color:accent,fontFamily:mono,fontSize:"0.75rem",cursor:"pointer",textDecoration:"underline",padding:0}}>{LANG==='pt'?"Limpar tudo":"Clear all"}</button>
+          </div>
+        </div>
       </div>
-      <div style={rowStyle}>
-        {pill('l-all',allLbl,cnt({lvl:'all'}),lvl==='all',accent,function(){setLvl('all');})}
-        {Object.keys(levels).map(function(k){return pill('l-'+k,L(levels[k].label),cnt({lvl:k}),lvl===k,levels[k].color,function(){setLvl(lvl===k?'all':k);});})}
-      </div>
-      <div style={rowStyle}>
-        {pill('f-all',allLbl,cnt({fmt:'all'}),fmt==='all',accent,function(){setFmt('all');})}
-        {Object.keys(formats).map(function(k){return pill('f-'+k,L(formats[k].label),cnt({fmt:k}),fmt===k,"var(--accent-aqua)",function(){setFmt(fmt===k?'all':k);});})}
-      </div>
-      {tag&&<div style={{display:"flex",alignItems:"center",gap:"0.4rem",marginTop:"0.15rem"}}>
+      {!fOpen&&activeCount>0&&<div style={{display:"flex",flexWrap:"wrap",gap:"0.4rem",marginTop:"0.5rem"}}>
+        {cat!=='all'&&sumPill('s-cat',L((catMap[cat]||{}).name),(catMap[cat]||{}).color||accent,function(){setCat('all');})}
+        {lvl!=='all'&&sumPill('s-lvl',L(levels[lvl].label),levels[lvl].color,function(){setLvl('all');})}
+        {fmt!=='all'&&sumPill('s-fmt',L(formats[fmt].label),"var(--accent-aqua)",function(){setFmt('all');})}
+      </div>}
+      {tag&&<div style={{display:"flex",alignItems:"center",gap:"0.4rem",marginTop:"0.4rem"}}>
         <span style={{fontSize:"0.72rem",color:"var(--text-muted)",fontFamily:mono}}>{LANG==='pt'?"Etiqueta:":"Tag:"}</span>
         <button onClick={function(){setTag(null);}} style={{fontSize:"0.7rem",fontFamily:mono,padding:"3px 9px",borderRadius:12,border:"1px solid var(--accent-red)",background:"var(--accent-red)",color:"#0a0d0e",fontWeight:700,cursor:"pointer"}}>{tag} ✕</button>
       </div>}
@@ -3104,14 +3129,14 @@ function KumiteDrillsLibrary({onMenu,onHome}){
       <div style={{fontFamily:mono,fontSize:"0.9rem",fontWeight:700,color:"var(--text-secondary)"}}>{LANG==='pt'?"Nenhum exercício corresponde":"No drills match"}</div>
       <div style={{fontSize:"0.8rem",marginTop:"0.3rem"}}>{LANG==='pt'?"Ajusta ou limpa os filtros acima.":"Adjust or clear the filters above."}</div>
     </div>}
-    {drills.map(function(d){
+    <div className="lib-grid">{drills.map(function(d){
       var c=catMap[d.category]||{};var col=c.color||accent;
       var lev=levels[d.level]||{};var fm=formats[d.format]||{};
       var isOpen=open===d.id;
       var dtags=(d.tags&&(d.tags[LANG]||d.tags.en))||[];
       var equip=(d.equipment&&(d.equipment[LANG]||d.equipment.en))||[];
       var sec=function(title,body){return <div style={{marginBottom:"0.7rem"}}><div style={{fontFamily:mono,fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.04em",color:col,marginBottom:"0.3rem"}}>{title}</div>{body}</div>;};
-      return <div key={d.id} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem",marginBottom:"0.6rem"}}>
+      return <div key={d.id} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem"}}>
         <div onClick={function(){setOpen(isOpen?null:d.id);}} style={{cursor:"pointer"}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"0.6rem"}}>
             <div style={{flex:1,minWidth:0}}>
@@ -3142,7 +3167,7 @@ function KumiteDrillsLibrary({onMenu,onHome}){
           </div>}
         </div>}
       </div>;
-    })}
+    })}</div>
   </PageShell>;
 }
 
@@ -3167,6 +3192,7 @@ function StrengthLibrary({onMenu,onHome}){
   const [lvl,setLvl]=useState('all');
   const [pat,setPat]=useState('all');
   const [open,setOpen]=useState(null);
+  const [fOpen,setFOpen]=useState(false);
   const accent="var(--accent-red)";
   const allLbl=LANG==='pt'?"Todos":"All";
   const patterns=STRENGTH_MOBILITY.strength;
@@ -3174,16 +3200,36 @@ function StrengthLibrary({onMenu,onHome}){
   const exCount=function(l,p){var n=0;patterns.forEach(function(P){if(p!=='all'&&P.pattern_id!==p)return;P.exercises.forEach(function(e){if(matchEx(e,l))n++;});});return n;};
   const shown=patterns.filter(function(P){return pat==='all'||P.pattern_id===pat;});
   const total=exCount(lvl,pat);
+  const labelStyle={fontSize:"0.75rem",textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--text-dim)",fontFamily:mono,fontWeight:700,margin:"0.55rem 0 0.3rem"};
+  const activeCount=(lvl!=='all'?1:0)+(pat!=='all'?1:0);
+  const clearAll=function(){setLvl('all');setPat('all');};
+  const patObj=patterns.filter(function(P){return P.pattern_id===pat;})[0]||{};
+  const sumPill=function(key,label,color,onClear){return <span key={key} style={{height:28,display:"inline-flex",alignItems:"center",gap:6,background:"#1e1e24",borderLeft:"3px solid "+color,borderRadius:6,padding:"0 4px 0 9px",fontSize:"0.75rem",fontFamily:mono,color:"var(--text-secondary)",whiteSpace:"nowrap"}}><span>{label}</span><button onClick={onClear} style={{background:"none",border:"none",color:"var(--text-muted)",cursor:"pointer",fontSize:"0.8rem",lineHeight:1,padding:"0 2px"}}>✕</button></span>;};
+  const fBtn=<button onClick={function(){setFOpen(!fOpen);}} style={{height:40,padding:"0 16px",display:"inline-flex",alignItems:"center",gap:8,background:"#1e1e24",border:"1px solid #2a2a32",borderRadius:20,color:"#f0eeeb",fontFamily:mono,fontSize:"0.82rem",fontWeight:600,cursor:"pointer"}}><span style={{fontSize:"0.9rem"}}>🔍</span><span>{LANG==='pt'?"Filtros":"Filters"}</span>{activeCount>0&&<span style={{background:accent,color:"#0a0d0e",borderRadius:10,minWidth:18,height:18,padding:"0 5px",fontSize:"0.7rem",fontWeight:700,display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{activeCount}</span>}<span style={{fontSize:"0.9rem",color:"var(--text-muted)",transform:fOpen?"rotate(180deg)":"none",transition:"transform .15s"}}>⌄</span></button>;
   return <PageShell title={LANG==='pt'?"Força":"Strength"} subtitle={LANG==='pt'?"13 padrões de movimento · 39 exercícios para karate":"13 movement patterns · 39 karate-specific exercises"} accent={accent} onMenu={onMenu} onHome={onHome}>
-    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.25rem",borderBottom:"1px solid var(--border)"}}>
-      <div style={SM_ROW}>
-        {smPill('l-all',allLbl,exCount('all',pat),lvl==='all',accent,function(){setLvl('all');})}
-        {Object.keys(SM_LEVELS).map(function(k){return smPill('l-'+k,smL(SM_LEVELS[k].l),exCount(k,pat),lvl===k,SM_LEVELS[k].c,function(){setLvl(lvl===k?'all':k);});})}
+    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.5rem",borderBottom:"1px solid var(--border)"}}>
+      {fBtn}
+      <div className={"lib-filter-panel"+(fOpen?" open":"")}>
+        <div style={{background:"#131316",border:"1px solid #1e1e24",borderRadius:12,padding:16,marginTop:"0.5rem"}}>
+          <div style={labelStyle}>{LANG==='pt'?"Nível":"Level"}</div>
+          <div style={SM_ROW}>
+            {smPill('l-all',allLbl,exCount('all',pat),lvl==='all',accent,function(){setLvl('all');})}
+            {Object.keys(SM_LEVELS).map(function(k){return smPill('l-'+k,smL(SM_LEVELS[k].l),exCount(k,pat),lvl===k,SM_LEVELS[k].c,function(){setLvl(lvl===k?'all':k);});})}
+          </div>
+          <div style={labelStyle}>{LANG==='pt'?"Padrão":"Pattern"}</div>
+          <div style={SM_ROW}>
+            {smPill('p-all',allLbl,null,pat==='all',accent,function(){setPat('all');})}
+            {patterns.map(function(P){return smPill('p-'+P.pattern_id,smL(P.pattern),null,pat===P.pattern_id,"var(--accent-aqua)",function(){setPat(pat===P.pattern_id?'all':P.pattern_id);});})}
+          </div>
+          <div style={{textAlign:"right",marginTop:"0.4rem"}}>
+            <button onClick={clearAll} style={{background:"none",border:"none",color:accent,fontFamily:mono,fontSize:"0.75rem",cursor:"pointer",textDecoration:"underline",padding:0}}>{LANG==='pt'?"Limpar tudo":"Clear all"}</button>
+          </div>
+        </div>
       </div>
-      <div style={SM_ROW}>
-        {smPill('p-all',allLbl,null,pat==='all',accent,function(){setPat('all');})}
-        {patterns.map(function(P){return smPill('p-'+P.pattern_id,smL(P.pattern),null,pat===P.pattern_id,"var(--accent-aqua)",function(){setPat(pat===P.pattern_id?'all':P.pattern_id);});})}
-      </div>
+      {!fOpen&&activeCount>0&&<div style={{display:"flex",flexWrap:"wrap",gap:"0.4rem",marginTop:"0.5rem"}}>
+        {lvl!=='all'&&sumPill('s-lvl',smL(SM_LEVELS[lvl].l),SM_LEVELS[lvl].c,function(){setLvl('all');})}
+        {pat!=='all'&&sumPill('s-pat',smL(patObj.pattern),"var(--accent-aqua)",function(){setPat('all');})}
+      </div>}
     </div>
     <div style={{fontFamily:mono,fontSize:"0.72rem",color:"var(--text-muted)",margin:"0 0 0.7rem"}}>{total} {LANG==='pt'?(total===1?"exercício":"exercícios"):(total===1?"exercise":"exercises")}</div>
     {total===0&&<div style={{textAlign:"center",padding:"2.5rem 1rem",color:"var(--text-muted)"}}>
@@ -3195,12 +3241,12 @@ function StrengthLibrary({onMenu,onHome}){
       if(exs.length===0) return null;
       return <div key={P.pattern_id} style={{marginBottom:"1.2rem"}}>
         {smZoneHeader(smL(P.pattern),smL(P.karate_relevance),(P.muscles_primary||[]).concat(P.muscles_secondary||[]),accent)}
-        {exs.map(function(e,i){
+        <div className="lib-grid">{exs.map(function(e,i){
           var lm=SM_LEVELS[e.level]||{};var col=lm.c||accent;
           var key=P.pattern_id+'-'+e.level+'-'+i;var isOpen=open===key;
           var equip=(e.equipment||[]).map(function(q){return smL(q);}).filter(function(x){return x&&x!=='None'&&x!=='Nenhum';});
           var cues=(e.cues||[]).map(function(c){return smL(c);});
-          return <div key={key} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem",marginBottom:"0.6rem"}}>
+          return <div key={key} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem"}}>
             <div onClick={function(){setOpen(isOpen?null:key);}} style={{cursor:"pointer"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"0.6rem"}}>
                 <div style={{flex:1,minWidth:0}}><div style={{fontWeight:700,fontSize:"0.95rem",color:"var(--text-primary)",lineHeight:1.3}}>{smL(e.name)}</div></div>
@@ -3226,7 +3272,7 @@ function StrengthLibrary({onMenu,onHome}){
               {e.masters_note&&smNote(LANG==='pt'?"NOTA PARA MASTERS":"MASTERS NOTE","var(--accent-gold)","rgba(212,175,55,0.06)","rgba(212,175,55,0.25)",smL(e.masters_note))}
             </div>}
           </div>;
-        })}
+        })}</div>
       </div>;
     })}
   </PageShell>;
@@ -3236,6 +3282,7 @@ function MobilityLibrary({onMenu,onHome}){
   const [lvl,setLvl]=useState('all');
   const [zone,setZone]=useState('all');
   const [open,setOpen]=useState(null);
+  const [fOpen,setFOpen]=useState(false);
   const [hsOpen,setHsOpen]=useState(false);
   const accent="var(--accent-red)";
   const allLbl=LANG==='pt'?"Todos":"All";
@@ -3245,16 +3292,36 @@ function MobilityLibrary({onMenu,onHome}){
   const exCount=function(l,z){var n=0;zones.forEach(function(Z){if(z!=='all'&&Z.zone_id!==z)return;Z.exercises.forEach(function(e){if(matchEx(e,l))n++;});});return n;};
   const shown=zones.filter(function(Z){return zone==='all'||Z.zone_id===zone;});
   const total=exCount(lvl,zone);
+  const labelStyle={fontSize:"0.75rem",textTransform:"uppercase",letterSpacing:"0.05em",color:"var(--text-dim)",fontFamily:mono,fontWeight:700,margin:"0.55rem 0 0.3rem"};
+  const activeCount=(lvl!=='all'?1:0)+(zone!=='all'?1:0);
+  const clearAll=function(){setLvl('all');setZone('all');};
+  const zoneObj=zones.filter(function(Z){return Z.zone_id===zone;})[0]||{};
+  const sumPill=function(key,label,color,onClear){return <span key={key} style={{height:28,display:"inline-flex",alignItems:"center",gap:6,background:"#1e1e24",borderLeft:"3px solid "+color,borderRadius:6,padding:"0 4px 0 9px",fontSize:"0.75rem",fontFamily:mono,color:"var(--text-secondary)",whiteSpace:"nowrap"}}><span>{label}</span><button onClick={onClear} style={{background:"none",border:"none",color:"var(--text-muted)",cursor:"pointer",fontSize:"0.8rem",lineHeight:1,padding:"0 2px"}}>✕</button></span>;};
+  const fBtn=<button onClick={function(){setFOpen(!fOpen);}} style={{height:40,padding:"0 16px",display:"inline-flex",alignItems:"center",gap:8,background:"#1e1e24",border:"1px solid #2a2a32",borderRadius:20,color:"#f0eeeb",fontFamily:mono,fontSize:"0.82rem",fontWeight:600,cursor:"pointer"}}><span style={{fontSize:"0.9rem"}}>🔍</span><span>{LANG==='pt'?"Filtros":"Filters"}</span>{activeCount>0&&<span style={{background:accent,color:"#0a0d0e",borderRadius:10,minWidth:18,height:18,padding:"0 5px",fontSize:"0.7rem",fontWeight:700,display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{activeCount}</span>}<span style={{fontSize:"0.9rem",color:"var(--text-muted)",transform:fOpen?"rotate(180deg)":"none",transition:"transform .15s"}}>⌄</span></button>;
   return <PageShell title={LANG==='pt'?"Mobilidade":"Mobility"} subtitle={LANG==='pt'?"10 zonas corporais · 30 exercícios de flexibilidade":"10 body zones · 30 flexibility exercises"} accent={accent} onMenu={onMenu} onHome={onHome}>
-    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.25rem",borderBottom:"1px solid var(--border)"}}>
-      <div style={SM_ROW}>
-        {smPill('l-all',allLbl,exCount('all',zone),lvl==='all',accent,function(){setLvl('all');})}
-        {Object.keys(SM_LEVELS).map(function(k){return smPill('l-'+k,smL(SM_LEVELS[k].l),exCount(k,zone),lvl===k,SM_LEVELS[k].c,function(){setLvl(lvl===k?'all':k);});})}
+    <div style={{position:"sticky",top:48,zIndex:90,background:"var(--bg)",margin:"0 -1rem 0.8rem",padding:"0.6rem 1rem 0.5rem",borderBottom:"1px solid var(--border)"}}>
+      {fBtn}
+      <div className={"lib-filter-panel"+(fOpen?" open":"")}>
+        <div style={{background:"#131316",border:"1px solid #1e1e24",borderRadius:12,padding:16,marginTop:"0.5rem"}}>
+          <div style={labelStyle}>{LANG==='pt'?"Nível":"Level"}</div>
+          <div style={SM_ROW}>
+            {smPill('l-all',allLbl,exCount('all',zone),lvl==='all',accent,function(){setLvl('all');})}
+            {Object.keys(SM_LEVELS).map(function(k){return smPill('l-'+k,smL(SM_LEVELS[k].l),exCount(k,zone),lvl===k,SM_LEVELS[k].c,function(){setLvl(lvl===k?'all':k);});})}
+          </div>
+          <div style={labelStyle}>{LANG==='pt'?"Zona":"Zone"}</div>
+          <div style={SM_ROW}>
+            {smPill('z-all',allLbl,null,zone==='all',accent,function(){setZone('all');})}
+            {zones.map(function(Z){return smPill('z-'+Z.zone_id,smL(Z.zone),null,zone===Z.zone_id,"var(--accent-aqua)",function(){setZone(zone===Z.zone_id?'all':Z.zone_id);});})}
+          </div>
+          <div style={{textAlign:"right",marginTop:"0.4rem"}}>
+            <button onClick={clearAll} style={{background:"none",border:"none",color:accent,fontFamily:mono,fontSize:"0.75rem",cursor:"pointer",textDecoration:"underline",padding:0}}>{LANG==='pt'?"Limpar tudo":"Clear all"}</button>
+          </div>
+        </div>
       </div>
-      <div style={SM_ROW}>
-        {smPill('z-all',allLbl,null,zone==='all',accent,function(){setZone('all');})}
-        {zones.map(function(Z){return smPill('z-'+Z.zone_id,smL(Z.zone),null,zone===Z.zone_id,"var(--accent-aqua)",function(){setZone(zone===Z.zone_id?'all':Z.zone_id);});})}
-      </div>
+      {!fOpen&&activeCount>0&&<div style={{display:"flex",flexWrap:"wrap",gap:"0.4rem",marginTop:"0.5rem"}}>
+        {lvl!=='all'&&sumPill('s-lvl',smL(SM_LEVELS[lvl].l),SM_LEVELS[lvl].c,function(){setLvl('all');})}
+        {zone!=='all'&&sumPill('s-zone',smL(zoneObj.zone),"var(--accent-aqua)",function(){setZone('all');})}
+      </div>}
     </div>
     {hotspots.length>0&&<div style={{background:"#131316",border:"1px solid #1e1e24",borderRadius:12,marginBottom:"1rem"}}>
       <div onClick={function(){setHsOpen(!hsOpen);}} style={{cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"0.75rem 0.9rem"}}>
@@ -3280,12 +3347,12 @@ function MobilityLibrary({onMenu,onHome}){
       return <div key={Z.zone_id} style={{marginBottom:"1.2rem"}}>
         {smZoneHeader(smL(Z.zone),smL(Z.karate_relevance),Z.muscles_target,accent)}
         {Z.pre_training_caution&&smNote(LANG==='pt'?"CAUTELA PRÉ-TREINO":"PRE-TRAINING CAUTION","var(--accent-aqua)","rgba(0,212,232,0.06)","rgba(0,212,232,0.25)",smL(Z.pre_training_caution))}
-        {exs.map(function(e,i){
+        <div className="lib-grid">{exs.map(function(e,i){
           var lm=SM_LEVELS[e.level]||{};var col=lm.c||accent;
           var key=Z.zone_id+'-'+e.level+'-'+i;var isOpen=open===key;
           var equip=(e.equipment||[]).map(function(q){return smL(q);}).filter(function(x){return x&&x!=='None'&&x!=='Nenhum';});
           var cues=(e.cues||[]).map(function(c){return smL(c);});
-          return <div key={key} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem",marginBottom:"0.6rem"}}>
+          return <div key={key} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.85rem 0.9rem"}}>
             <div onClick={function(){setOpen(isOpen?null:key);}} style={{cursor:"pointer"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"0.6rem"}}>
                 <div style={{flex:1,minWidth:0}}><div style={{fontWeight:700,fontSize:"0.95rem",color:"var(--text-primary)",lineHeight:1.3}}>{smL(e.name)}</div></div>
@@ -3308,7 +3375,7 @@ function MobilityLibrary({onMenu,onHome}){
               {e.masters_note&&smNote(LANG==='pt'?"NOTA PARA MASTERS":"MASTERS NOTE","var(--accent-gold)","rgba(212,175,55,0.06)","rgba(212,175,55,0.25)",smL(e.masters_note))}
             </div>}
           </div>;
-        })}
+        })}</div>
       </div>;
     })}
   </PageShell>;
@@ -3342,11 +3409,11 @@ function WarmupLibrary({onMenu,onHome}){
               <span style={{fontFamily:mono,fontSize:"0.72rem",fontWeight:700,color:"var(--accent-aqua)"}}>{smL(S.slot_name)}</span>
               {S.duration&&<span style={{fontFamily:mono,fontSize:"0.68rem",color:"var(--text-muted)"}}>{smL(S.duration)}</span>}
             </div>
-            {(S.options||[]).map(function(o){
+            <div className="lib-grid">{(S.options||[]).map(function(o){
               var isOpen=open===o.id;
               var cues=smL(o.coaching_cues)||[];
               var ageNote=smL(o.age_note);
-              return <div key={o.id} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.75rem 0.85rem",marginBottom:"0.5rem"}}>
+              return <div key={o.id} style={{background:"#131316",border:"1px solid #1e1e24",borderLeft:"4px solid "+col,borderRadius:12,padding:"0.75rem 0.85rem"}}>
                 <div onClick={function(){setOpen(isOpen?null:o.id);}} style={{cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"0.6rem"}}>
                   <div style={{flex:1,minWidth:0}}>
                     <div style={{fontWeight:700,fontSize:"0.92rem",color:"var(--text-primary)",lineHeight:1.3}}>{smL(o.name)}</div>
@@ -3360,7 +3427,7 @@ function WarmupLibrary({onMenu,onHome}){
                   {ageNote&&smNote(LANG==='pt'?"NOTA DE IDADE":"AGE NOTE","var(--accent-aqua)","rgba(0,212,232,0.06)","rgba(0,212,232,0.25)",ageNote)}
                 </div>}
               </div>;
-            })}
+            })}</div>
           </div>;
         })}
       </div>;
@@ -3703,7 +3770,7 @@ function GlossaryView({onMenu,onHome}){
       {g.terms.map((t,j)=><div key={j} style={{padding:"0.4rem 0",borderTop:j===0?"none":"1px solid var(--border)"}}><div style={{fontWeight:700,fontSize:"0.9rem",color:"var(--text-primary)"}}>{t.jp}</div><div style={{fontSize:"0.82rem",color:"var(--text-secondary)",marginTop:"0.1rem",lineHeight:1.5}}>{t.en}</div></div>)}
     </div>)}</div>
     {total===0&&<p style={{color:"var(--text-muted)",textAlign:"center",padding:"2rem 0",fontSize:"0.9rem"}}>No terms match your search.</p>}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 function CategoryView({name,onMenu,onHome}){
@@ -3718,7 +3785,7 @@ function CategoryView({name,onMenu,onHome}){
     {showSearch&&<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Filter..." autoFocus style={{width:"100%",background:"var(--bg-card)",border:"1px solid var(--border-active)",borderRadius:0,padding:"0.6rem 0.9rem",color:"var(--text-primary)",fontSize:"0.95rem",fontFamily:"'DM Sans',sans-serif",marginBottom:"0.6rem",outline:"none"}}/>}
     {subs.length>2&&<div style={{display:"flex",gap:"0.3rem",overflowX:"auto",WebkitOverflowScrolling:"touch",paddingBottom:"0.5rem",marginBottom:"0.45rem"}}>{subs.map(s=><button key={s} onClick={()=>setSub(s)} style={{fontFamily:mono,fontWeight:500,fontSize:"0.65rem",padding:"0.3rem 0.6rem",borderRadius:0,border:"1px solid "+(sub===s?color:"var(--border)"),background:sub===s?color+"18":"transparent",color:sub===s?color:"var(--text-dim)",cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}}>{s}</button>)}</div>}
     <div className="lvgrid">{filtered.map((ex,i)=>{const isOpen=exp===i;return <div key={i} style={{background:"var(--bg-card)",border:"1px solid "+(isOpen?"var(--border-active)":"var(--border)"),borderRadius:0}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:"0.5rem"}}><div style={{width:6,height:6,borderRadius:0,background:color,flexShrink:0,opacity:0.6}}/><span style={{flex:1,fontWeight:600,fontSize:"0.95rem",color:isOpen?"var(--text-primary)":"var(--text-secondary)",lineHeight:1.35}}>{ex.name}</span><span style={{fontSize:"0.7rem",color:"var(--text-dim)",transform:isOpen?"rotate(180deg)":"none",transition:"transform 0.15s"}}>▼</span></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"0.9rem",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}</div>
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -3730,7 +3797,7 @@ function SearchView({query,onMenu,onHome}){
     <BackLink/><input value={q} onChange={e=>setQ(e.target.value)} autoFocus placeholder={t('searchPlaceholder')} style={{width:"100%",background:"var(--bg-card)",border:"1px solid var(--border-active)",borderRadius:0,padding:"1rem",color:"var(--text-primary)",fontSize:"1rem",fontFamily:"'DM Sans',sans-serif",margin:"1rem 0",outline:"none"}} />
     <div style={{fontFamily:mono,fontWeight:500,fontSize:"0.75rem",color:monoLight,marginBottom:"0.6rem"}}>{results.length} result{results.length!==1?"s":""}</div>
     {results.map((ex,i)=>{const isOpen=exp===i;const eColor=CM.find(m=>m[0]===ex._cat)?.[2]||"var(--accent-red)";return <div key={i} style={{background:"var(--bg-card)",border:"1px solid var(--border)",borderRadius:0,marginBottom:"0.6rem"}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left"}}><div style={{fontWeight:600,fontSize:"0.95rem",color:"var(--text-primary)"}}>{ex.name}</div><div style={{fontSize:"0.7rem",color:eColor,fontFamily:mono,fontWeight:500,marginTop:"0.1rem"}}>{ex._cat}</div></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"0.9rem",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -3742,7 +3809,7 @@ function SyllabusView({onNav,onMenu,onHome}){
       <div style={{padding:"1rem 0 0.5rem"}}><h1 style={{fontSize:"1.4rem",fontWeight:700,fontFamily:mono,color:"var(--accent-red)"}}>{tL("WIKF Syllabus")}</h1><p style={{fontSize:"0.85rem",color:"var(--text-muted)",marginTop:"0.2rem"}}>{tL("Complete reference text. For structured content, use the dedicated sections below.")}</p></div><BackLink/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0.4rem",marginBottom:"1.2rem"}}>{[{icon:"🥋",name:"Kata",v:{type:"kata"}},{icon:"👊",name:"Kihon",v:{type:"kihon"}},{icon:"🤜",name:"Kumite Forms",v:{type:"kumiteForms"}},{icon:"🔪",name:"Weapons",v:{type:"weapons"}},{icon:"🏛️",name:"History",v:{type:"history"}},{icon:"☯️",name:"Principles",v:{type:"principles"}}].map(s=><button key={s.name} onClick={()=>onNav(s.v)} style={{background:"var(--bg-card)",border:"1px solid var(--border)",borderRadius:0,padding:"0.7rem",cursor:"pointer",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",gap:"0.4rem"}}><span>{s.icon}</span><span style={{fontSize:"0.85rem",color:"var(--text-secondary)",fontWeight:600}}>{tL(s.name)}</span></button>)}</div>
       <div ref={ref} className="syl" style={{paddingBottom:"2rem"}} />
-      <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v51 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"0.8rem",color:"#666666",fontSize:"0.65rem",fontFamily:mono}}>Wado-Ryū Handbook v52 — May 2026 · AWIKP · WIKF<br/><span style={{color:"#555555"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
