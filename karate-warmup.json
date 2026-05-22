@@ -1,0 +1,630 @@
+{
+  "meta": {
+    "version": "1.0",
+    "type": "warmup-routine",
+    "total_duration_minutes": "10–15",
+    "framework": "RAMP",
+    "description": {
+      "en": "A structured 10–15 minute full-body warm-up for karate practice, following the RAMP framework (Raise, Activate & Mobilise, Potentiate). Each slot offers 2–3 exercise options so instructors can rotate and adapt to their group. Designed for barefoot dojo training, no equipment required.",
+      "pt": "Aquecimento estruturado de 10–15 minutos para a prática de karaté, seguindo o modelo RAMP (Ativar, Mobilizar, Potenciar). Cada posição oferece 2–3 opções de exercícios para o instrutor variar e adaptar ao grupo. Concebido para treino descalço no dojo, sem equipamento."
+    },
+    "source_note": {
+      "en": "Based on current sports science consensus. Static stretching (>30s holds) is excluded from the warm-up — it impairs power output and belongs in the cool-down.",
+      "pt": "Baseado no consenso atual da ciência do desporto. O alongamento estático (>30s) está excluído do aquecimento — prejudica a produção de força e pertence ao retorno à calma."
+    }
+  },
+
+  "phases": [
+    {
+      "id": "raise",
+      "order": 1,
+      "name": { "en": "Raise", "pt": "Ativação" },
+      "purpose": {
+        "en": "Elevate heart rate, increase blood flow, raise core temperature. Light aerobic activity — the body should feel warm and breathing should increase, but no one should be out of breath.",
+        "pt": "Elevar a frequência cardíaca, aumentar o fluxo sanguíneo, subir a temperatura corporal. Atividade aeróbia ligeira — o corpo deve sentir-se quente e a respiração deve aumentar, mas ninguém deve ficar ofegante."
+      },
+      "duration": { "en": "2–3 minutes", "pt": "2–3 minutos" },
+      "slots": [
+        {
+          "slot_number": 1,
+          "slot_name": { "en": "General Pulse Raiser", "pt": "Ativação Geral" },
+          "duration": { "en": "60–90 seconds", "pt": "60–90 segundos" },
+          "options": [
+            {
+              "id": "raise-01a",
+              "name": {
+                "en": "Light Jog Around the Dojo",
+                "pt": "Corrida Leve à Volta do Dojo"
+              },
+              "description": {
+                "en": "Jog at conversational pace around the perimeter of the dojo. Arms relaxed, breathing natural. Change direction every 15–20 seconds on the instructor's call of 'mawatte'. After 30 seconds, add arm swings — forward circles for 10 seconds, then backward circles for 10 seconds.",
+                "pt": "Corrida a ritmo de conversação à volta do perímetro do dojo. Braços relaxados, respiração natural. Mudar de direção a cada 15–20 segundos ao comando 'mawatte' do instrutor. Após 30 segundos, adicionar balanços de braços — círculos para a frente durante 10 segundos, depois círculos para trás durante 10 segundos."
+              },
+              "coaching_cues": {
+                "en": ["Stay light on your feet!", "Relax the shoulders — drop them!", "Breathe through the nose!"],
+                "pt": ["Leves nos pés!", "Relaxar os ombros — baixem-nos!", "Respirem pelo nariz!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "raise-01b",
+              "name": {
+                "en": "Kamae Footwork Circuit",
+                "pt": "Circuito de Deslocamentos em Kamae"
+              },
+              "description": {
+                "en": "Move around the dojo in fighting stance (kamae). Use tsugi-ashi (slide step) forward for one length, then backward for the next. Switch to yori-ashi (shifting) laterally across the width. Keep hands up in guard position throughout — this is movement, not technique, so stay loose.",
+                "pt": "Deslocar-se pelo dojo em posição de combate (kamae). Usar tsugi-ashi (passo deslizado) para a frente num comprimento, depois para trás no seguinte. Alternar para yori-ashi (deslocamento lateral) na largura. Manter as mãos em posição de guarda durante todo o exercício — isto é movimento, não técnica, por isso manter-se solto."
+              },
+              "coaching_cues": {
+                "en": ["Hands up, chin down!", "Feet never cross!", "Stay low — don't bounce up!"],
+                "pt": ["Mãos em cima, queixo em baixo!", "Os pés nunca se cruzam!", "Manter-se baixo — não saltar para cima!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "raise-01c",
+              "name": {
+                "en": "Tag Game — Dojo Onigokko",
+                "pt": "Jogo de Apanhada — Onigokko no Dojo"
+              },
+              "description": {
+                "en": "Classic tag within the dojo boundaries. One or two 'oni' (taggers) try to touch others on the shoulder. Tagged students become oni. Restart every 30 seconds. Rule: you can only move in fighting stance — no running upright. This forces low-stance movement and keeps it karate-specific.",
+                "pt": "Jogo de apanhada clássico dentro dos limites do dojo. Um ou dois 'oni' (apanhadores) tentam tocar os outros no ombro. Alunos apanhados tornam-se oni. Recomeçar a cada 30 segundos. Regra: só se pode mover em posição de combate — proibido correr em pé. Isto força o movimento em posição baixa e mantém a especificidade do karaté."
+              },
+              "coaching_cues": {
+                "en": ["Stay in kamae — stand up and you're out!", "Use angles, not just speed!", "Eyes open — see everything!"],
+                "pt": ["Ficar em kamae — quem se levantar sai!", "Usar ângulos, não apenas velocidade!", "Olhos abertos — ver tudo!"]
+              },
+              "age_note": {
+                "en": "Ideal for children's classes (7–12). For older adults, reduce the playing area to limit intensity.",
+                "pt": "Ideal para turmas de crianças (7–12). Para adultos mais velhos, reduzir a área de jogo para limitar a intensidade."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 2,
+          "slot_name": { "en": "Progressive Movement", "pt": "Movimento Progressivo" },
+          "duration": { "en": "60–90 seconds", "pt": "60–90 segundos" },
+          "options": [
+            {
+              "id": "raise-02a",
+              "name": {
+                "en": "High Knees with Guard",
+                "pt": "Elevação de Joelhos com Guarda"
+              },
+              "description": {
+                "en": "On the spot or moving forward slowly. Drive knees up to waist height while keeping hands in guard position. Start at 50% speed for 10 seconds, build to 70% for 10 seconds, finish at 80% for 10 seconds. Every time a knee comes up, the same-side hand pulls back to hikite — building the habit of arm-leg coordination.",
+                "pt": "No mesmo lugar ou avançando lentamente. Elevar os joelhos até à altura da cintura mantendo as mãos em posição de guarda. Começar a 50% da velocidade durante 10 segundos, aumentar para 70% durante 10 segundos, terminar a 80% durante 10 segundos. Cada vez que um joelho sobe, a mão do mesmo lado puxa para hikite — construindo o hábito de coordenação braço-perna."
+              },
+              "coaching_cues": {
+                "en": ["Knees to the belt!", "Pull hikite every time!", "Build speed — don't start fast!"],
+                "pt": ["Joelhos até ao cinto!", "Puxar hikite de cada vez!", "Aumentar a velocidade — não começar rápido!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "raise-02b",
+              "name": {
+                "en": "Shuffle-and-Switch in Kamae",
+                "pt": "Deslize e Troca em Kamae"
+              },
+              "description": {
+                "en": "In fighting stance, shuffle (tsugi-ashi) forward 3 steps, then immediately switch stance (front foot becomes rear) and shuffle back 3 steps. Repeat, increasing speed each round. On the instructor's whistle or clap, add a single kizami-tsuki (jab) at the moment of the switch. Covers direction changes and stance transitions.",
+                "pt": "Em posição de combate, deslizar (tsugi-ashi) 3 passos para a frente, depois trocar imediatamente de posição (pé da frente passa a pé de trás) e deslizar 3 passos para trás. Repetir, aumentando a velocidade em cada ronda. Ao apito ou palma do instrutor, adicionar um único kizami-tsuki (jab) no momento da troca. Trabalha mudanças de direção e transições de posição."
+              },
+              "coaching_cues": {
+                "en": ["Switch is instant — don't pause!", "Low and long, not tall and short!", "Faster every round!"],
+                "pt": ["Troca instantânea — não parar!", "Baixo e longo, não alto e curto!", "Mais rápido a cada ronda!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "raise-02c",
+              "name": {
+                "en": "Skip with Progressive Knee Height",
+                "pt": "Saltar com Elevação Progressiva de Joelhos"
+              },
+              "description": {
+                "en": "Skip (light two-footed bounce) across the dojo. First length: knees barely leave the ground, focus on rhythm. Second length: knees to hip height, arms pumping. Third length: knees as high as possible, driving off the ball of the foot each time. Walk back between lengths to reset.",
+                "pt": "Saltar (salto leve com dois pés) ao longo do dojo. Primeiro comprimento: joelhos mal saem do chão, foco no ritmo. Segundo comprimento: joelhos à altura da anca, braços a bombear. Terceiro comprimento: joelhos o mais alto possível, impulsionando da parte anterior do pé em cada salto. Caminhar de volta entre comprimentos para recuperar."
+              },
+              "coaching_cues": {
+                "en": ["Land soft — toes first, then heel!", "Drive the arms — they help the legs!", "Build height, not speed!"],
+                "pt": ["Aterrar suave — pontas dos pés primeiro, depois calcanhar!", "Usar os braços — eles ajudam as pernas!", "Aumentar a altura, não a velocidade!"]
+              },
+              "age_note": {
+                "en": "For older adults: keep all three lengths at low-to-moderate knee height. Skip the third progression if knee or ankle issues are present.",
+                "pt": "Para adultos mais velhos: manter os três comprimentos com elevação baixa a moderada dos joelhos. Saltar a terceira progressão se houver problemas de joelhos ou tornozelos."
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "activate-mobilise",
+      "order": 2,
+      "name": { "en": "Activate & Mobilise", "pt": "Ativar e Mobilizar" },
+      "purpose": {
+        "en": "Dynamic stretching and joint mobilisation targeting the muscle groups and joints used in karate. No static holds — everything moves. Work from the ground up: ankles, knees, hips, spine, shoulders, wrists.",
+        "pt": "Alongamento dinâmico e mobilização articular direcionados aos grupos musculares e articulações usados no karaté. Sem posições estáticas — tudo em movimento. Trabalhar de baixo para cima: tornozelos, joelhos, ancas, coluna, ombros, pulsos."
+      },
+      "duration": { "en": "4–6 minutes", "pt": "4–6 minutos" },
+      "slots": [
+        {
+          "slot_number": 3,
+          "slot_name": { "en": "Hips & Groin — Dynamic Mobility", "pt": "Ancas e Virilha — Mobilidade Dinâmica" },
+          "duration": { "en": "45–60 seconds", "pt": "45–60 segundos" },
+          "options": [
+            {
+              "id": "mob-03a",
+              "name": {
+                "en": "Leg Swings — Forward & Lateral",
+                "pt": "Balanços de Perna — Frontais e Laterais"
+              },
+              "description": {
+                "en": "Stand on one leg, hand on a wall or partner's shoulder for balance. Swing the free leg forward to hip height and back behind the body in a controlled pendulum — 10 swings. Then face the wall and swing the same leg laterally across the body and out to the side — 10 swings. Switch legs. The range comes from the hip joint, not the knee. Keep the swinging leg straight (slight soft knee is fine). Start small, let each swing go a little higher as the hip loosens.",
+                "pt": "Em pé sobre uma perna, mão na parede ou ombro de um parceiro para equilíbrio. Balançar a perna livre para a frente até à altura da anca e para trás do corpo em pêndulo controlado — 10 balanços. Depois virar de frente para a parede e balançar a mesma perna lateralmente cruzando o corpo e para o lado — 10 balanços. Trocar de perna. A amplitude vem da articulação da anca, não do joelho. Manter a perna em balanço esticada (joelho ligeiramente mole está bem). Começar pequeno, deixar cada balanço ir um pouco mais alto à medida que a anca solta."
+              },
+              "coaching_cues": {
+                "en": ["Straight leg — swing from the hip!", "Each one a little bigger!", "Stand tall — don't lean away from the swing!"],
+                "pt": ["Perna esticada — balançar da anca!", "Cada um um pouco maior!", "Manter-se direito — não inclinar para o lado oposto ao balanço!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-03b",
+              "name": {
+                "en": "Walking Lunge with Hip Rotation",
+                "pt": "Afundo com Rotação da Anca"
+              },
+              "description": {
+                "en": "Step forward into a deep lunge (front knee over ankle, rear knee close to the floor). In the bottom position, rotate the torso toward the front knee — reach the same-side elbow toward the instep while the other hand reaches to the ceiling. Hold the rotation for 1–2 seconds, then step through into the next lunge on the other side. 5 per side across the dojo. This is the 'World's Greatest Stretch' adapted as a walking drill.",
+                "pt": "Dar um passo em frente para um afundo profundo (joelho da frente sobre o tornozelo, joelho de trás perto do chão). Na posição inferior, rodar o tronco para o joelho da frente — alcançar o cotovelo do mesmo lado em direção ao peito do pé enquanto a outra mão sobe ao teto. Manter a rotação durante 1–2 segundos, depois dar passo para o próximo afundo do outro lado. 5 por lado ao longo do dojo. Este é o 'World's Greatest Stretch' adaptado como exercício em deslocamento."
+              },
+              "coaching_cues": {
+                "en": ["Elbow to the instep — reach!", "Back knee low, chest proud!", "Control it — this is not a race!"],
+                "pt": ["Cotovelo ao peito do pé — esticar!", "Joelho de trás baixo, peito aberto!", "Controlar — isto não é uma corrida!"]
+              },
+              "age_note": {
+                "en": "For older adults or those with knee issues: reduce depth — rear knee stays well above the floor. Skip the rotation if balance is a concern.",
+                "pt": "Para adultos mais velhos ou com problemas de joelhos: reduzir a profundidade — joelho de trás fica bem acima do chão. Omitir a rotação se o equilíbrio for uma preocupação."
+              }
+            },
+            {
+              "id": "mob-03c",
+              "name": {
+                "en": "Cossack Squat Walks",
+                "pt": "Agachamento Cossaco em Deslocamento"
+              },
+              "description": {
+                "en": "Take a wide stance (wider than shoulder-width, toes slightly out). Shift weight fully to the right leg, sinking into a deep lateral squat — the right knee tracks over the toes while the left leg straightens. Keep both heels on the floor. Hold the bottom for a beat, then shift across to the left side without standing up. Travel sideways across the dojo. 5 per side. This deeply loads the adductors and opens the groin through its full range.",
+                "pt": "Posição larga (mais larga que os ombros, pontas dos pés ligeiramente para fora). Transferir o peso completamente para a perna direita, descendo num agachamento lateral profundo — o joelho direito alinha sobre os dedos do pé enquanto a perna esquerda estica. Manter ambos os calcanhares no chão. Manter a posição inferior por um instante, depois transferir para o lado esquerdo sem se levantar. Deslocar-se lateralmente ao longo do dojo. 5 por lado. Isto carrega profundamente os adutores e abre a virilha em toda a sua amplitude."
+              },
+              "coaching_cues": {
+                "en": ["Heels stay glued to the floor!", "Chest up — don't fold forward!", "Slow and deep — earn the range!"],
+                "pt": ["Calcanhares colados ao chão!", "Peito em cima — não dobrar para a frente!", "Lento e profundo — conquistar a amplitude!"]
+              },
+              "age_note": {
+                "en": "For children: reduce the depth — half-squat is fine. For older adults: hold a partner's hands for balance, reduce depth as needed.",
+                "pt": "Para crianças: reduzir a profundidade — meio agachamento é suficiente. Para adultos mais velhos: segurar as mãos de um parceiro para equilíbrio, reduzir profundidade conforme necessário."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 4,
+          "slot_name": { "en": "Hamstrings & Quads — Dynamic Stretch", "pt": "Isquiotibiais e Quadríceps — Alongamento Dinâmico" },
+          "duration": { "en": "45–60 seconds", "pt": "45–60 segundos" },
+          "options": [
+            {
+              "id": "mob-04a",
+              "name": {
+                "en": "Toy Soldiers — Walking RDL Kicks",
+                "pt": "Soldados de Brinquedo — Pontapés Frontais com Perna Esticada"
+              },
+              "description": {
+                "en": "Walk forward. With each step, kick the leading leg straight up toward the opposite hand (extended at shoulder height). Keep the kicking leg straight — the stretch is in the hamstring. The standing leg stays soft (slight bend). Don't round the back to reach the foot — the foot comes to the hand, not the other way around. 8–10 per side, walking across the dojo.",
+                "pt": "Caminhar para a frente. A cada passo, pontapear a perna da frente esticada para cima em direção à mão oposta (estendida à altura do ombro). Manter a perna do pontapé esticada — o alongamento é no isquiotibial. A perna de apoio fica mole (ligeiramente fletida). Não arredondar as costas para alcançar o pé — o pé vem à mão, não o contrário. 8–10 por lado, caminhando ao longo do dojo."
+              },
+              "coaching_cues": {
+                "en": ["Straight leg — lock the knee!", "Tall spine — don't reach down!", "Foot to hand, not hand to foot!"],
+                "pt": ["Perna esticada — travar o joelho!", "Coluna direita — não descer!", "Pé à mão, não mão ao pé!"]
+              },
+              "age_note": {
+                "en": "For older adults: kick to whatever height is comfortable. Waist height is fine — the stretch is the point, not the height.",
+                "pt": "Para adultos mais velhos: pontapear à altura que for confortável. Altura da cintura é suficiente — o alongamento é o objetivo, não a altura."
+              }
+            },
+            {
+              "id": "mob-04b",
+              "name": {
+                "en": "Heel-to-Glute Walk with Hip Extension",
+                "pt": "Calcanhar ao Glúteo em Deslocamento com Extensão da Anca"
+              },
+              "description": {
+                "en": "Walk forward slowly. On each step, grab the rear ankle and pull the heel to the glute, squeezing for 1–2 seconds. While holding, push the hip forward to add a hip-flexor stretch to the quad stretch. Release and step forward into the next rep on the other side. Stand tall throughout — don't lean forward. 8 per side.",
+                "pt": "Caminhar lentamente para a frente. A cada passo, agarrar o tornozelo de trás e puxar o calcanhar ao glúteo, apertando durante 1–2 segundos. Enquanto segura, empurrar a anca para a frente para adicionar um alongamento do flexor da anca ao alongamento do quadríceps. Soltar e dar passo para a frente para a próxima repetição do outro lado. Manter-se direito — não inclinar para a frente. 8 por lado."
+              },
+              "coaching_cues": {
+                "en": ["Squeeze heel to glute — pull it in!", "Push the hip forward — feel the front of the hip!", "Stand tall — no leaning!"],
+                "pt": ["Apertar calcanhar ao glúteo — puxar!", "Empurrar a anca para a frente — sentir a frente da anca!", "Manter-se direito — não inclinar!"]
+              },
+              "age_note": {
+                "en": "For balance support: perform alongside a wall, touching it lightly with the free hand.",
+                "pt": "Para apoio de equilíbrio: realizar junto a uma parede, tocando-a levemente com a mão livre."
+              }
+            },
+            {
+              "id": "mob-04c",
+              "name": {
+                "en": "Inchworm Walk-Out",
+                "pt": "Lagarta — Caminhar com as Mãos"
+              },
+              "description": {
+                "en": "Stand tall, feet together. Hinge at the hips (keep legs as straight as possible) and walk the hands out to a plank position — 4–5 hand steps. Hold the plank for 1 second, then walk the feet toward the hands in small steps, keeping the legs straight. Stand up. Repeat 4–5 times across the dojo. Stretches hamstrings on the walk-in, activates shoulders and core on the walk-out.",
+                "pt": "Em pé, pés juntos. Fletir nas ancas (manter as pernas o mais esticadas possível) e caminhar com as mãos até à posição de prancha — 4–5 passos de mão. Manter a prancha durante 1 segundo, depois caminhar com os pés em direção às mãos em passos pequenos, mantendo as pernas esticadas. Levantar. Repetir 4–5 vezes ao longo do dojo. Alonga os isquiotibiais na caminhada de regresso, ativa ombros e core na caminhada de ida."
+              },
+              "coaching_cues": {
+                "en": ["Legs straight on the walk-in!", "Don't sag in the plank — tight core!", "Slow and controlled — feel every step!"],
+                "pt": ["Pernas esticadas na caminhada de volta!", "Não ceder na prancha — core apertado!", "Lento e controlado — sentir cada passo!"]
+              },
+              "age_note": {
+                "en": "For children: turn into a race — who can do 5 inchworms across the dojo fastest (with good form). For older adults: bend the knees as needed on the walk-in.",
+                "pt": "Para crianças: transformar em corrida — quem faz 5 lagartas ao longo do dojo mais rápido (com boa forma). Para adultos mais velhos: fletir os joelhos conforme necessário na caminhada de volta."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 5,
+          "slot_name": { "en": "Ankle & Knee Mobilisation", "pt": "Mobilização de Tornozelos e Joelhos" },
+          "duration": { "en": "30–45 seconds", "pt": "30–45 segundos" },
+          "options": [
+            {
+              "id": "mob-05a",
+              "name": {
+                "en": "Ankle Circles in Zenkutsu-Dachi",
+                "pt": "Círculos de Tornozelo em Zenkutsu-Dachi"
+              },
+              "description": {
+                "en": "Step into a front stance (zenkutsu-dachi). Lift the rear foot slightly off the floor and draw 10 slow, full circles with the toes — 5 clockwise, 5 anti-clockwise. Switch legs (reverse the stance). Then do the same with the front foot. The stance provides the karate-specific context while the circles mobilise the ankle joint through its full range.",
+                "pt": "Dar um passo para posição frontal (zenkutsu-dachi). Levantar ligeiramente o pé de trás do chão e desenhar 10 círculos lentos e completos com os dedos dos pés — 5 no sentido horário, 5 no sentido anti-horário. Trocar de perna (inverter a posição). Depois fazer o mesmo com o pé da frente. A posição fornece o contexto específico do karaté enquanto os círculos mobilizam a articulação do tornozelo em toda a sua amplitude."
+              },
+              "coaching_cues": {
+                "en": ["Big circles — full range!", "Slow and deliberate — not sloppy!", "Stay in your stance — don't stand up!"],
+                "pt": ["Círculos grandes — amplitude total!", "Lento e deliberado — não desleixar!", "Manter a posição — não se levantar!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-05b",
+              "name": {
+                "en": "Knee-to-Wall Pulses — Split Stance",
+                "pt": "Pulsos do Joelho à Parede — Posição Dividida"
+              },
+              "description": {
+                "en": "Face a wall, one foot about 10cm from the baseboard, the other a step behind. Drive the front knee forward to touch the wall, keeping the heel firmly on the floor. Pulse gently — 10 touches. If the knee reaches easily, move the foot back 2cm and repeat. Switch feet. This is the gold-standard ankle dorsiflexion drill. If the heel lifts, the foot is too far from the wall.",
+                "pt": "De frente para a parede, um pé a cerca de 10cm do rodapé, o outro um passo atrás. Empurrar o joelho da frente para a frente para tocar na parede, mantendo o calcanhar firmemente no chão. Pulsar suavemente — 10 toques. Se o joelho chegar facilmente, afastar o pé 2cm e repetir. Trocar de pé. Este é o exercício de referência para dorsiflexão do tornozelo. Se o calcanhar levantar, o pé está demasiado longe da parede."
+              },
+              "coaching_cues": {
+                "en": ["Heel stays DOWN — that's the rule!", "Knee tracks over the second toe!", "Pulse — don't force!"],
+                "pt": ["Calcanhar fica EM BAIXO — essa é a regra!", "Joelho alinha sobre o segundo dedo do pé!", "Pulsar — não forçar!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-05c",
+              "name": {
+                "en": "Deep Squat Hold — Shiko-Dachi Position",
+                "pt": "Agachamento Profundo — Posição Shiko-Dachi"
+              },
+              "description": {
+                "en": "Take a wide stance with toes turned out (shiko-dachi / sumo position). Sink into a deep squat with elbows inside the knees, pressing them outward. Hold for 10 seconds, then stand up. Repeat 3 times. On the third rep, add gentle side-to-side weight shifts in the bottom position — 5 each side. Heels must stay flat. Mobilises ankles, knees, hips, and adductors simultaneously.",
+                "pt": "Posição larga com pontas dos pés viradas para fora (shiko-dachi / posição sumo). Descer num agachamento profundo com cotovelos dentro dos joelhos, pressionando-os para fora. Manter durante 10 segundos, depois levantar. Repetir 3 vezes. Na terceira repetição, adicionar transferências de peso suaves lado a lado na posição inferior — 5 para cada lado. Calcanhares devem ficar planos. Mobiliza tornozelos, joelhos, ancas e adutores simultaneamente."
+              },
+              "coaching_cues": {
+                "en": ["Heels flat — if they lift, go wider!", "Elbows push knees OUT!", "Long spine — don't round the back!"],
+                "pt": ["Calcanhares planos — se levantarem, ir mais largo!", "Cotovelos empurram joelhos PARA FORA!", "Coluna longa — não arredondar as costas!"]
+              },
+              "age_note": {
+                "en": "For older adults: half-depth squat, use a partner's hands or the wall for support. For children: hold a belt stretched between the hands in front to counterbalance.",
+                "pt": "Para adultos mais velhos: agachamento a meia profundidade, usar as mãos de um parceiro ou a parede para apoio. Para crianças: segurar um cinto esticado entre as mãos à frente para contrabalançar."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 6,
+          "slot_name": { "en": "Thoracic Spine & Shoulders", "pt": "Coluna Torácica e Ombros" },
+          "duration": { "en": "45–60 seconds", "pt": "45–60 segundos" },
+          "options": [
+            {
+              "id": "mob-06a",
+              "name": {
+                "en": "Arm Circles → Cross-Body Swings",
+                "pt": "Círculos de Braços → Balanços Cruzados"
+              },
+              "description": {
+                "en": "Start with small forward arm circles, gradually increasing to full range over 10 seconds. Reverse direction for another 10 seconds. Then switch to cross-body swings: both arms swing horizontally across the chest, alternating which arm is on top — 15 swings. Finish with 'huggers' — arms swing open wide (chest stretch) then wrap around the body (upper back stretch) — 10 reps.",
+                "pt": "Começar com pequenos círculos de braços para a frente, aumentando gradualmente para amplitude total em 10 segundos. Inverter a direção por mais 10 segundos. Depois alternar para balanços cruzados: ambos os braços balançam horizontalmente pelo peito, alternando qual braço fica por cima — 15 balanços. Terminar com 'abraços' — braços abrem bem abertos (alongamento do peito) depois envolvem o corpo (alongamento das costas superiores) — 10 repetições."
+              },
+              "coaching_cues": {
+                "en": ["Bigger every rep!", "Swing from the shoulder, not the elbow!", "Alternate which arm crosses on top!"],
+                "pt": ["Maior a cada repetição!", "Balançar do ombro, não do cotovelo!", "Alternar qual braço cruza por cima!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-06b",
+              "name": {
+                "en": "Blocking Path Swings — Uke Pattern",
+                "pt": "Balanços no Caminho dos Bloqueios — Padrão Uke"
+              },
+              "description": {
+                "en": "Stand in a natural stance (shizentai). Perform slow-motion blocking sequences, moving through the full shoulder range: age-uke (rising block) sweeping through to gedan-barai (downward sweep), flowing into soto-uke (outside block) and then uchi-uke (inside block). 5 repetitions of the full sequence on each side, progressively increasing speed from 30% to 60%. The goal is shoulder mobilisation through karate-specific movement paths — not technique practice.",
+                "pt": "Em posição natural (shizentai). Realizar sequências de bloqueios em câmara lenta, movendo-se pela amplitude total do ombro: age-uke (bloqueio ascendente) varrendo até gedan-barai (defesa baixa), fluindo para soto-uke (bloqueio exterior) e depois uchi-uke (bloqueio interior). 5 repetições da sequência completa em cada lado, aumentando progressivamente a velocidade de 30% para 60%. O objetivo é mobilização do ombro através de caminhos de movimento específicos do karaté — não prática de técnica."
+              },
+              "coaching_cues": {
+                "en": ["Full range on every block — exaggerate it!", "Flow between blocks — no stopping!", "Speed up gradually — stay smooth!"],
+                "pt": ["Amplitude total em cada bloqueio — exagerar!", "Fluir entre bloqueios — sem parar!", "Acelerar gradualmente — manter a fluidez!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-06c",
+              "name": {
+                "en": "Thoracic Rotation in Lunge",
+                "pt": "Rotação Torácica em Afundo"
+              },
+              "description": {
+                "en": "Step into a half-kneeling position (rear knee on the floor). Place both hands behind the head (prisoner position). Rotate the torso toward the front knee as far as possible, opening the elbow to the ceiling. Return to centre, then rotate the opposite direction. 6 rotations per side (3 each way). Switch legs and repeat. The fixed lower body isolates the rotation to the thoracic spine — exactly where it's needed for hip-rotation in punching and kicking.",
+                "pt": "Dar um passo para posição de meio-ajoelhado (joelho de trás no chão). Colocar ambas as mãos atrás da cabeça (posição de prisioneiro). Rodar o tronco em direção ao joelho da frente o máximo possível, abrindo o cotovelo para o teto. Voltar ao centro, depois rodar na direção oposta. 6 rotações por lado (3 para cada lado). Trocar de perna e repetir. O corpo inferior fixo isola a rotação na coluna torácica — exatamente onde é necessária para a rotação da anca no soco e pontapé."
+              },
+              "coaching_cues": {
+                "en": ["Rotate from the ribs, not the hips!", "Elbow to the ceiling — open up!", "Exhale into the rotation!"],
+                "pt": ["Rodar das costelas, não das ancas!", "Cotovelo para o teto — abrir!", "Expirar na rotação!"]
+              },
+              "age_note": {
+                "en": "For older adults: perform standing with feet split front-back instead of half-kneeling, to avoid knee discomfort on the floor.",
+                "pt": "Para adultos mais velhos: realizar em pé com os pés separados frente-trás em vez de meio-ajoelhado, para evitar desconforto do joelho no chão."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 7,
+          "slot_name": { "en": "Wrist Mobilisation", "pt": "Mobilização dos Pulsos" },
+          "duration": { "en": "20–30 seconds", "pt": "20–30 segundos" },
+          "options": [
+            {
+              "id": "mob-07a",
+              "name": {
+                "en": "Wrist Circles & Prayer Pulses",
+                "pt": "Círculos e Pulsos de Pulso em Oração"
+              },
+              "description": {
+                "en": "Interlock the fingers and draw 10 slow circles with the wrists — 5 each direction, making the circles as large as possible. Then press the palms together in front of the chest (prayer position) and pulse the hands downward toward the waist 10 times, keeping the palms pressed together. Finish by reversing the hands (backs of hands together, fingers pointing down) and pulsing upward 10 times.",
+                "pt": "Entrelaçar os dedos e desenhar 10 círculos lentos com os pulsos — 5 em cada direção, fazendo os círculos o mais grandes possível. Depois pressionar as palmas juntas em frente ao peito (posição de oração) e pulsar as mãos para baixo em direção à cintura 10 vezes, mantendo as palmas pressionadas juntas. Terminar invertendo as mãos (costas das mãos juntas, dedos apontando para baixo) e pulsando para cima 10 vezes."
+              },
+              "coaching_cues": {
+                "en": ["Big circles — push the range!", "Keep palms pressed together — don't let them separate!"],
+                "pt": ["Círculos grandes — aumentar a amplitude!", "Manter palmas pressionadas juntas — não deixar separar!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "mob-07b",
+              "name": {
+                "en": "Floor Wrist Stretch — Fingertips Forward & Back",
+                "pt": "Alongamento de Pulso no Chão — Dedos para a Frente e para Trás"
+              },
+              "description": {
+                "en": "Go to all fours (tabletop position). Place palms flat with fingers pointing forward. Gently rock forward and back over the wrists, 10 times — feel the stretch in the wrist extensors. Then rotate the hands so the fingers point toward the knees and repeat the rocking, 10 times — this stretches the wrist flexors. Brief but essential: every punch, block, and breakfall loads the wrists.",
+                "pt": "Ir para quatro apoios (posição de mesa). Colocar as palmas planas com os dedos apontando para a frente. Balançar suavemente para a frente e para trás sobre os pulsos, 10 vezes — sentir o alongamento nos extensores do pulso. Depois rodar as mãos para que os dedos apontem para os joelhos e repetir o balanço, 10 vezes — isto alonga os flexores do pulso. Breve mas essencial: cada soco, bloqueio e queda carrega os pulsos."
+              },
+              "coaching_cues": {
+                "en": ["Gentle rocks — don't slam into end range!", "Keep the heel of the hand planted!"],
+                "pt": ["Balanços suaves — não forçar no fim da amplitude!", "Manter a base da mão plantada!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "potentiate",
+      "order": 3,
+      "name": { "en": "Potentiate", "pt": "Potenciação" },
+      "purpose": {
+        "en": "Sport-specific movements at progressive intensity. Bridge from warm and mobile to ready to train. Build from 50% effort to 80–90% — enough to prime the neuromuscular system, not so much that it becomes the session.",
+        "pt": "Movimentos específicos do desporto com intensidade progressiva. Ponte entre quente e mobilizado para pronto a treinar. Construir de 50% de esforço para 80–90% — suficiente para preparar o sistema neuromuscular, não tanto que se torne a sessão."
+      },
+      "duration": { "en": "2–4 minutes", "pt": "2–4 minutos" },
+      "slots": [
+        {
+          "slot_number": 8,
+          "slot_name": { "en": "Technique Ramp — Hands", "pt": "Rampa Técnica — Mãos" },
+          "duration": { "en": "45–60 seconds", "pt": "45–60 segundos" },
+          "options": [
+            {
+              "id": "pot-08a",
+              "name": {
+                "en": "Tsuki Pyramid — Solo",
+                "pt": "Pirâmide de Tsuki — Solo"
+              },
+              "description": {
+                "en": "From kamae. 5 × choku-tsuki (straight punch) at 40% speed, focusing on full hip rotation and correct fist path. Then 5 × gyaku-tsuki at 60% speed, snapping the hip. Then 5 × gyaku-tsuki at 80% speed with kiai on the last rep. Rest 5 seconds. Finish with 3 single gyaku-tsuki at 90% — full commitment, maximum snap, kiai on each. The pyramid builds intensity without jumping straight to full power.",
+                "pt": "Em kamae. 5 × choku-tsuki (soco direto) a 40% da velocidade, focando na rotação completa da anca e caminho correto do punho. Depois 5 × gyaku-tsuki a 60% da velocidade, estalando a anca. Depois 5 × gyaku-tsuki a 80% da velocidade com kiai na última repetição. Descansar 5 segundos. Terminar com 3 gyaku-tsuki individuais a 90% — compromisso total, snap máximo, kiai em cada. A pirâmide constrói intensidade sem saltar diretamente para potência máxima."
+              },
+              "coaching_cues": {
+                "en": ["Slow is smooth, smooth is fast!", "Hip drives the fist — not the arm!", "Last three — full kiai, full intent!"],
+                "pt": ["Devagar é suave, suave é rápido!", "A anca conduz o punho — não o braço!", "Últimos três — kiai total, intenção total!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "pot-08b",
+              "name": {
+                "en": "Combination Build-Up — Kizami + Gyaku",
+                "pt": "Construção de Combinação — Kizami + Gyaku"
+              },
+              "description": {
+                "en": "Start with single kizami-tsuki (jab) at 50% — 5 reps, each side. Add gyaku-tsuki (reverse punch) to make a 1-2 combination at 60% — 5 reps, each side. Then add a third technique (mawashi-tsuki or ura-tsuki, instructor's choice) at 70% — 5 reps. Finish with the full 3-punch combination at 80% — 3 reps with kiai. Each layer adds speed and complexity.",
+                "pt": "Começar com kizami-tsuki (jab) individual a 50% — 5 repetições, cada lado. Adicionar gyaku-tsuki (soco inverso) para fazer uma combinação 1-2 a 60% — 5 repetições, cada lado. Depois adicionar uma terceira técnica (mawashi-tsuki ou ura-tsuki, escolha do instrutor) a 70% — 5 repetições. Terminar com a combinação completa de 3 socos a 80% — 3 repetições com kiai. Cada camada adiciona velocidade e complexidade."
+              },
+              "coaching_cues": {
+                "en": ["Add speed with each layer!", "Snap back — don't leave the hand out!", "Combination must flow — no gaps!"],
+                "pt": ["Adicionar velocidade a cada camada!", "Snap de volta — não deixar a mão estendida!", "Combinação tem de fluir — sem pausas!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "pot-08c",
+              "name": {
+                "en": "Partner Mirror Punching",
+                "pt": "Socos em Espelho com Parceiro"
+              },
+              "description": {
+                "en": "Face a partner at punching distance. Partner A leads with random single techniques (kizami-tsuki, gyaku-tsuki, or kizami-ura-tsuki) at 50% speed. Partner B mirrors the same technique simultaneously — reaction, not imitation. Switch leader every 15 seconds. Progressively increase speed to 70–80% over 45 seconds. No contact — this is mirroring, not sparring. Requires reading the partner's body.",
+                "pt": "De frente para um parceiro à distância de soco. Parceiro A lidera com técnicas individuais aleatórias (kizami-tsuki, gyaku-tsuki, ou kizami-ura-tsuki) a 50% da velocidade. Parceiro B espelha a mesma técnica simultaneamente — reação, não imitação. Trocar de líder a cada 15 segundos. Aumentar progressivamente a velocidade para 70–80% ao longo de 45 segundos. Sem contacto — isto é espelho, não combate. Requer ler o corpo do parceiro."
+              },
+              "coaching_cues": {
+                "en": ["Watch the hips, not the hands!", "React — don't wait and copy!", "Speed up together!"],
+                "pt": ["Olhar para as ancas, não para as mãos!", "Reagir — não esperar e copiar!", "Acelerar juntos!"]
+              },
+              "age_note": {
+                "en": "Requires a partner. For solo alternative, use option A or B.",
+                "pt": "Requer um parceiro. Para alternativa solo, usar opção A ou B."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 9,
+          "slot_name": { "en": "Technique Ramp — Legs", "pt": "Rampa Técnica — Pernas" },
+          "duration": { "en": "45–60 seconds", "pt": "45–60 segundos" },
+          "options": [
+            {
+              "id": "pot-09a",
+              "name": {
+                "en": "Mae-Geri Height Ladder",
+                "pt": "Escada de Alturas — Mae-Geri"
+              },
+              "description": {
+                "en": "From kamae. 5 × slow mae-geri (front kick) to knee height — focus entirely on the chamber (hiki-ashi) and snap. Then 5 × mae-geri to waist height at 60% speed. Then 5 × mae-geri to chest height at 70% speed. Finish with 3 × mae-geri at chudan (solar plexus) height at 80% with kiai. Each side. The height increases only after the chamber is solid at the lower level.",
+                "pt": "Em kamae. 5 × mae-geri (pontapé frontal) lento à altura do joelho — foco total na câmara (hiki-ashi) e no snap. Depois 5 × mae-geri à altura da cintura a 60% da velocidade. Depois 5 × mae-geri à altura do peito a 70% da velocidade. Terminar com 3 × mae-geri a chudan (plexo solar) a 80% com kiai. Cada lado. A altura só aumenta depois da câmara estar sólida no nível inferior."
+              },
+              "coaching_cues": {
+                "en": ["Chamber first — knee UP before the foot goes out!", "Snap it back — don't push!", "Height comes from the chamber, not the lean!"],
+                "pt": ["Câmara primeiro — joelho para CIMA antes do pé sair!", "Snap de volta — não empurrar!", "A altura vem da câmara, não da inclinação!"]
+              },
+              "age_note": {
+                "en": "For children and older adults: cap the height at whatever is comfortable. Waist height is perfectly fine — the quality of the chamber matters more than the height.",
+                "pt": "Para crianças e adultos mais velhos: limitar a altura ao que for confortável. Altura da cintura é perfeitamente aceitável — a qualidade da câmara importa mais do que a altura."
+              }
+            },
+            {
+              "id": "pot-09b",
+              "name": {
+                "en": "Mawashi-Geri Progressive Ramp",
+                "pt": "Rampa Progressiva — Mawashi-Geri"
+              },
+              "description": {
+                "en": "From kamae. 5 × slow mawashi-geri (roundhouse kick) to thigh height — emphasise hip rotation and the horizontal chamber. Then 5 × mawashi-geri to waist height at 60%, feeling the hip turn over. Then 3 × mawashi-geri to chudan at 80% with kiai. Each side. The kick is only as fast as the hip can turn — if the hip stalls, drop the speed and find the rotation first.",
+                "pt": "Em kamae. 5 × mawashi-geri (pontapé circular) lento à altura da coxa — enfatizar rotação da anca e a câmara horizontal. Depois 5 × mawashi-geri à altura da cintura a 60%, sentindo a anca virar. Depois 3 × mawashi-geri a chudan a 80% com kiai. Cada lado. O pontapé é apenas tão rápido quanto a anca consegue virar — se a anca bloquear, reduzir a velocidade e encontrar a rotação primeiro."
+              },
+              "coaching_cues": {
+                "en": ["Turn the hip OVER — the kick follows!", "Support foot pivots — heel points at the target!", "Snap back to chamber — don't drop the leg!"],
+                "pt": ["Virar a anca — o pontapé segue!", "Pé de apoio pivota — calcanhar aponta ao alvo!", "Snap de volta à câmara — não deixar cair a perna!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "pot-09c",
+              "name": {
+                "en": "Keri Combination — Three-Kick Flow",
+                "pt": "Combinação de Keri — Fluxo de Três Pontapés"
+              },
+              "description": {
+                "en": "From kamae. Perform a three-kick sequence on one leg without putting the foot down: mae-geri (front) → yoko-geri-keage (side snap) → mawashi-geri (roundhouse). Start at 40% speed — the challenge is balance and the transitions between chamber positions, not power. 3 sequences per leg. On the third rep, increase to 60–70% speed. This primes the hip through all three kicking planes.",
+                "pt": "Em kamae. Realizar uma sequência de três pontapés com uma perna sem pousar o pé: mae-geri (frontal) → yoko-geri-keage (lateral snap) → mawashi-geri (circular). Começar a 40% da velocidade — o desafio é o equilíbrio e as transições entre posições de câmara, não a potência. 3 sequências por perna. Na terceira repetição, aumentar para 60–70% da velocidade. Isto prepara a anca nos três planos de pontapé."
+              },
+              "coaching_cues": {
+                "en": ["Don't put the foot down between kicks!", "Re-chamber between each kick — clean transitions!", "Balance leg is working hard — stay rooted!"],
+                "pt": ["Não pousar o pé entre pontapés!", "Recâmarar entre cada pontapé — transições limpas!", "Perna de apoio está a trabalhar — manter-se enraizado!"]
+              },
+              "age_note": {
+                "en": "For children and beginners: put the foot down between kicks if balance is an issue. The sequence still primes the hip through all planes. For older adults: reduce to two kicks (mae-geri → mawashi-geri) and keep the height low.",
+                "pt": "Para crianças e iniciantes: pousar o pé entre pontapés se o equilíbrio for um problema. A sequência continua a preparar a anca nos diferentes planos. Para adultos mais velhos: reduzir para dois pontapés (mae-geri → mawashi-geri) e manter a altura baixa."
+              }
+            }
+          ]
+        },
+        {
+          "slot_number": 10,
+          "slot_name": { "en": "Explosive Bursts", "pt": "Explosões" },
+          "duration": { "en": "30–45 seconds", "pt": "30–45 segundos" },
+          "options": [
+            {
+              "id": "pot-10a",
+              "name": {
+                "en": "Rapid Gyaku-Tsuki — 3 × 5 Seconds",
+                "pt": "Gyaku-Tsuki Rápido — 3 × 5 Segundos"
+              },
+              "description": {
+                "en": "From kamae. On 'hajime', throw gyaku-tsuki as fast as possible for 5 seconds — maximum speed, minimum power. Full hip snap on every punch. 'Yame' — rest 5 seconds in kamae. Repeat 3 times total. This is pure neural priming: the fastest the hands will move today should happen here, not in the session. After the third burst, the nervous system is fully online.",
+                "pt": "Em kamae. Ao 'hajime', executar gyaku-tsuki o mais rápido possível durante 5 segundos — velocidade máxima, potência mínima. Snap completo da anca em cada soco. 'Yame' — descansar 5 segundos em kamae. Repetir 3 vezes no total. Isto é preparação neural pura: a velocidade mais rápida que as mãos vão mover hoje deve acontecer aqui, não na sessão. Após a terceira explosão, o sistema nervoso está totalmente ativo."
+              },
+              "coaching_cues": {
+                "en": ["Fastest you can go — 5 seconds only!", "Speed, not power — light and fast!", "Kiai on the last punch of each burst!"],
+                "pt": ["O mais rápido possível — apenas 5 segundos!", "Velocidade, não potência — leve e rápido!", "Kiai no último soco de cada explosão!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "pot-10b",
+              "name": {
+                "en": "Explosive Slide-In Entries — Tsugi-Ashi + Kizami",
+                "pt": "Entradas Explosivas — Tsugi-Ashi + Kizami"
+              },
+              "description": {
+                "en": "From kamae, standing still. On 'hajime', perform a single explosive tsugi-ashi (slide step) forward with kizami-tsuki — as if closing distance on an opponent. Snap back to starting position. Repeat on the instructor's count — irregular rhythm so it's reactive, not rhythmic. 8–10 entries over 30 seconds. Each entry should feel like a single-frame gap-close: one explosive push off the back foot, hand arrives with the front foot.",
+                "pt": "Em kamae, parado. Ao 'hajime', realizar um único tsugi-ashi (passo deslizado) explosivo para a frente com kizami-tsuki — como se fechasse distância sobre um adversário. Snap de volta à posição inicial. Repetir à contagem do instrutor — ritmo irregular para que seja reativo, não rítmico. 8–10 entradas em 30 segundos. Cada entrada deve parecer um fecho de distância de um único frame: um impulso explosivo do pé de trás, mão chega com o pé da frente."
+              },
+              "coaching_cues": {
+                "en": ["Explode — don't telegraph it!", "Hand and foot arrive together!", "Reset fully between each one — no creeping forward!"],
+                "pt": ["Explodir — sem telegrafar!", "Mão e pé chegam juntos!", "Recolocar totalmente entre cada um — não avançar aos poucos!"]
+              },
+              "age_note": { "en": null, "pt": null }
+            },
+            {
+              "id": "pot-10c",
+              "name": {
+                "en": "Jump-Switch Stance — 3 × 3",
+                "pt": "Salto e Troca de Posição — 3 × 3"
+              },
+              "description": {
+                "en": "From kamae. Jump and switch stance in the air — land in the opposite stance (left foot forward becomes right foot forward). 3 jumps as fast as possible, then hold kamae for 3 seconds. Repeat 3 sets. On the last set, add a gyaku-tsuki immediately after the third switch-landing. The jump-switch trains explosive hip rotation and stance transitions — the same mechanism that powers feinting and stance-switching in kumite.",
+                "pt": "Em kamae. Saltar e trocar de posição no ar — aterrar na posição oposta (pé esquerdo à frente torna-se pé direito à frente). 3 saltos o mais rápido possível, depois manter kamae durante 3 segundos. Repetir 3 séries. Na última série, adicionar um gyaku-tsuki imediatamente após a terceira aterragem de troca. O salto-troca treina a rotação explosiva da anca e transições de posição — o mesmo mecanismo que alimenta as fintas e trocas de posição no kumite."
+              },
+              "coaching_cues": {
+                "en": ["Land low — absorb it!", "Switch is in the air — not on the ground!", "Last set — punch the instant you land!"],
+                "pt": ["Aterrar baixo — absorver!", "A troca é no ar — não no chão!", "Última série — socar no instante em que aterrar!"]
+              },
+              "age_note": {
+                "en": "For older adults: replace the jump with a fast step-switch — rear foot steps to front, front foot steps to rear. Same pattern, no impact. For children: make it a competition — who can do 3 switches fastest without losing balance.",
+                "pt": "Para adultos mais velhos: substituir o salto por uma troca rápida de passo — pé de trás avança para a frente, pé da frente recua. Mesmo padrão, sem impacto. Para crianças: fazer uma competição — quem consegue fazer 3 trocas mais rápido sem perder o equilíbrio."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
