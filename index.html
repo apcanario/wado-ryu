@@ -226,6 +226,9 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 
 .material-symbols-rounded{opacity:0;transition:opacity 0.15s ease}
 .fonts-loaded .material-symbols-rounded{opacity:1}
+
+.tile-header{display:flex;align-items:center;gap:0.5rem}
+@media(max-width:599px){.tile-header{flex-direction:column;align-items:flex-start;gap:0.35rem}}
 </style>
 <script>try{var _t=localStorage.getItem('wrh-theme');if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);}catch(e){}</script>
 <style>
@@ -2763,7 +2766,7 @@ function NavTile({icon,name,desc,color,onClick,big,className,gradClass,badge,row
   return <button className={"nav-tile "+(big?"nav-tile-big ":"")+(row?"nav-tile-row ":"")+(gradClass||"tile-grad-red")+" "+(className||"")} onClick={onClick}>
     {big&&<div className="bgfx-topo tile-topo" style={{zIndex:0}} dangerouslySetInnerHTML={{__html:TOPO_SVG}}/>}
     <div style={{position:"relative",zIndex:1,display:"flex",flexDirection:row?"row":"column",gap:row?"0.8rem":"0.4rem"}}>
-      <div style={{display:"flex",alignItems:"center",gap:"0.5rem"}}>
+      <div className="tile-header">
         <span className={"tile-icon"+(big?" tile-icon-big":"")} style={{background:c+"15",color:c}}>{icon}</span>
         <span style={{fontFamily:"'DM Sans',sans-serif",fontWeight:700,fontSize:big?"var(--text-lg)":"var(--text-md)",color:"var(--text-primary)",lineHeight:1.2}}>{tL(name)}</span>
         {badge}
