@@ -1,0 +1,27 @@
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node (in case tooling is added later)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build/temp
+*.log
+tmp/
+temp/
