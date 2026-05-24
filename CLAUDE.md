@@ -12,18 +12,25 @@ A comprehensive Wado-Ryu karate training reference for AWIKP (Associação Wado 
 
 3. **When PDF content conflicts with existing HTML content, STOP.** Flag the conflict to Pedro. Do not reconcile.
 
-4. **Only the latest HTML version exists.** When bumping from v{N} to v{N+1}, delete v{N} after confirming v{N+1} was created successfully.
+4. **Archive every shipped version.** Before overwriting `index.html` with a new version, copy the current file to `archive/html-versions/karate-handbook-v{current}.html`. The archive preserves every shipped version. Never delete from `archive/html-versions/`.
 
 ---
 
 ## Directory Structure
 
 ```
-karate-handbook-v{N}.html                   # THE deliverable (latest version ONLY)
+index.html                                  # THE deliverable (served by GitHub Pages)
 CLAUDE.md                                   # This file
-WAY_OF_WORKING.md                           # Workflow reference
-PLAN.md                                     # Build plan with phase status
-PROMPTS.md                                  # Prompts for remaining phases
+README.md                                   # Repo homepage
+.gitignore
+
+data/                                       # JSON libraries (embedded into index.html at build time)
+docs/                                       # Plans, prompts, blueprints
+  PLAN.md                                   # Build plan with phase status
+  PROMPTS.md                                # Prompts for remaining phases
+  WAY_OF_WORKING.md                         # Workflow reference
+  start-here.html                           # Build tracker
+  karate-app-blueprint-v3.html              # Sport Kumite drill/session data source
 
 sources/                                    # Source materials — never modified
   WIKFhandboek.PDF                          # Source PDF (images)
@@ -31,19 +38,15 @@ sources/                                    # Source materials — never modifie
   WKF_2026_Kumite_Competition_Rules.pdf     # WKF 2026 rules for Phase 7
   logo_peito_-_pa_ssaro.svg                 # AWIKP bird logo (black body + #FF1943 red)
 
-docs/                                       # Reference files
-  start-here.html                           # Build tracker
-  karate-app-blueprint-v3.html              # Sport Kumite drill/session data source
-
 images/                                     # Extracted source images (already embedded in HTML)
   kata/                                     # Kata photos & diagrams
   kumite/                                   # Sanbon, Ohyo, Kihon Kumite photos
   weapons/                                  # Tanto Dori, Idori, Tachi Dori, Nage-Waza photos
 
 archive/                                    # Historical / legacy files
-  html-versions/                            # Old handbook versions (v7–v47)
+  html-versions/                            # Shipped handbook versions (karate-handbook-v{N}.html)
     prototypes/                             # Earliest HTML prototypes
-  data/                                     # JSON data exports, UI concepts
+  data/                                     # Old JSON exports, UI concepts
   misc/                                     # Old diagrams, tracker, duplicate assets
 ```
 
@@ -57,7 +60,7 @@ archive/                                    # Historical / legacy files
 |------|---------|---------|
 | `sources/WIKFhandboek.PDF` | Rasterize with `pdftoppm` for image extraction | ✅ Yes — the ONLY image source |
 | `sources/WIKFhandboek__1_-english-translation.PDF` | Read for technique descriptions and text | ❌ No — plain text despite .PDF extension. NEVER rasterize |
-| `karate-handbook-v{N}.html` | The output. Surgical Python edits only | N/A — base64 images in JS objects |
+| `index.html` | The output (root, served by Pages). Surgical Python edits only. Prior versions live in `archive/html-versions/` | N/A — base64 images in JS objects |
 | `sources/logo_peito_-_pa_ssaro.svg` | Inline SVG logo. Bird fill switches by theme; red circle #FF1943 constant | N/A |
 | `docs/karate-app-blueprint-v3.html` | Sport Kumite drills (30) and sessions (3) data source | N/A |
 | `sources/WKF_2026_Kumite_Competition_Rules.pdf` | WKF 2026 kumite rules — gesture illustrations pp.50-55 | ✅ Images |
@@ -89,7 +92,7 @@ archive/                                    # Historical / legacy files
 
 - `poppler-utils` (provides `pdftoppm`)
 - Python 3 with `Pillow` (`pip install Pillow`)
-- Latest `karate-handbook-v{N}.html` in working directory
+- `index.html` in working directory (latest version is always the root file)
 
 ## How Phases Work
 

@@ -26,10 +26,10 @@ import re
 # ──────────────────────────────────────────────
 # CONFIGURATION
 # ──────────────────────────────────────────────
-OLD_VERSION = 12  # adjust per phase
-NEW_VERSION = 13
-OLD_HTML = f'karate-handbook-v{OLD_VERSION}.html'
-NEW_HTML = f'karate-handbook-v{NEW_VERSION}.html'
+CURRENT_VERSION = 64  # the version currently in index.html
+NEW_VERSION = 65
+INDEX_HTML = 'index.html'
+ARCHIVE_HTML = f'archive/html-versions/karate-handbook-v{CURRENT_VERSION}.html'
 SCRIPT_PATH = os.path.abspath(__file__)
 
 # List of temporary files this script creates (for cleanup)
@@ -82,10 +82,9 @@ def cleanup():
             except OSError:
                 pass
 
-    # 5. Delete old HTML version (only if new version exists)
-    if os.path.exists(NEW_HTML) and os.path.exists(OLD_HTML):
-        os.remove(OLD_HTML)
-        print(f"  Deleted old {OLD_HTML}")
+    # 5. (The previous index.html version is preserved under
+    #    archive/html-versions/karate-handbook-v{CURRENT_VERSION}.html —
+    #    that copy is made BEFORE any edits, in main(), and is never deleted.)
 
     # 6. Delete this script itself — ALWAYS LAST
     try:
@@ -103,9 +102,6 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"\n✗ ERROR: {e}", file=sys.stderr)
         # Still clean up temp files even on failure
-        # But do NOT delete old HTML if new one wasn't created
-        if not os.path.exists(NEW_HTML):
-            OLD_HTML = None  # prevent deletion
         raise
     finally:
         cleanup()
@@ -187,33 +183,34 @@ def replace_between_markers(html_content, start_marker, end_marker, new_content)
 
 ### Pattern 4: Version Bump
 
-Always bump both filename and footer.
+The deliverable is always `index.html` at the repo root. Before any edits, snapshot the current `index.html` to `archive/html-versions/karate-handbook-v{current}.html`. Then edit `index.html` in place and bump the footer string.
 
 ```python
+import os
 import shutil
 
-def bump_version(old_version, new_version):
-    old_file = f'karate-handbook-v{old_version}.html'
-    new_file = f'karate-handbook-v{new_version}.html'
+def archive_and_bump(current_version, new_version):
+    archive_path = f'archive/html-versions/karate-handbook-v{current_version}.html'
 
-    # Copy first (don't rename — we modify the copy)
-    shutil.copy2(old_file, new_file)
+    # 1. Snapshot current index.html into the archive (idempotent — overwrites
+    #    if the archive entry already exists, which is fine when contents match).
+    os.makedirs('archive/html-versions', exist_ok=True)
+    shutil.copy2('index.html', archive_path)
+    print(f"  ✓ Archived index.html → {archive_path}")
 
-    # Read the new file
-    with open(new_file, 'r', encoding='utf-8') as f:
+    # 2. Edit index.html in place: bump every footer occurrence.
+    with open('index.html', 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Update footer version string
     content = content.replace(
-        f'Karate Handbook v{old_version}',
-        f'Karate Handbook v{new_version}'
+        f'Wado-Ryū Handbook v{current_version}',
+        f'Wado-Ryū Handbook v{new_version}'
     )
 
-    with open(new_file, 'w', encoding='utf-8') as f:
+    with open('index.html', 'w', encoding='utf-8') as f:
         f.write(content)
 
-    print(f"  ✓ Created {new_file} (bumped from v{old_version})")
-    return new_file
+    print(f"  ✓ index.html now at v{new_version}")
 ```
 
 ---
@@ -310,13 +307,13 @@ Before running any script, verify:
 
 After every script completes:
 
-1. ☐ New HTML version exists with correct filename
-2. ☐ Old HTML version deleted
+1. ☐ `index.html` at repo root has the new content + bumped version footer
+2. ☐ `archive/html-versions/karate-handbook-v{previous}.html` exists (the snapshot of what `index.html` was before the bump)
 3. ☐ No `.py` scripts remain
 4. ☐ No `page-*`, `temp_*`, `tmp_*` files remain
 5. ☐ No `__pycache__/` directory
 6. ☐ No intermediate image files (unless between Phase A and B)
-7. ☐ Working directory matches the permanent file list in CLAUDE.md
+7. ☐ Working directory root matches the permanent file list in CLAUDE.md
 8. ☐ Pedro tests on S25 Ultra before proceeding
 
 ---
@@ -326,9 +323,9 @@ After every script completes:
 If a script fails partway through:
 
 - Temp files are still cleaned up (the `finally` block in the template handles this)
-- The old HTML version is NOT deleted (safety net — new version may be corrupt)
+- The archive copy (`archive/html-versions/karate-handbook-v{previous}.html`) is the rollback point — restore by copying it back over `index.html`
 - Fix the issue and re-run. The script should be idempotent where possible.
-- If the new HTML was partially written, delete it manually and re-run from the old version.
+- If `index.html` was partially written, `cp archive/html-versions/karate-handbook-v{previous}.html index.html` to roll back, then re-run.
 
 ---
 
@@ -386,10 +383,11 @@ def replace_component(html, name, new_code):
     return html[:start] + new_code + '\n' + html[end+1:]
 ```
 
-### Version Bump (Phase 7: "Wado Ryu Handbook")
+### Version Bump (Phase 7+: "Wado-Ryū Handbook")
 ```python
 content = content.replace(
-    f'Wado Ryu Handbook v{old}',
-    f'Wado Ryu Handbook v{new}'
+    f'Wado-Ryū Handbook v{old}',
+    f'Wado-Ryū Handbook v{new}'
 )
 ```
+(Always edit `index.html` in place after archiving — see Pattern 4 above.)
