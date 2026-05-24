@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karate Handbook — Build Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0c;--surface:#131316;--border:#1e1e24;--border-active:#2a2a32;
+  --text:#f0eeeb;--text2:#c0bfbb;--muted:#b0aead;--dim:#666;--ghost:#555;--subtle:#44444d;--faint:#3a3a42;--floor:#33333b;
+  --red:#ff6b6b;--orange:#f4a261;--teal:#2a9d8f;--blue:#457b9d;--purple:#9b5de5;--gold:#e9c46a;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.top-bar{position:sticky;top:0;z-index:100;background:#0e0e10ee;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.8rem 1rem;display:flex;align-items:center;gap:0.6rem}
+.top-bar h1{font-family:var(--mono);font-size:0.78rem;font-weight:700;letter-spacing:0.06em;color:var(--red)}
+.container{max-width:700px;margin:0 auto;padding:0 1rem 3rem}
+
+.onboarding{background:var(--surface);border:1px solid var(--red);border-radius:14px;padding:1.2rem;margin:1rem 0;border-left:4px solid var(--red)}
+.onboarding h2{font-family:var(--mono);font-size:0.85rem;color:var(--red);font-weight:700;letter-spacing:0.04em;margin-bottom:0.6rem}
+.onboarding p{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:0.4rem}
+.onboarding code{font-family:var(--mono);font-size:0.8rem;background:#111114;padding:0.1rem 0.35rem;border-radius:3px;color:var(--orange)}
+.onboarding ul{margin:0.4rem 0 0.4rem 1.2rem;font-size:0.85rem;color:var(--muted);line-height:1.7}
+.onboarding li{margin:0.15rem 0}
+.file-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin:0.6rem 0}
+.file-card{background:#111114;border:1px solid var(--border);border-radius:8px;padding:0.5rem 0.7rem}
+.file-card .fname{font-family:var(--mono);font-size:0.72rem;color:var(--orange);font-weight:700}
+.file-card .fdesc{font-size:0.72rem;color:var(--ghost);margin-top:0.1rem}
+
+.rules-box{background:#111114;border:1px solid var(--faint);border-radius:10px;padding:0.8rem 1rem;margin:0.8rem 0}
+.rules-box h3{font-family:var(--mono);font-size:0.72rem;color:var(--teal);font-weight:700;letter-spacing:0.04em;margin-bottom:0.4rem}
+.rules-box ol{margin:0 0 0 1.2rem;font-size:0.82rem;color:var(--muted);line-height:1.7}
+.rules-box li{margin:0.15rem 0}
+.rules-box strong{color:var(--text)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin:1rem 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.8rem;text-align:center}
+.stat-num{font-family:var(--mono);font-size:1.5rem;font-weight:700}
+.stat-label{font-size:0.72rem;color:var(--dim);font-family:var(--mono);margin-top:0.15rem}
+.progress-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;height:8px;margin:0.8rem 0 1.2rem;overflow:hidden}
+.progress-fill{height:100%;border-radius:8px;transition:width 0.4s ease}
+.phase{margin-bottom:0.6rem}
+.phase-header{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;cursor:pointer;display:flex;align-items:center;gap:0.6rem;transition:border-color 0.2s}
+.phase-header:hover{border-color:var(--border-active)}
+.phase-header.done{opacity:0.6}
+.phase-icon{font-size:1.2rem;flex-shrink:0}
+.phase-info{flex:1;min-width:0}
+.phase-name{font-weight:700;font-size:0.95rem}
+.phase-desc{font-size:0.78rem;color:var(--dim);margin-top:0.1rem}
+.phase-badge{font-family:var(--mono);font-size:0.65rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:6px;flex-shrink:0}
+.badge-done{background:#2a9d8f22;color:var(--teal)}
+.badge-active{background:#ff6b6b22;color:var(--red)}
+.badge-todo{background:#44444d22;color:var(--ghost)}
+.phase-chevron{color:var(--ghost);font-size:0.9rem;transition:transform 0.2s;flex-shrink:0}
+.phase-chevron.open{transform:rotate(90deg)}
+.prompts{overflow:hidden;max-height:0;transition:max-height 0.35s ease}
+.prompts.open{max-height:8000px}
+.prompt{background:var(--bg);border:1px solid var(--border);border-radius:10px;margin:0.4rem 0.3rem;overflow:hidden}
+.prompt-header{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.8rem;cursor:pointer}
+.prompt-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--faint);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all 0.2s}
+.prompt-check.checked{background:var(--teal);border-color:var(--teal)}
+.prompt-check.checked::after{content:'✓';color:var(--bg);font-size:0.7rem;font-weight:700}
+.prompt-title{flex:1;font-size:0.85rem;font-weight:500;color:var(--text2)}
+.prompt-title.checked{text-decoration:line-through;color:var(--ghost)}
+.prompt-expand{color:var(--ghost);font-size:0.75rem;font-family:var(--mono);cursor:pointer;padding:0.2rem 0.4rem;border-radius:4px;border:1px solid var(--border);background:transparent;transition:all 0.2s}
+.prompt-expand:hover{border-color:var(--border-active);color:var(--muted)}
+.prompt-body{display:none;padding:0 0.8rem 0.8rem}
+.prompt-body.open{display:block}
+.prompt-text{background:#111114;border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-family:var(--mono);font-size:0.72rem;line-height:1.7;color:var(--muted);white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto}
+.copy-btn{display:inline-flex;align-items:center;gap:0.3rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.4rem 0.7rem;color:var(--red);font-family:var(--mono);font-size:0.7rem;font-weight:700;cursor:pointer;margin-top:0.5rem;transition:all 0.2s}
+.copy-btn:hover{background:var(--border);color:var(--text)}
+.copy-btn.copied{color:var(--teal);border-color:var(--teal)}
+.version-note{text-align:center;margin-top:0.5rem;font-family:var(--mono);font-size:0.68rem;color:var(--floor)}
+.section-label{font-family:var(--mono);font-size:0.7rem;color:var(--red);font-weight:700;letter-spacing:0.05em;margin:1.2rem 0 0.5rem;display:flex;align-items:center;gap:0.5rem}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span style="font-size:1.2rem">🥋</span>
+  <h1>BUILD TRACKER</h1>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ONBOARDING: Claude Code reads this first   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="onboarding">
+    <h2>⚡ START HERE — CLAUDE CODE ONBOARDING</h2>
+    <p>This is the <strong>Karate Handbook</strong> build project. Before doing anything, read these files in order:</p>
+    <div class="file-grid">
+      <div class="file-card"><div class="fname">CLAUDE.md</div><div class="fdesc">Project rules, design system, architecture, unbreakable constraints</div></div>
+      <div class="file-card"><div class="fname">WAY_OF_WORKING.md</div><div class="fdesc">Script templates, surgical edit patterns, cleanup procedures</div></div>
+      <div class="file-card"><div class="fname">PLAN.md</div><div class="fdesc">Phase status, PDF page map, what's built vs missing</div></div>
+      <div class="file-card"><div class="fname">PROMPTS.md</div><div class="fdesc">Full prompt text for every remaining phase</div></div>
+    </div>
+
+    <div class="rules-box">
+      <h3>⛔ MANDATORY CONSTRAINTS — EVERY PROMPT</h3>
+      <ol>
+        <li><strong>NEVER read the full HTML into context</strong> — it's 10MB+ with base64 images. Do NOT use <code>cat</code>, <code>head</code>, <code>tail</code>, <code>view</code>, or <code>grep</code> on the HTML. Write a single Python script that does all edits.</li>
+        <li><strong>One script, one read, one write</strong> — the Python script reads the file into a Python variable (<code>open(SRC).read()</code>), performs all edits via <code>.find()</code>, <code>.replace()</code>, slicing, or <code>re.sub()</code>, then writes the result. Never split into multiple scripts or multiple read/write passes.</li>
+        <li><strong>Search before assuming</strong> — always search for exact strings. If a target returns 0 hits, print a warning and skip. Never guess or fabricate patterns.</li>
+        <li><strong>Preserve base64 image data</strong> — never match patterns inside <code>data:image</code> strings.</li>
+        <li><strong>Size check before finishing</strong> — if output file is &lt;95% of input size, something went wrong. Print ERROR and exit.</li>
+        <li><strong>Clean up after every prompt</strong> — delete the .py script, rasterized pages, intermediate crops, old HTML versions. Only permanent project files survive.</li>
+        <li><strong>STOP on conflicts</strong> — when PDF content contradicts existing HTML, flag it. Don't reconcile. Pedro decides.</li>
+      </ol>
+    </div>
+
+    <p style="font-size:0.8rem;color:var(--ghost);margin-top:0.4rem">The tracker below shows every phase and prompt. Expand a phase, copy the prompt, run it. Check it off when done. The prompts below are the authoritative copy — they include cleanup rules.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" style="color:var(--teal)" id="done-count">0</div><div class="stat-label">DONE</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--red)" id="remaining-count">0</div><div class="stat-label">REMAINING</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--orange)" id="version-count">v60</div><div class="stat-label">VERSION</div></div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;background:linear-gradient(90deg,var(--teal),var(--red))"></div></div>
+
+  <div id="phases-container"></div>
+
+  <div class="version-note">Karate Handbook Build Tracker — May 2026</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CLEANUP RULES (appended to every non-done prompt)
+// ═══════════════════════════════════════════════════════════════
+const CLEANUP_A = `
+
+CLEANUP (mandatory): When this script finishes, it must delete itself and ALL temporary files — rasterized page images (page-*.ppm/png/jpg), intermediate crops, __pycache__/, any temp_*/tmp_* files. Only the named output JPEGs and permanent project files survive. Use a try/finally block so cleanup runs even on failure. Follow the template in WAY_OF_WORKING.md.`;
+
+const CLEANUP_B = `
+
+CLEANUP (mandatory): When this script finishes, it must delete itself and ALL temporary files — rasterized page images, intermediate crops, __pycache__/, temp_*/tmp_*. Also delete the source JPEGs after base64-encoding them into the HTML. Also delete the old HTML version (v{N-1}) after confirming the new version (v{N}) was created successfully. Only permanent project files survive. Use a try/finally block so cleanup runs even on failure. Follow the template in WAY_OF_WORKING.md.`;
+
+const CLEANUP_SINGLE = `
+
+CLEANUP (mandatory): When this script finishes, it must delete itself and ALL temporary files. Delete the old HTML version after confirming the new version exists. Only permanent project files survive. Use a try/finally block so cleanup runs even on failure. Follow the template in WAY_OF_WORKING.md.`;
+
+// ═══════════════════════════════════════════════════════════════
+// PHASE DATA
+// ═══════════════════════════════════════════════════════════════
+const PHASES = [
+  {
+    id: "0", name: "Phase 0 — Architecture", desc: "Routes, sections, nav drawer", version: "v9",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "0-1", title: "Architecture setup", done: true, text: "Completed. All routes and sections in place." }]
+  },
+  {
+    id: "1a", name: "Phase 1A — Kihon Reference", desc: "108 techniques, 14 illustrations", version: "v10",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "1a-1", title: "Kihon with images", done: true, text: "Completed. 8 sections from PDF pages 25-34." }]
+  },
+  {
+    id: "1b", name: "Phase 1B — Kata: Pinan Series", desc: "5 Pinan kata with photo sequences", version: "v11",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "1b-1", title: "Pinan kata extraction + integration", done: true, text: "Completed. PDF pages 125-134." }]
+  },
+  {
+    id: "1c", name: "Phase 1C — Kata: Advanced Batch 1", desc: "Kūshankū, Naihanchi, Seishān, Chintō, Jihon", version: "v12",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "1c-1", title: "Advanced kata extraction + integration", done: true, text: "Completed. PDF pages 135-139." }]
+  },
+  {
+    id: "1d", name: "Phase 1D — Kata: Advanced Batch 2", desc: "Jitte, Bassai, Niseishi, Rōhai, Wanshū", version: "v13",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "1d-a", title: "1D-A: Image extraction", done: true, text: "✅ DONE in claude.ai Session A.\n\n6 JPEGs extracted:\n- jitte_diagram.jpg (89KB)\n- bassai_photo.jpg (106KB)\n- bassai_diagram.jpg (62KB)\n- niseishi_photo.jpg (78KB)\n- rohai_photo.jpg (70KB)\n- wanshu_photo.jpg (84KB)" },
+      { id: "1d-b", title: "1D-B: Integration → v13", done: true, text: `Working directory contains: karate-handbook-v12.html, 6 JPEG files (jitte_diagram.jpg, bassai_photo.jpg, bassai_diagram.jpg, niseishi_photo.jpg, rohai_photo.jpg, wanshu_photo.jpg), and WIKFhandboek__1_-english-translation.PDF.
+
+Write and run a Python script that surgically edits karate-handbook-v12.html:
+
+1. Base64-encode all 6 JPEG files and add them to the KATA_IMAGES object in the HTML with these keys:
+   - jitte_diagram.jpg → "jitte_diagram"
+   - bassai_photo.jpg → "bassai_photo"
+   - bassai_diagram.jpg → "bassai_diagram"
+   - niseishi_photo.jpg → "niseishi_photo"
+   - rohai_photo.jpg → "rohai_photo"
+   - wanshu_photo.jpg → "wanshu_photo"
+   Each value: "data:image/jpeg;base64," + base64 string
+
+2. Read WIKFhandboek__1_-english-translation.PDF and extract any descriptive text about Jitte, Bassai, Niseishi, Rōhai, and Wanshū. Clean up machine-translated English into concise, technically accurate descriptions.
+
+3. Find the KATA array entries (ids: "jitte", "bassai", "niseishi", "rohai", "wanshu") and update their descriptions and move counts based on what the PDF provides.
+
+4. The KataDetailView component already handles image display via photoKey (id+"_photo"), diagramKey (id+"_diagram"), and embusenKey (id+"_embusen"). Verify the keys match:
+   - Jitte: diagram only → jitte_diagram
+   - Bassai: photo + diagram → bassai_photo, bassai_diagram
+   - Niseishi: photo only → niseishi_photo
+   - Rōhai: photo only → rohai_photo
+   - Wanshū: photo only → wanshu_photo
+
+5. Update the version to v13 in both the filename and the footer text ("Karate Handbook v13").
+
+IMPORTANT: Do NOT read the full HTML into your context. Write a Python script that reads the file as a string, uses string find/replace or regex to locate and modify specific sections, and writes the modified string back to karate-handbook-v13.html.
+
+Flag any conflicts between PDF text and existing HTML content. Do not reconcile — list them for Pedro to decide.` + CLEANUP_B }
+    ]
+  },
+  {
+    id: "2a", name: "Phase 2A — Sanbon Kumite", desc: "PDF pages 48-59", version: "v14",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "2a-a", title: "2A-A: Image extraction (pages 48-59)", done: true, text: `Working directory contains: WIKFhandboek.PDF
+
+Write and run a Python script that:
+1. Uses subprocess to call pdftoppm to rasterize pages 48-59 of WIKFhandboek.PDF at 200 DPI as JPEG
+2. View each rasterized page to identify which ones contain technique images (vs text-only tables)
+3. For pages with images, use Pillow to crop the technique illustrations, trimming headers/footers/whitespace
+4. Optimize: max 750px wide, JPEG quality 72
+5. Save with descriptive names: sanbon_{technique_name}.jpg
+6. Print a summary of what was found and saved
+
+Do NOT touch the HTML file. This is image extraction only.` + CLEANUP_A },
+      { id: "2a-b", title: "2A-B: Integration → v14", done: true, text: `Working directory contains: karate-handbook-v13.html, sanbon_*.jpg files from previous step, WIKFhandboek__1_-english-translation.PDF.
+
+Write and run a Python script that surgically edits karate-handbook-v13.html:
+
+1. Read WIKFhandboek__1_-english-translation.PDF and extract the Sanbon Kumite descriptions (Chudan Uchi Uke, Chudan Soto Uke, Jodan Uke 1-4, Maegeri Uke 1-6). Clean up into clear English with attacker sequence, defender sequence, counter technique.
+
+2. Base64-encode any sanbon_*.jpg images and add them to the appropriate images data structure in the HTML.
+
+3. Find the KUMITE_DATA.sanbon.items array and update each entry's desc field with the cleaned descriptions.
+
+4. Bump version to v14 in filename and footer.
+
+IMPORTANT: Do NOT read the full HTML into your context. Write a Python script using targeted string search/replace. Flag conflicts.` + CLEANUP_B }
+    ]
+  },
+  {
+    id: "2p0", name: "Priority 0 — Browser back button", desc: "History API integration (pushState/popstate)", version: "v15",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "2p0-1", title: "Browser/hardware back-button fix → v15", done: true, text: "Completed. go/navTo/home call window.history.pushState; a popstate listener fires the in-app back(); swipe routes through window.history.back() so all back paths flow through popstate. Smoke-tested deep nav, back-walk through the stack, and the home-then-back edge case — zero console errors." }]
+  },
+  {
+    id: "2b", name: "Phase 2B — Ohyo Kumite 1-8", desc: "PDF pages 60-67 — photo sequences (not text-only)", version: "v16",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "2b-a", title: "2B-A: Image extraction (pages 60-67)", done: true, text: `Working directory contains: WIKFhandboek.PDF
+
+Write and run a Python script that:
+1. Rasterize pages 60-67 of WIKFhandboek.PDF at 200 DPI
+2. View each page for technique images
+3. Crop and optimize any images found (max 750px wide, JPEG quality 72)
+4. Save as ohyo_{N}.jpg
+5. Print summary
+
+Image extraction only — do NOT touch the HTML.` + CLEANUP_A },
+      { id: "2b-b", title: "2B-B: Integration → v16", done: true, text: "Completed. Pages 60-67 each held a full photo grid (one Ohyo per page) plus a Dutch attacker/defender table — NOT text-only as PLAN.md guessed. Cropped 8 photo grids to Kumite-Images/ohyo_1..8.jpg, filled KUMITE_FORMS.ohyo.items with desc/attacker/defender from the English PDF, injected 8 base64 images into KUMITE_IMAGES, bumped to v16. No per-form taisabaki label assigned (source names none per form); evasive footwork folded into the defender text instead." }
+    ]
+  },
+  {
+    id: "2c", name: "Phase 2C — Kihon Kumite 1-5", desc: "PDF pages 69-75 — all 5 forms have photo grids", version: "v17",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "2c-a", title: "2C-A: Image extraction (pages 69-72, 74-75)", done: true, text: "Completed. Pages 69-72 (ipponme–yonhonme) each held a full photo grid above a Dutch attacker/defender table. Gohonme (5) was initially missed: page 73 holds only its table text, but its photo sequence lives on pages 74-75 (two image-only grids '5' and '5'') — these looked blank in the English text PDF but are full grids in the Dutch image PDF. Rasterized with PyMuPDF (fitz) at 200 DPI (pdftoppm not installed). Cropped grids to Kumite-Images/kihon_kumite_1..5.jpg (5 = pages 74+75 stacked into one image, includes a color photo at frame 6)." },
+      { id: "2c-b", title: "2C-B: Integration → v17 (kihon-5 image v19)", done: true, text: "Completed. Filled KUMITE_FORMS.kihon.items kihon-1..5 with desc/attacker/defender from the English PDF and injected base64 images into KUMITE_IMAGES (kihon-1..4 in v17; kihon-5 added in v19). Source labels taisabaki per form only for Kaishin (1), Soremi (4), Hikimi (5) — kept those; forms 2,3 carry no taisabaki label. Smoke-tested: images load, ATTACKER/DEFENDER render, zero console errors." }
+    ]
+  },
+  {
+    id: "2d", name: "Phase 2D — Kihon Kumite 6-10", desc: "PDF pages 76-81 — all 5 forms have photo grids", version: "v18",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "2d-a", title: "2D-A: Image extraction (pages 76-79, 81)", done: true, text: "Completed. Pages 76-79 (ropponme–kyuhonme) each held a full photo grid. Jipponme (10) was initially missed: page 80 holds only its table text, but its photo grid lives on page 81 (an image-only page, blank in the English text PDF but full in the Dutch image PDF). Rasterized with PyMuPDF (fitz) at 200 DPI. Cropped grids to Kumite-Images/kihon_kumite_6..10.jpg (page 78's tall defender table needed a wider border-search window)." },
+      { id: "2d-b", title: "2D-B: Integration → v18 (kihon-10 image v19)", done: true, text: "Completed. Filled KUMITE_FORMS.kihon.items kihon-6..10 with desc/attacker/defender from the English PDF and injected base64 images into KUMITE_IMAGES (kihon-6..9 in v18; kihon-10 added in v19). Source labels taisabaki only for Chinshin (8) — kept it; forms 6,7,9,10 carry no taisabaki label. Smoke-tested: all 10 kihon images load, zero console errors. LESSON: never infer 'text-only' from the English translation PDF — image-only pages (74,75,81) are blank there but full in the Dutch image PDF; always check the image PDF directly." }
+    ]
+  },
+  {
+    id: "3a", name: "Phase 3A — Tanto Dori 1-10", desc: "PDF pages 82-103 (22 pages)", version: "v20",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "3a-b", title: "3A: Extraction + Integration → v20", done: true, text: "Completed. All 10 Tanto Dori photo grids extracted from WIKFhandboek.PDF — each grid sits on the ODD page AFTER its table page (pp.83,85,87,89/91,93,95,97,99,101,103). Tanto 4 (yonhonme) has TWO variation grids (pp.89+91) stacked vertically into one image. tanto_1..10.jpg saved in Weapons-Images/. Created WEAPONS_IMAGES object (after KUMITE_IMAGES) and upgraded WeaponDetailView once to render desc + ATTACKER/DEFENDER + photo (mirrors KumiteFormDetailView). Filled WEAPONS_DATA tanto-dori items (tanto-1..10) with desc/attacker/defender from the English PDF. Smoke-tested: images load (naturalWidth 750), attacker/defender render, footer v20, zero console errors." }
+    ]
+  },
+  {
+    id: "3b", name: "Phase 3B — Idori & Tachi Dori", desc: "PDF pages 104-123", version: "v21",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "3b-b", title: "3B: Extraction + Integration → v21", done: true, text: "Completed. Idori 1-5 (seated/seiza defence) and Tachi Dori 1-5 (sword/bokken defence) photo grids extracted from WIKFhandboek.PDF — each grid sits on the ODD page AFTER its table page (Idori pp.105,107,109,111,113; Tachi pp.115,117,119,121,123). All single-page grids, no stacking. idori_1..5.jpg and tachi_1..5.jpg saved in Weapons-Images/. Filled WEAPONS_DATA idori-1..5 and tachi-1..5 items with desc/attacker/defender from the English PDF and inserted base64 image keys into WEAPONS_IMAGES. Smoke-tested: images load (naturalWidth 750), attacker/defender render, footer v21, zero console errors." }
+    ]
+  },
+  {
+    id: "3c", name: "Phase 3C — Nage-Waza (9 throws)", desc: "PDF pages 165-170", version: "v22",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "3c-b", title: "3C: Extraction + Integration → v22", done: true, text: "Completed. The 9 Lost Throws of Funakoshi (Byōbu Daoshi, Koma Nage, Kubi Wa, Katawa Guruma, Tsubame Gaeshi, Yari Dama, Tani Otoshi, Ude Wa, Gyaku Tsuchi), pp.165-170. Layout differs from the photo grids — each throw has its own sepia historical illustration strip (from Funakoshi's Karatedo Kyohan) embedded inline with the text, so multiple throws appear per page (p165→#1, p166→#2/#3, p167→#4, p168→#5/#6, p169→#7/#8, p170→#9). Cropped by detecting the large high-coverage illustration bands (≥200px) and dropping the thin text bands. nage_1..9.jpg saved in Weapons-Images/. Kept the existing meaning desc on each nage item and added attacker/defender from the English PDF; inserted base64 image keys into WEAPONS_IMAGES. All 9 illustrations found. Smoke-tested: images load (naturalWidth 750), attacker/defender render, footer v22, zero console errors." }
+    ]
+  },
+  {
+    id: "4a", name: "Phase 4A — History & Lineage", desc: "PDF pages 16-24", version: "v23",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "4a-a", title: "4A-A: Image extraction (pages 16-24)", done: true, text: `Completed. Ōtsuka portrait cropped from p.16 (left, under "Lang verhaal"), Suzuki portrait from p.19 (left). No portraits exist for WIKF (organisation) or Gonçalves/AWIKP in pp.16-24. Kept as History-Images/otsuka.jpg & suzuki.jpg.
+
+Original prompt:
+Working directory contains: WIKFhandboek.PDF
+
+Write and run a Python script that:
+1. Rasterize pages 16-24 of WIKFhandboek.PDF at 200 DPI
+2. View each page — look for portrait photos of Ōtsuka and Suzuki
+3. If portraits exist, crop them cleanly
+4. Optimize: max 750px wide, JPEG quality 72
+5. Save with descriptive names (e.g. otsuka_portrait.jpg, suzuki_portrait.jpg)
+6. Print summary — if no photos found, say so
+
+Image extraction only.` + CLEANUP_A },
+      { id: "4a-b", title: "4A-B: Integration → v23", done: true, text: `Completed → v23. Created HISTORY_IMAGES object (keyed otsuka/suzuki), replaced the placeholder photo card with a conditional portrait card (no-portrait pages render nothing), and enriched the Ōtsuka & Suzuki C entries from the English PDF (existing text kept; appended Yakusoku Kumite / 1944 Chief Instructor / 1955 championships, and Sokuto-Geri / 1963–65 Europe & America spread / IBA Doctorate). WIKF & AWIKP text unchanged. Smoke-tested: portraits load (naturalWidth>0), all four pages render, zero console errors.
+
+Original prompt:
+Working directory contains: karate-handbook-v20.html, any portrait JPEGs from previous step, WIKFhandboek__1_-english-translation.PDF.
+
+Write and run a Python script that surgically edits karate-handbook-v20.html:
+
+1. Extract history content from the English PDF. Clean up into well-written English.
+
+2. Build content for four history pages:
+   a. Hironori Ōtsuka (1892-1982) — founder of Wado-Ryū, merged Shindō Yōshin-ryū Jūjutsu with Okinawan karate
+   b. Tatsuo Suzuki (1928-2011) — 8th Dan Hanshi, spread Wado-Ryū to Europe, founded WIKF 1991
+   c. WIKF Organization — structure, World Technical Committee, purpose
+   d. Joaquim Gonçalves & AWIKP — 7th Dan, Technical Director, Portuguese Wado-Ryū story
+
+   LINEAGE RULE: Gonçalves and Wicks are BOTH direct students of Suzuki. Peers, not sequential. Wicks is World Chief Instructor. That's the story. Do not elaborate on how that came to be.
+
+3. Find the history page content object in HistoryDetailView and update with enriched text.
+4. If portrait images exist, base64-encode and add them.
+5. Bump to v21.
+
+Surgical Python edits only. Flag conflicts.` + CLEANUP_B }
+    ]
+  },
+  {
+    id: "4b", name: "Phase 4B — Principles & Philosophy", desc: "PDF p.124 (Rokugensoku) + p.146 (Gogensoku)", version: "v24",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "4b-a", title: "4B-A: Image extraction", done: true, text: `Not needed — Phase 4B was text-only. The two stubs (Rokugensoku, Gogensoku) carry no source diagrams; no images extracted.
+
+Original prompt:
+Working directory contains: WIKFhandboek.PDF
+
+Write and run a Python script that:
+1. Rasterize pages 8-14 and 160-164 of WIKFhandboek.PDF at 200 DPI
+2. View each page — look for diagrams or illustrations (taisabaki diagrams, etc.)
+3. Crop any diagrams found
+4. Optimize: max 750px wide, JPEG quality 72
+5. Save with descriptive names
+6. Print summary — if no diagrams found, say so
+
+Image extraction only.` + CLEANUP_A },
+      { id: "4b-b", title: "4B-B: Integration → v24", done: true, text: `Completed → v24. Only the two stub entries needed filling; the other seven principle entries were already complete and were left untouched (no rewrite). Filled kata-principles with Kata no Rokugensoku (6) from English PDF p.124 and kumite-principles with Kumite no Gogensoku (5) from English PDF p.146. IMPORTANT: the Gogensoku live on p.146, NOT pp.160-164 — those are the 15 Japanese Budo Principles already in the budo-principles entry. Preserved the "N. Title — text" format the view bolds. Smoke-tested: 6 + 5 bolded lines render, no stub text, zero console errors.
+
+Original prompt:
+Working directory contains: karate-handbook-v21.html, any diagram JPEGs from previous step, WIKFhandboek__1_-english-translation.PDF.
+
+Write and run a Python script that surgically edits karate-handbook-v21.html:
+
+1. Extract principles and philosophy content from the English PDF. Clean up into accurate English.
+
+2. Update the PrincipleDetailView content object with expanded text for all 9 pages:
+   a. Dojo Kun (4 rules)
+   b. Three Basic Principles (Mudana no Chikara/Ugoki/Waza)
+   c. San Mi-Ittai (Ten-i, Ten-tai, Ten-gi) — how it manifests in Kihon Kumite
+   d. Taisabaki (5 methods: Sokushin, Kaishin, Chinshin, Soremi, Hikimi)
+   e. Timing Tactics (Go no Sen, Sen no Sen, Sen Sen no Sen)
+   f. Shu Ha Ri
+   g. Kata no Rokugensoku (6 principles of kata)
+   h. Kumite no Gogensoku (5 principles of kumite)
+   i. Japanese Budō Principles (Junanshin through Misogi)
+
+3. If diagram images exist, base64-encode and add them.
+4. Bump to v22.
+
+Surgical Python edits only. Flag conflicts.` + CLEANUP_B }
+    ]
+  },
+  {
+    id: "4c", name: "Phase 4C — Japanese Glossary", desc: "PDF pages 195-221 (text only)", version: "v25",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "4c-1", title: "4C: Glossary → v25", done: true, text: `Completed → v25. Built const GLOSSARY (202 terms, 14 categories) and replaced the GlossaryView stub with a searchable view modelled on CategoryView (🔍 toggle, filter input matching both Japanese and English, scrollable category chips, grouped list). Removed the now-stale "COMING SOON" badge from the glossary home tile. NOTE: the pp.195-221 glossary extracts as scrambled multi-column tables (and Dutch "trap"=kick was mistranslated to "staircase"), so terms were hand-curated from the source rather than auto-paired. Smoke-tested: 202 terms render, search filters by jp ("gyaku"→1) and en ("roundhouse"→3), category chip filter works ("Kicks (Geri)"→15), zero console errors.
+
+Original prompt:
+Working directory contains: karate-handbook-v22.html, WIKFhandboek__1_-english-translation.PDF.
+
+Write and run a Python script that:
+
+1. Extract the Japanese glossary from pages 195-221 of WIKFhandboek__1_-english-translation.PDF. This is a text file despite the .PDF extension — use pdftotext, not pdftoppm.
+
+2. Clean up machine-translated English definitions. Organize terms into groups:
+   - Counting (ichi, ni, san...)
+   - Commands (hajime, yame, mawate...)
+   - Stances (dachi), Punches (tsuki), Strikes (uchi), Kicks (keri/geri), Blocks (uke)
+   - Body targets
+   - General terms
+
+3. Build a searchable glossary component. Find the existing glossary route/placeholder and populate it with:
+   - Search/filter input at top
+   - Terms grouped by category
+   - Each term: Japanese + English translation
+   - Cross-link to technique reference pages where IDs match
+
+4. Bump to v23.
+
+Surgically edit the HTML file. Do NOT read the full file into context. Flag conflicts with existing terminology.` + CLEANUP_SINGLE }
+    ]
+  },
+  {
+    id: "5", name: "Phase 5 — Polish", desc: "Cross-linking, credits, final review", version: "v26",
+    status: "done", accent: "var(--teal)",
+    prompts: [
+      { id: "5-1", title: "5: Final polish → v26", done: true, text: `✅ DONE → v26. Added a Credits & Acknowledgements page (credits route + nav-drawer entry + home ref-section tile); cross-linked numbered exam-syllabus entries to their kumite/weapon detail pages (validated against the data, no broken links — kata links retained); removed all "coming soon" / "Content coming in Phase" placeholder fallbacks; standardised "Wado-Ryu" → "Wado-Ryū" (49 occurrences). Image-coverage audit: every technique/detail section is fully illustrated EXCEPT the two History pages (WIKF Organization, Joaquim Gonçalves & AWIKP) — no portrait exists in the source PDF. Smoke-tested in browser: Credits reachable from home + drawer, cross-links resolve to the right detail pages, nav drawer lists all sections, footer shows v26, zero console errors.
+
+— Original prompt —
+Working directory contains: karate-handbook-v25.html.
+
+Write and run a Python script that does a final polish pass:
+
+1. Cross-linking audit: verify exam syllabus entries link to correct detail pages. Add missing links.
+
+2. Add source credits section/page:
+   - WIKF Belgium Handbook (Stan Weckx, 2020) — illustrations and descriptions
+   - wadokarate.hu / Rostas Bros. Pictures — kata photo sequences
+   - AWIKP — exam syllabus and grading requirements
+   - WIKF Dan Grade Syllabus 2024-2026
+
+3. Remove all "Coming in Phase X" placeholder text (replace with actual content or "Content pending").
+
+4. Verify nav drawer includes all sections.
+
+5. Check Japanese terminology consistency across sections.
+
+6. Bump to v26.
+
+Surgically edit the HTML file. Do NOT read the full file into context.` + CLEANUP_SINGLE }
+    ]
+  },
+  {
+    id: "6a", name: "Phase 6A — CSS Variables + Theme Toggle", desc: "Custom properties, dark/light mode, SVG logo", version: "v27",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "6a-1", title: "6A: CSS Variables + Theme Toggle → v27", done: true, text: "Completed. CSS custom properties (dark aqua-tinged / light beige-tinged). Theme toggle with localStorage. Hardcoded colors replaced with variables. SVG logo embedded inline." }]
+  },
+  {
+    id: "6b", name: "Phase 6B — Homepage Redesign", desc: "Mobile-first IA, section tiles, responsive layout", version: "v28",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "6b-1", title: "6B: Homepage Redesign → v28", done: true, text: "Completed. Mobile-first homepage with tiles for all sections. Three-tier tabs replaced. Search moved to NavDrawer. Exercise Library tile for all 12 categories." }]
+  },
+  {
+    id: "6c", name: "Phase 6C — Sport Kumite Hub", desc: "Exercise library, sessions, WKF rules links", version: "v29",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "6c-1", title: "6C: Sport Kumite Hub → v29", done: true, text: "Completed. SportKumiteHub view with exercise library (21 drills), session library (3 sessions from blueprint), WKF rules tile, S&F cross-link." }]
+  },
+  {
+    id: "6d", name: "Phase 6D — Exam Syllabus Polish", desc: "Visual belt progression, refined cards", version: "v30",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "6d-1", title: "6D: Exam Syllabus Polish → v30", done: true, text: "Completed. Exam list with belt progression visual, refined grade cards." }]
+  },
+  {
+    id: "6e", name: "Phase 6E — Global Polish", desc: "Nav, transitions, typography, spacing", version: "v31",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "6e-1", title: "6E: Global Polish → v31", done: true, text: "Completed. NavDrawer organized. TopBar refined. Card hover states. Route transitions. Typography and spacing pass. Footer consistency." }]
+  },
+  {
+    id: "7a", name: "Phase 7A — Design Foundation + Content", desc: "Zero radius, topo bg, giant bird watermark, 1200px, animations, back links, site rename, AWIKP fixes, credits", version: "v32",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [
+      { id: "7a-1", title: "7A: Design Overhaul + Content Fixes", done: false, text: `Working directory contains: latest karate-handbook HTML, logo_peito_-_pa_ssaro.svg.
+
+Surgically edit the HTML:
+
+1. SITE RENAME: "Karate Handbook" -> "Wado Ryu Handbook" everywhere. Count, assert, replace.
+
+2. BORDER RADIUS 0: Replace ALL borderRadius/border-radius > 0 with 0. Cards, buttons, inputs, tags, avatars. Everything rectangular.
+
+3. MAX WIDTH 1200px: Replace maxWidth:700 with 1200.
+
+4. TOPO BACKGROUND: Add position:fixed SVG/CSS layer — thin contour lines like topographical map, opacity 0.03-0.05, animated CSS drift (60s cycle). Dots at intersections. Both themes. will-change:transform. Simpler on mobile.
+
+5. GIANT BIRD WATERMARK: Embed bird SVG as huge background — only right half visible, right edge of page, 3-4% opacity. Fixed position. Theme-aware fill. Dramatic watermark effect.
+
+6. HERO LOGO: Make the logo in the hero header 50% bigger than current (at least ~72px if was 48px).
+
+7. NAVBAR: Logo (~28px) + "WADO RYU HANDBOOK" = clickable home link. Theme toggle + hamburger on right. REMOVE home emoji entirely.
+
+8. BACK LINK: In PageShell, add "← Back" text link below title/subtitle. Accent color, calls in-app back. All subpages, not home.
+
+9. ANIMATIONS: @keyframes fadeSlideUp (opacity 0->1, translateY 12->0, 200ms). Staggered card reveals. Card hover: translateY(-2px) + border-color shift, 150ms.
+
+10. WIKF SYLLABUS: NavDrawer "Full WIKF Syllabus" under Reference -> syllabus route. ExamListView "View Complete WIKF Syllabus" link -> syllabus route.
+
+11. HISTORY: WIKF founding 1991->1989. Verify Suzuki succession. Verify Otsuka dates.
+
+12. CREDITS (CreditsView) - update/add tiles:
+AWIKP tile: Founded 15 Feb 1996 Braga, 9 founders (Sobral, Silva, Roby, Quintas, Elisabete Silva, M.Goncalves, Vasques, Nogueira, J.Goncalves). 30 years developing character. Values: respect, courtesy, honour, humility, self-control, courage, perseverance, loyalty. Three pillars. Full text in PROMPTS.md.
+Pedro Gomes tile: Performance Coach NKS, 3rd Dan AWIKP, sport kumite + S&C.
+Training Partners tile: Rodrigo Pereira, Vasco Teixeira, Guilherme Goncalves, Leonor Goncalves — passion influenced this project.
+Cornerstones tile: Joaquim Goncalves, Elisabete Silva, Pedro Roby, Vicente Quintas — stalwarts of Wado Ryu.
+
+13. Bump version.
+
+Do NOT read full HTML into context.` + CLEANUP_SINGLE }
+    ]
+  },
+  {
+    id: "7b", name: "Phase 7B — Layout Overhaul + Exam Polish", desc: "Desktop grids for all views, exam syllabus visual redesign, belt progression", version: "v33",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [
+      { id: "7b-1", title: "7B: Desktop Grids + Exam Visual Polish", done: false, text: `Working directory contains: latest karate-handbook HTML.
+
+Surgically edit:
+
+1. DESKTOP GRIDS FOR ALL LIST VIEWS (>768px, 2-4 columns, use 1200px width):
+- CategoryView: 2-3 col
+- WeaponsView: 2 col + collapsible section headers
+- KihonView: 2-3 col
+- KumiteFormsView: 2 col
+- KataListView: 2-3 col
+- GlossaryView: 2-3 col
+- ExamListView: 2-3 col (see below)
+No single-column lists on desktop. All cards rectangular (radius 0). Single column on mobile.
+
+2. EXAM SYLLABUS VISUAL OVERHAUL:
+- Hero: title, subtitle, back link
+- Belt journey: Desktop = horizontal colored progression bar (white to black). Mobile = vertical timeline with colored rectangular blocks + thin connecting line.
+- Grade cards in GRID (2-3 col desktop). Each card: bold belt-color top bar (6px full width), grade name, belt name, time requirement, requirements summary.
+- Kyu: 7th yellow through 1st brown. Staggered fadeSlideUp.
+- Dan: separate section, elevated styling.
+- "View Complete WIKF Syllabus" tile -> syllabus route.
+
+3. Bump version.
+
+Do NOT read full HTML into context.` + CLEANUP_SINGLE }
+    ]
+  },
+  {
+    id: "7c", name: "Phase 7C — WKF Competition Rules", desc: "Summarize Articles 5,7-12, gesture illustrations, terminology, weight categories", version: "v34",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [
+      { id: "7c-1", title: "7C: WKF Rules + Gesture Images", done: false, text: `Working directory contains: latest karate-handbook HTML, WKF_2026_Kumite_Competition_Rules.pdf.
+
+Surgically edit:
+
+1. GESTURE IMAGES: Rasterize WKF PDF pp.50-55 with PyMuPDF 200 DPI. Crop individual referee gesture figures (~30 figures). Save WKF-Images/, max 400px, JPEG q72.
+
+2. SUMMARIZE RULES as JS data (athlete-friendly, not legalese):
+- Art.5: Bout duration by age category, timing, rest rules
+- Art.7: Start/stop/end, 8pt lead, HANTEI, 14 YAME reasons
+- Art.8: YUKO 1pt / WAZA-ARI 2pt / IPPON 3pt, 6 scoring criteria, contact distances, invalid techniques
+- Art.9: 17 prohibited actions, JOGAI, coaching conduct
+- Art.10: CHUI/HANSOKU CHUI/HANSOKU/SHIKKAKU, throwing rules, grabbing, MUBOBI, passivity, avoiding combat
+- Art.11: 3min treatment, 10sec rule, doctor authority
+- Art.12: Decision criteria, SENSHU, HANTEI, round-robin tiebreakers
+- Appendix 1: Terminology table (all commands)
+- Appendix 3: Weight categories (all age groups M+F)
+
+3. BUILD: const WKF_RULES, WKF_TERMINOLOGY, WKF_CATEGORIES, WKF_IMAGES. WkfRulesView + WkfRuleDetailView + WkfGesturesView. Routes: wkfRules, wkfRuleDetail, wkfGestures.
+
+4. WIRE: Sport Kumite hub WKF tile -> wkfRules. "Referee Signals" tile -> wkfGestures. NavDrawer "WKF Rules" under Competition. Cross-link terminology with Glossary.
+
+5. Base64-encode gesture images. Responsive grid (3-4 col desktop, 2 mobile) with labels. Delete source JPEGs.
+
+6. Credit: "WKF Kumite Competition Rules, Version 2026.01"
+
+7. Bump version.
+
+Do NOT read full HTML into context.` + CLEANUP_SINGLE }
+    ]
+  },
+  {
+    id: "7d", name: "Phase 7D — Global Polish", desc: "Audits: zero-radius, topo bg, bird watermark, back links, grids, nav, typography", version: "v35",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [
+      { id: "7d-1", title: "7D: Global Polish + Audits", done: false, text: `Working directory contains: latest karate-handbook HTML.
+
+Surgically edit — final polish pass:
+
+AUDITS:
+1. Zero border-radius: grep ALL borderRadius/border-radius > 0. Kill them.
+2. Topo background: both themes, readable, mobile performance.
+3. Giant bird watermark: right side, correct opacity, theme-aware.
+4. Back links: every subpage has "← Back" below title. Not on home.
+5. Desktop grids: ALL list views 2-4 columns. No single-column.
+6. Home emoji: completely gone. Logo+title = only home link.
+
+POLISH:
+7. NavDrawer: frosted glass, organized sections (Reference, Technique, Competition, Supporting), search at top.
+8. Typography: headings DM Sans 700, mono Space Mono, no orphans.
+9. Spacing: mobile 1rem/0.5rem, desktop 2rem/0.75rem.
+10. Footer: consistent everywhere — version, "AWIKP · Wado-Ryu · WIKF", year.
+11. Animations: verify fadeSlideUp, staggered reveals, hover effects.
+
+12. Bump to final version.
+
+Do NOT read full HTML into context.` + CLEANUP_SINGLE }
+    ]
+  },
+    {
+    id: "8a", name: "Phase 8A — Language Toggle + Design Polish", desc: "PT/EN flag toggle, full-height bird, dynamic topo lines, translation framework", version: "v37",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "8a-1", title: "8A: Language Toggle + Design Refinements", done: false, text: "Add PT/EN flag toggle (next to theme toggle). localStorage persistence. t() helper + UI_STRINGS for all chrome text. Bird background: full viewport height, right-aligned, 3-4% opacity. Topo lines: truly dynamic/moving (rAF or multi-layer CSS), alive not static. Bump version." }]
+  },
+  {
+    id: "8b", name: "Phase 8B — Translate Exercises", desc: "468 exercises across 12 categories to Portugal Portuguese", version: "v38",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "8b-1", title: "8B: Exercise Library → Portuguese", done: false, text: "Create EX_PT parallel object. Translate all 468 exercise descriptions to Portugal Portuguese, category by category. Japanese terms stay. Wire CategoryView to read EX_PT when LANG=pt. Bump version." }]
+  },
+  {
+    id: "8c", name: "Phase 8C — Translate Reference + Knowledge", desc: "Kata, kihon, kumite, weapons, history, principles, exams, glossary", version: "v39",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "8c-1", title: "8C: Reference + Knowledge → Portuguese", done: false, text: "Create PT parallels: KATA_PT, KIHON_SECTIONS_PT, KUMITE_FORMS_PT, WEAPONS_DATA_PT, HISTORY_PAGES_PT, PRINCIPLES_PAGES_PT, KYU_EXAMS_PT, DAN_EXAMS_PT, GLOSSARY_PT, Credits text. Wire all detail views for LANG switching. Bump version." }]
+  },
+  {
+    id: "8d", name: "Phase 8D — Translate Syllabus + WKF + Audit", desc: "WIKF syllabus, WKF rules, final bilingual audit", version: "v40",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "8d-1", title: "8D: Syllabus + WKF + Bilingual Audit", done: false, text: "Create SYL_PT (full syllabus markdown). Translate WKF_RULES, WKF_TERMINOLOGY, WKF_CATEGORIES. Final audit: PT mode = all Portuguese, EN mode = all English, no leaks either direction. Bump version." }]
+  },
+  {
+    id: "9", name: "Phase 9 — Kata + Kumite Video Embeds", desc: "YouTube kata + kumite videos: Fairhead (kata), Suzuki Sensei (kumite forms + kata duplicates)", version: "v41",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "9-1", title: "9: Kata + Kumite Video Embeds", done: false, text: "KATA: Charlie Fairhead (@charliefairhead5393, WIKF World Kata Champion) — verify all 15 kata, embed in KataDetailView. SUZUKI DUPLICATES: check playlists for Suzuki Sensei kata, add as secondary video. KUMITE: Map playlist videos to forms — Ohyo 1-8 (PLZgIWvawAg3ROI8zbZAqaVsZjEnU3bJq_), Kihon Kumite (PLCCc31NptHCW-lXFarFAAObRoC_zY5bfv), Sanbon (PL_-bML0UP7MPo-mGacF86uIAHhmtRS_Ja), Mae Geri (PL_-bML0UP7MMdhGU8P8o4FFOsFkGwcx8o), Ohyo DVD (PLVwhCzVMvTX9nKFEwj5ao4Oi_rMFt_GZg). Embed in KumiteFormDetailView. Lazy iframes. Credit Fairhead + Suzuki Sensei. Bump version." }]
+  },
+  {
+    id: "10a", name: "Phase 10A — Embed Kumite Drills JSON + Build Library Page", desc: "v48: Embed kumite drills JSON + Kumite Drills Library page", version: "v48",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10a-1", title: "10A: v48 — Embed Kumite Drills JSON + Build Library Page", done: true, text: "✅ DONE — shipped as karate-handbook-v48.html.\n\nOriginal prompt:\n\n## PROMPT 1/4 — v48: Embed kumite drills JSON and build Kumite Drills Library page\n\n**TARGET FILE**: `index.html`\n**VERSION**: Bump to v48 in filename (`karate-handbook-v48.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.**\n\n### STEP 1: Embed the kumite drills JSON\nRead `kumite-drills-library-bilingual.json` and embed it as a JS constant `const KUMITE_DRILLS = <JSON>;` right after the existing `const EX_PT = {...};` block. Find the exact line where EX_PT ends (the `};` followed by a newline) and insert after it.\n\n### STEP 2: Build the KumiteDrillsLibrary component\nCreate a new React component `KumiteDrillsLibrary` that:\n\n1. **Data**: Reads from `KUMITE_DRILLS.drills` (80 drills), `KUMITE_DRILLS.categories` (5), `KUMITE_DRILLS.levels` (3), `KUMITE_DRILLS.formats` (2)\n2. **Filter bar** (sticky below the page header, horizontal scroll):\n   - Category pills: All | Attack (Sen) | Defence (Tai Sabaki) | Counter (Go no Sen) | Anticipation | Positional — use the colors from categories[].color\n   - Level pills: All | Beginner | Intermediate | Advanced — use colors from levels{}.color\n   - Format pills: All | Solo | Partnered\n   - Each pill shows the count of matching drills\n3. **Drill cards**: Show filtered drills as expandable cards. Default state = collapsed (name + Japanese term + scoring value + level/format badges). Tap to expand → full description, key points, common error, variations, duration/reps, equipment, WKF tactical note. Use LANG to switch en/pt for all bilingual fields.\n4. **Tags**: Show tags as small pills below the drill name (use LANG for en/pt tags). Make tags tappable to filter.\n5. **Empty state**: If filters produce 0 results, show a \"No drills match\" message.\n\n### STEP 3: Wire the route\nAdd a new route `kumiteDrills` → `#/sport-kumite/drills`. Wire it in `viewToHash`, `hashToView`, and the `renderRoute`/view-switch logic. The KumiteDrillsLibrary receives `onMenu`, `onHome` props and uses PageShell.\n\n### DESIGN:\n- Follow the existing design system exactly (colors, fonts, card style, border-radius, touch targets)\n- Filter pills: 36px height, 12px horizontal padding, 0.8rem font, border-radius 18px, background #1e1e24 default, category color when active\n- Drill cards: standard card style (#131316 bg, #1e1e24 border, 12px border-radius), 4px left border in category color\n- Expanded content: 0.85rem secondary text, key points as a compact list\n- All text bilingual using the LANG variable and tL() where appropriate\n\n### DO NOT:\n- Touch the Sport Kumite page yet (that's Prompt 2)\n- Touch the Exercise Library or home (that's Prompts 3-4)\n- Remove any existing code" }]
+  },
+  {
+    id: "10b", name: "Phase 10B — Restructure Sport Kumite Page", desc: "v49: Restructure Sport Kumite page", version: "v49",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10b-1", title: "10B: v49 — Restructure Sport Kumite Page", done: true, text: "✅ DONE — shipped as karate-handbook-v49.html.\n\nOriginal prompt:\n\n## PROMPT 2/4 — v49: Restructure Sport Kumite page\n\n**TARGET FILE**: `karate-handbook-v48.html`\n**VERSION**: Bump to v49 in filename (`karate-handbook-v49.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.**\n\n### Changes to the Sport Kumite page (the SportKumite component):\n\n1. **REMOVE** the \"Sport Kumite Drills\" SectionTile (the one with onClick navigating to category \"Sport Kumite\")\n2. **REMOVE** the \"Wado-Ryū Drills\" SectionTile\n3. **REMOVE** the \"Strength & Flexibility\" SectionTile (the one linking to category \"Flexibility & Mobility\")\n4. **ADD** a new tile: \"Kumite Drills Library\" — icon 🥊, color #FF1943, description \"80 bilingual drills · 5 categories · 3 levels\" (PT: \"80 exercícios bilingues · 5 categorias · 3 níveis\"), onClick navigates to {type:\"kumiteDrills\"}\n5. **Keep** Session Library, Referee Signals, WKF Rules tiles exactly as they are\n6. Update the page subtitle/intro text to reflect the new content (remove references to \"Sport Kumite Drills\" as a separate section)\n\n### DO NOT:\n- Touch the Exercise Library, home page, or any other pages\n- Remove the EX[\"Sport Kumite\"] or EX_PT[\"Sport Kumite\"] data (it stays in the file, just not linked from this page anymore)" }]
+  },
+  {
+    id: "10c", name: "Phase 10C — Embed Strength-Mobility + Warmup JSONs + Build Library Pages", desc: "v50: Embed strength-mobility + warmup JSONs + library pages", version: "v50",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10c-1", title: "10C: v50 — Embed Strength-Mobility + Warmup JSONs + Build Library Pages", done: true, text: "✅ DONE — shipped as karate-handbook-v50.html.\n\nOriginal prompt:\n\n## PROMPT 3/4 — v50: Embed strength-mobility + warmup JSONs and build library pages\n\n**TARGET FILE**: `karate-handbook-v49.html`\n**VERSION**: Bump to v50 in filename (`karate-handbook-v50.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.**\n\n### STEP 1: Embed the data\nRead `strength-mobility-library-bilingual.json` and `karate-warmup.json`. Embed as `const STRENGTH_MOBILITY = <JSON>;` and `const WARMUP_DATA = <JSON>;` right after the KUMITE_DRILLS constant.\n\n### STEP 2: Build StrengthLibrary component\n- Data source: `STRENGTH_MOBILITY.strength` (13 movement patterns, each with 3 exercises)\n- Filter bar: Level pills (All | Foundation | Performance | Competition) + Pattern dropdown/pills (13 patterns, horizontal scroll)\n- Cards: Collapsed = name + level badge + equipment + sets/reps. Expanded = full description, cues, common error, progression note, contraindications, masters note, min age, readiness criteria\n- Show pattern name and karate_relevance as a section header when grouped by pattern\n- All bilingual via LANG\n\n### STEP 3: Build MobilityLibrary component\n- Data source: `STRENGTH_MOBILITY.flexibility` (10 body zones, each with 3 exercises)\n- Filter bar: Level pills (All | Foundation | Performance | Competition) + Zone pills (10 zones, horizontal scroll)\n- Cards: Collapsed = name + level badge + equipment + hold/reps. Expanded = full description, cues, common error, contraindications, masters note, min age\n- Show zone name and karate_relevance as section header when grouped by zone\n- Include `STRENGTH_MOBILITY.injury_hotspots` as a collapsible reference section at the top or bottom\n- All bilingual via LANG\n\n### STEP 4: Build WarmupLibrary component\n- Data source: `WARMUP_DATA`\n- Structure: Show the 3 RAMP phases (Raise, Activate & Mobilise, Potentiate) as sections\n- Each phase shows its slots, each slot shows its 2-3 options as expandable cards\n- Cards: Collapsed = option name + slot duration. Expanded = full description, coaching cues, age note\n- No filters needed — this is a structured flow\n- Show the RAMP framework description at the top\n- All bilingual via LANG\n\n### STEP 5: Wire the routes\n- `strengthLibrary` → `#/strength-mobility/strength`\n- `mobilityLibrary` → `#/strength-mobility/mobility`\n- `warmupLibrary` → `#/strength-mobility/warmup`\n- Wire all in viewToHash, hashToView, and the view switch\n\n### DESIGN: Same as Prompt 1. Level badge colors: Foundation=#2a9d8f, Performance=#f4a261, Competition=#ff6b6b." }]
+  },
+  {
+    id: "10d", name: "Phase 10D — Restructure Home + Kill Exercise Library + Kill Supporting", desc: "v51: Restructure home + replace Exercise Library + kill Supporting", version: "v51",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10d-1", title: "10D: v51 — Restructure Home + Kill Exercise Library + Kill Supporting", done: true, text: "✅ DONE — shipped as karate-handbook-v51.html.\n\nOriginal prompt:\n\n## PROMPT 4/4 — v51: Restructure home and replace Exercise Library with new Strength & Mobility page\n\n**TARGET FILE**: `karate-handbook-v50.html`\n**VERSION**: Bump to v51 in filename (`karate-handbook-v51.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.**\n\n### STEP 1: Build the new StrengthMobilityPage (replaces Exercise Library)\nCreate a new component `StrengthMobilityPage` with 4 tiles:\n1. **Strength** — icon 💪, color #ff6b6b, desc \"39 exercises · 13 movement patterns · 3 levels\" (PT: \"39 exercícios · 13 padrões de movimento · 3 níveis\"), onClick → {type:\"strengthLibrary\"}\n2. **Mobility** — icon 🧘, color #e9c46a, desc \"30 exercises · 10 body zones · 3 levels\" (PT: \"30 exercícios · 10 zonas corporais · 3 níveis\"), onClick → {type:\"mobilityLibrary\"}\n3. **Karate Specific Exercises** — icon 🔴, color #457b9d, desc \"26 Wado-Ryū specific drills\" (PT: \"26 exercícios específicos de Wado-Ryū\"), onClick → {type:\"category\",name:\"Wado-Ryū Drills\"} (reuses the existing category page which already works)\n4. **Warm-Up** — icon 🔥, color #2a9d8f, desc \"RAMP framework · 10 slots · 30 options\" (PT: \"Estrutura RAMP · 10 estações · 30 opções\"), onClick → {type:\"warmupLibrary\"}\n\nUse PageShell with title \"Strength & Mobility\" (PT: \"Força e Mobilidade\"), accent teal.\n\n### STEP 2: Update home page — kill the old structure\nIn the HOME_SECTIONS array (the `[{id:\"main\",...}, {id:\"strength\",...}, {id:\"support\",...}]`):\n- Change the `strength` section: label stays \"Strength & Mobility\", but its tile onClick should navigate to `{type:\"strengthMobility\"}` (the new page), NOT to exerciseLibrary. Remove the 6-category `cats` array. Make it a single tile pointing to the new page.\n- **DELETE the entire `support` section** (`{id:\"support\", label:\"Supporting Exercises\", ...}`). The three categories it linked to (Kihon & Fundamentals, Keri Waza — Kicks, Playful Kumite & Games) are dead. Remove the section from the array entirely so the home page shows only two sections: Main Training and Strength & Mobility.\n- Keep `main` section as it is.\n\n### STEP 3: Wire the route\n- `strengthMobility` → `#/strength-mobility` → renders StrengthMobilityPage\n- The old `exerciseLibrary` route should redirect to `strengthMobility` (in case any deep links exist)\n\n### STEP 4: Clean up\n- Remove the old ExerciseLibrary component (the one rendering CM categories as tiles)\n- Remove the `CM` constant (the 11-category tile definitions) — it's no longer used\n- Update the drawer menu: rename \"Exercise Library\" to \"Strength & Mobility\", point it to the new route\n- Remove any drawer buttons for Exercise Library or Sport Kumite that are now redundant (users navigate from home tiles)\n- From the EX and EX_PT data objects, **delete** these three keys and their contents: `\"Kihon & Fundamentals\"`, `\"Keri Waza — Kicks\"`, `\"Playful Kumite & Games\"`. Nothing links to them anymore. Keep all other EX/EX_PT keys.\n\n### STEP 5: Translation updates\nAdd to the translation object:\n- \"Karate Specific Exercises\": \"Exercícios Específicos de Karaté\"\n- \"Warm-Up\": \"Aquecimento\"\n- \"Kumite Drills Library\": \"Biblioteca de Exercícios de Kumite\"\n- \"Strength\": \"Força\"\n- \"Mobility\": \"Mobilidade\"\n\n### DO NOT:\n- Remove the EX/EX_PT keys for categories that are still referenced (Wado-Ryū Drills, Coordination & Balance, Flexibility & Mobility, Strength & Power, Speed Agility & Plyometrics, Pillar Prep & Activation, Calisthenics & Bodyweight)\n- Remove the old category view component — it still renders individual categories" }]
+  },
+  {
+    id: "10e", name: "Phase 10E — Filter Dropdown + Multi-Column Grid", desc: "v52: Filter dropdown + multi-column grid on library pages", version: "v52",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10e-1", title: "10E: v52 — Filter Dropdown + Multi-Column Grid", done: true, text: "✅ DONE — shipped as karate-handbook-v52.html.\n\nOriginal prompt:\n\n## PROMPT 5 — v52: Kumite Drills Library UI refinement — filter dropdown + multi-column grid\n\n**TARGET FILE**: `karate-handbook-v51.html`\n**VERSION**: Bump to v52 in filename (`karate-handbook-v52.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.**\n\n### CHANGE 1: Collapse filters behind a toggle button\n\nReplace the three always-visible filter pill rows with a single filter button + collapsible dropdown panel:\n\n1. **Filter button**: Sits below the subtitle. Shows a funnel icon (or 🔍) + \"Filters\" label + active filter count badge (e.g. \"Filters (2)\" when 2 non-All filters are active). Styled as a pill: #1e1e24 background, #f0eeeb text, 40px height, border-radius 20px. When any filter is active, the badge uses the red accent (#ff6b6b).\n2. **Dropdown panel**: Toggled by tapping the filter button. Slides down with a smooth transition (max-height animation, 200ms). Contains the three filter rows (Category, Level, Format) stacked vertically with a subtle label (\"Category\", \"Level\", \"Format\") above each row. Same pill styling as before.\n3. **Active filter summary**: When the dropdown is closed AND filters are active, show a single line of active filter names as small pills below the button so the user can see what's applied without re-opening. Each pill has an × to clear that individual filter back to All.\n4. **\"Clear all\" link**: Inside the dropdown, bottom-right, clears all filters back to All.\n\n### CHANGE 2: Multi-column drill card grid\n\nReplace the single-column card list with a responsive grid:\n\n- **Mobile (< 600px)**: 1 column (unchanged)\n- **Tablet / medium (600px–1024px)**: 2 columns\n- **Desktop (> 1024px)**: 3 columns\n- Use CSS grid: `display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;`\n- Cards should have equal height per row (align-items: stretch) but the expanded card should span full width of its column, NOT break the grid\n- When a card is expanded, it's fine for it to be taller than its row neighbors\n\n### CHANGE 3: Apply the same pattern to ALL new library pages\n\nApply the same two changes (filter dropdown + multi-column grid) to these components if they exist:\n- **StrengthLibrary** — filter button with Level + Pattern filters, 2-3 column card grid\n- **MobilityLibrary** — filter button with Level + Zone filters, 2-3 column card grid\n- **WarmupLibrary** — no filters needed so skip the filter button, but DO apply the multi-column grid to the option cards within each slot (2 columns on tablet+, 3 on desktop)\n\nIf any of these components don't exist yet (because Prompts 3-4 haven't run), skip them — just do KumiteDrillsLibrary.\n\n### DESIGN:\n- Filter button: same card background (#1e1e24), white text, 40px height, border-radius 20px, subtle border (#2a2a32)\n- Dropdown: #131316 background, #1e1e24 border, 12px border-radius, 16px padding, appears below the button\n- Row labels: 0.75rem, uppercase, letter-spacing 0.05em, color var(--text-dim)\n- Active filter summary pills: 28px height, 0.75rem font, #1e1e24 background, category color left border, × button on the right\n- Grid gap: 12px\n- Maintain all existing card styling, just change the layout container\n\n### DO NOT:\n- Change the card content or expand/collapse behavior\n- Change the filter logic itself — just the visual presentation\n- Touch any pages other than the library pages listed above" }]
+  },
+  {
+    id: "10f", name: "Phase 10F — Code Cleanup + Shared Component Consolidation", desc: "v53: Code cleanup + shared component consolidation", version: "v53",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10f-1", title: "10F: v53 — Code Cleanup + Shared Component Consolidation", done: true, text: "## v53: Code cleanup and shared component consolidation\n\n**TARGET FILE**: `karate-handbook-v52.html`\n**VERSION**: Bump to v53 in filename (`karate-handbook-v53.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.** The file is 500KB+ with base64 images. Your script should use Python string `.find()`, `.replace()`, slicing, or regex to locate and modify specific sections, then write the result to the new filename.\n\n### APP ARCHITECTURE (read this — you have no prior context)\n\nThis is a **single-file React app**. Everything lives inside one HTML file:\n- A `<style>` tag contains all CSS\n- A `<script type=\"text/babel\">` tag contains all React components, data, and logic\n- `ReactDOM.render(<App />, ...)` at the bottom boots the app\n- Babel standalone transpiles JSX in-browser\n\n**Routing**: The app uses hash-based routing with a `view` state object (e.g. `{type:\"home\"}`, `{type:\"sportKumite\"}`, `{type:\"kumiteDrills\"}`). Two functions convert between view objects and URL hashes:\n- `viewToHash(view)` — returns a hash string like `#/sport-kumite/drills`\n- `hashToView(hash)` — parses a hash string back into a view object\n- The main `App` component has a view-switch: a series of `{view.type===\"X\" && <Component />}` conditionals that render the active page\n\n**Page wrapper**: Every page uses `<PageShell title=\"...\" subtitle=\"...\" accent=\"...\" onMenu={onMenu} onHome={onHome}>` which renders the sticky navbar, title area, and content slot.\n\n**Translation**: A `LANG` variable is either `'en'` or `'pt'`. The `tL(\"key\")` function looks up a translation string. Bilingual JSON data uses `{en: \"...\", pt: \"...\"}` objects — components read `field[LANG]` or `field.en`/`field.pt`.\n\n**Data constants** (all defined at the top of the script):\n- `EX` / `EX_PT` — legacy exercise objects keyed by category name (e.g. `EX[\"Wado-Ryū Drills\"]`), each containing arrays of `{name, desc, chapter, group}` objects\n- `KUMITE_DRILLS` — structured kumite drills JSON with `.drills[]`, `.categories[]`, `.levels{}`, `.formats{}`\n- `STRENGTH_MOBILITY` — structured strength/mobility JSON with `.strength[]` (13 patterns) and `.flexibility[]` (10 zones)\n- `WARMUP_DATA` — structured warmup JSON with `.phases[]` containing `.slots[]` with `.options[]`\n- `CM` — 11-element array of category tile definitions (may already be deleted in v51)\n\n**Key components** (defined as `function ComponentName({props}) { ... }`):\n- `Home` — renders the home page with section tiles\n- `SportKumite` — sport kumite hub page\n- `KumiteDrillsLibrary` — 80-drill filterable library (added v48)\n- `StrengthLibrary` — 39-exercise strength library (added v50)\n- `MobilityLibrary` — 30-exercise mobility library (added v50)\n- `WarmupLibrary` — RAMP warmup viewer (added v50)\n- `StrengthMobilityPage` — hub page with 4 tiles linking to the libraries above (added v51)\n- `CategoryView` — generic category page that renders exercises from EX/EX_PT by category name\n- `SectionTile`, `HomeTile` — reusable tile components\n- `PageShell` — page wrapper with navbar\n\n**Navigation drawer**: A slide-in menu from the left (hamburger icon in navbar) with links to main sections.\n\n### STEP 1: Kill dead data\nFrom the EX and EX_PT data objects, DELETE these keys and all their contents — nothing links to them anymore:\n- \"Coordination & Balance\"\n- \"Flexibility & Mobility\"\n- \"Strength & Power\"\n- \"Speed, Agility & Plyometrics\"\n- \"Pillar Prep & Activation\"\n- \"Calisthenics & Bodyweight\"\n\nAlso delete if still present (should have been removed in v51):\n- \"Kihon & Fundamentals\"\n- \"Keri Waza — Kicks\"\n- \"Playful Kumite & Games\"\n\nKEEP these EX/EX_PT keys — they are still referenced:\n- \"Sport Kumite\" (referenced by CategoryView)\n- \"Wado-Ryū Drills\" (linked from Karate Specific Exercises tile via CategoryView)\n\n**Verification**: Before deleting each key, search the ENTIRE file for that exact string to confirm no `onClick`, route, or tile references it. If a reference exists, do NOT delete — flag it for Pedro.\n\n### STEP 2: Remove dead components and constants\nSearch for and remove if present:\n- `const CM = [` ... `];` — the old 11-category tile array\n- `function ExerciseLibrary(` ... the entire component function — the old Exercise Library page\n- Any component function that is defined (`function Foo(`) but never rendered (no `<Foo` or `Foo(` call anywhere else in the file)\n\n### STEP 3: Consolidate shared UI primitives\nIdentify the repeated card/filter/badge patterns across KumiteDrillsLibrary, StrengthLibrary, MobilityLibrary, and WarmupLibrary. Extract into shared components placed BEFORE the library components in the file:\n\n1. **ExpandableCard** — collapse/expand card. Props: `title`, `subtitle`, `badges` (array of {label, color}), `tags` (array of strings), `children` (expanded content), `accentColor`, `isExpanded`, `onToggle`. Handles the chevron rotation, max-height transition, and card styling.\n2. **FilterBar** — the filter dropdown toggle + pill rows + active summary + clear-all. Props: `filterGroups` (array of {label, options[], activeValue, onChange}), shows count badge when non-default filters active.\n3. **LevelBadge** — filled-background level pill. Props: `level` (string), maps to color (foundation=#2a9d8f, performance=#f4a261, competition=#ff6b6b, beginner=#2a9d8f, intermediate=#f4a261, advanced=#ff6b6b).\n4. **LibraryGrid** — responsive CSS grid wrapper. Props: `children`, renders with `display:grid; grid-template-columns:repeat(auto-fill, minmax(340px,1fr)); gap:12px`.\n\nAfter extracting, refactor each library component to USE these shared primitives instead of its own inline implementation. The rendered output should look identical — this is a code structure change, not a visual change.\n\n### STEP 4: Clean up orphaned translations\nIn the translation object (search for the large object containing `\"Exercise Library\":\"Biblioteca de Exercícios\"` etc.):\n- Remove entries for pages/labels that no longer exist in the UI\n- Verify every `tL(\"...\")` call in the file has a matching key\n\n### STEP 5: Clean up orphaned routes\nIn `viewToHash` and `hashToView`:\n- Remove any route for `exerciseLibrary` (or verify it redirects to `strengthMobility`)\n- Remove routes for any deleted category views\n- Verify every remaining route has BOTH a hash mapping AND a component that renders for it in the view-switch\n\n### STEP 6: Audit the drawer menu\nFind the drawer/menu component (search for `hamburger` or `drawer` or `onMenu`). It should contain exactly these navigation items:\n- Home\n- Sport Kumite\n- Strength & Mobility\n- WIKF Syllabus\n- Exam Syllabus\n\nRemove any items pointing to deleted sections. Verify each item's onClick navigates to the correct view type.\n\n### DO NOT:\n- Change any visual styling (that's v54)\n- Change the content or structure of any page that works correctly\n- Touch the WIKF Syllabus, Exam Syllabus, Kata, Kihon Reference, or Kumite Forms sections\n- Remove any base64 image data" }]
+  },
+  {
+    id: "10g", name: "Phase 10G — Responsive Breakpoints + Elevated Component Design", desc: "v54: Responsive breakpoints + elevated component design (partial — 6/59 surfaces)", version: "v54",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10g-1", title: "10G: v54 — Responsive Breakpoints + Elevated Component Design", done: true, text: "## v54: Responsive breakpoints + elevated component design\n\n**TARGET FILE**: `karate-handbook-v53.html`\n**VERSION**: Bump to v54 in filename (`karate-handbook-v54.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.** The file is 500KB+ with base64 images. Your script should use Python string `.find()`, `.replace()`, slicing, or regex to locate and modify specific sections, then write the result to the new filename.\n\n### APP ARCHITECTURE (read this — you have no prior context)\n\nThis is a **single-file React app**. Everything lives inside one HTML file:\n- A `<style>` tag contains all CSS\n- A `<script type=\"text/babel\">` tag contains all React components, data, and logic\n- Components use inline `style={{}}` objects (React style), NOT CSS classes — most styling is in the JSX\n- Some global styles (body, animations, scrollbar) are in the `<style>` tag\n\n**Key structural facts for this prompt**:\n- The main content container currently has a `max-width: 700px` (or `maxWidth:\"700px\"` in JSX). This must be replaced.\n- Cards and tiles use `background: \"#131316\"` and `border: \"1px solid #1e1e24\"` as inline styles. These are the targets for the gradient/shadow upgrade.\n- Badges use `border: \"1px solid {color}\"` with `background: \"transparent\"`. These need to become filled.\n- Most components have zero CSS transitions — interactive elements change state instantly with no animation.\n- The topographic background animation is in the `<style>` tag as a CSS `@keyframes` animation. Its `animation-duration` is the target for the speed fix.\n- The home page hero has a 120px dove/rising-sun SVG or base64 image.\n- `PageShell` renders the sticky navbar (frosted glass: `#0e0e10ee` + `backdrop-filter: blur(12px)`) and the page title area.\n\n**Shared components from v53** (if consolidation happened):\n- `ExpandableCard` — used by all library pages\n- `FilterBar` — filter dropdown with pills\n- `LevelBadge` — level indicator pill\n- `LibraryGrid` — responsive grid wrapper\n\nIf these shared components exist, styling changes to them propagate to all library pages automatically. If they don't exist (v53 didn't consolidate), you'll need to apply changes to each library component individually.\n\n**Design system colors** (DO NOT change these values, just use them more expressively):\n- Page bg: #0a0a0c | Surface: #131316 | Border: #1e1e24 | Border active: #2a2a32\n- Text: #f0eeeb | Secondary: #c0bfbb | Muted: #b0aead | Dim: #666\n- Red: #ff6b6b | Orange: #f4a261 | Teal: #2a9d8f | Blue: #457b9d | Purple: #9b5de5 | Gold: #e9c46a\n\n**Fonts**: `'DM Sans', system-ui, sans-serif` (body) and `'Space Mono', monospace` (mono). Loaded via Google Fonts `<link>` in the `<head>`.\n\n### PART A: Responsive Foundation\n\n1. **Kill the 700px max-width** on the main content container. Search for `700` near `max-width` or `maxWidth` in both the `<style>` tag and inline JSX styles. Replace with a responsive container:\n   - Mobile (< 480px): width 95%, padding 0 12px\n   - Small (480–768px): width 92%, padding 0 16px\n   - Tablet (768–1024px): width 90%, max-width 960px, padding 0 24px\n   - Desktop (1024px+): width 88%, max-width 1400px, padding 0 32px\n   - All centered with margin: 0 auto\n\n   Implement this as a CSS class (`.responsive-container`) in the `<style>` tag with media queries, then apply that class to the main content wrapper in the JSX.\n\n2. **Add CSS media query breakpoints** to the `<style>` tag:\n   - @media (min-width: 480px) { }\n   - @media (min-width: 768px) { }\n   - @media (min-width: 1024px) { }\n\n3. **Home page grid**: Home tiles should flow into 2-column grid at 600px+ and 3-column at 1024px+. Find the Home component and update the tile container.\n\n4. **Library grids**: Verify `LibraryGrid` (or the inline grid on each library page) uses `grid-template-columns: repeat(auto-fill, minmax(340px, 1fr))`.\n\n5. **Prose pages** (Syllabus, Kata details, Kihon Reference): Add `max-width: 800px; margin: 0 auto` to their content containers for comfortable reading width on desktop.\n\n### PART B: Elevated Component Design\n\n1. **Cards and tiles — gradient surfaces, not flat backgrounds**:\n   - Search for all `\"#131316\"` or `#131316` background values\n   - Replace with: `\"linear-gradient(170deg, #151518 0%, #111114 100%)\"`\n   - Add to each card/tile: `boxShadow: \"0 2px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.02)\"`\n   - Where a card has an accent color prop, add a positioned pseudo-element or inner div with `radial-gradient(circle at top right, {accentColor}06 0%, transparent 60%)` for a faint color wash\n   - **REMOVE all `borderLeft: \"3px solid\"` and `borderLeft: \"4px solid\"` accent lines.** These are the \"Claude UI\" giveaway. Replace the accent identification with: an icon container (40x40px, borderRadius 10px, background `linear-gradient(135deg, {accentColor}18, {accentColor}08)`) wrapping the tile/card icon.\n\n2. **Badges — filled, not bordered**:\n   - Search for badge-style elements that have `border: \"1px solid` + `background: \"transparent\"` or no background\n   - Replace with: `background: \"{color}15\"` (15 = hex ~8% opacity), `color: \"{color}\"`, `border: \"none\"`, `fontWeight: 600`\n\n3. **Tags — quieter**:\n   - Search for tag pill elements (typically in cards, with `fontFamily: \"'Space Mono'\"` and small font size)\n   - Replace styling with: `background: \"rgba(255,255,255,0.03)\"`, `border: \"none\"`, `borderRadius: \"4px\"`, `padding: \"2px 7px\"`, `fontSize: \"0.65rem\"`, `color: \"#666\"`, `fontWeight: 500`, `fontFamily: \"'DM Sans', sans-serif\"`\n\n4. **Typography — aggressive hierarchy**:\n   - Page titles (inside PageShell or page header areas): `fontSize: \"2rem\"`, `fontWeight: 800`, `letterSpacing: \"-0.02em\"`, add gradient text: `background: \"linear-gradient(135deg, #f0eeeb, #c0bfbb)\"`, `WebkitBackgroundClip: \"text\"`, `WebkitTextFillColor: \"transparent\"`\n   - Add section labels ABOVE page titles where they don't exist: small uppercase breadcrumb (e.g. \"SPORT KUMITE\" above \"Kumite Drills\") — `fontSize: \"0.65rem\"`, `fontWeight: 700`, `letterSpacing: \"0.15em\"`, `textTransform: \"uppercase\"`, `fontFamily: \"'Space Mono', monospace\"`, color = page accent\n   - Card titles: `fontWeight: 700`, `letterSpacing: \"-0.01em\"`\n   - Body/description text: `fontWeight: 400`, `color: \"#b0aead\"`, `lineHeight: 1.65`\n\n5. **Micro-animations on all interactive elements**:\n   - Add `transition: \"all 0.15s ease\"` to every button, card, tile, and pill style object\n   - Cards/tiles: add an onMouseDown/onTouchStart handler that briefly applies `transform: \"scale(0.97)\"` (or do it via CSS `:active` in the style tag)\n   - ExpandableCard chevron: `transition: \"transform 0.2s ease\"`, rotates 180deg when expanded\n   - Expanded content: `transition: \"max-height 0.25s ease, opacity 0.2s ease\"`\n   - If using shared components from v53, add transitions there. If not, add to each component individually.\n\n6. **Topographic background — speed and density fix**:\n   - Find the `@keyframes` animation for the topographic/background pattern in the `<style>` tag\n   - Change the `animation-duration` to `18s` (from whatever it currently is — likely 60s+)\n   - If the background-size controls the topo pattern density, reduce it (e.g. from `400px` to `250px`) to make the lines tighter\n   - Add a matching subtle topographic pattern at 2-3% opacity as a `backgroundImage` on the home page hero tiles and the library page header areas. Use the same SVG data URI as the body background but at lower opacity.\n\n7. **Section dividers** (between content groups):\n   - Replace any `<hr>` or `borderBottom: \"1px solid #1e1e24\"` dividers with: `background: \"linear-gradient(90deg, transparent, #2a2a32, transparent)\"`, `height: \"1px\"`, `border: \"none\"`\n\n8. **Tile icon containers**:\n   - Where tiles show an emoji icon, wrap it in a container: 40x40px, borderRadius 10px, background `linear-gradient(135deg, {accentColor}18, {accentColor}08)`, centered\n\n### PART C: Home Page Hero\n\nFind the Home component's hero section (contains the 120px dove logo):\n- Apply gradient text treatment to the \"KARATE HANDBOOK\" title: weight 800, tracking -0.02em, `background: linear-gradient(135deg, #f0eeeb, #c0bfbb)`, `WebkitBackgroundClip: text`\n- Add a faint radial glow behind the logo: a positioned div with `background: radial-gradient(ellipse, rgba(255,107,107,0.05) 0%, transparent 60%)`, ~300px wide, centered on the logo\n- The subtitle/tagline below: apply section-label style (small, uppercase, Space Mono, muted color)\n\n### DO NOT:\n- Change data, content, or page structure\n- Change routing, navigation logic, or component hierarchy\n- Change the hex values of the color palette — keep all existing colors, use them more expressively\n- Add any new fonts beyond DM Sans and Space Mono\n- Apply glassmorphism / frosted-glass effects to content cards (only the navbar uses backdrop-filter)\n- Touch any base64 image data" }]
+  },
+  {
+    id: "10h", name: "Phase 10H — Final Cleanup + Polish Pass", desc: "v55: Final cleanup + polish pass", version: "v55",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10h-1", title: "10H: v55 — Final Cleanup + Polish Pass", done: true, text: "## v55: Final cleanup and polish pass\n\n**TARGET FILE**: `karate-handbook-v54.html`\n**VERSION**: Bump to v55 in filename (`karate-handbook-v55.html`) and footer.\n\n**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.** The file is 500KB+ with base64 images. Your script should use Python string `.find()`, `.replace()`, slicing, or regex to locate and modify specific sections, then write the result to the new filename.\n\n### APP ARCHITECTURE (read this — you have no prior context)\n\nThis is a **single-file React app** inside one HTML file. `<style>` tag for CSS, `<script type=\"text/babel\">` for all React components/data/logic. Components use inline `style={{}}` objects. Hash-based routing with `viewToHash`/`hashToView` and a view-switch in the App component. Translations via `tL(\"key\")` with `LANG` variable ('en' or 'pt'). Bilingual JSON data uses `{en:\"...\", pt:\"...\"}` — components read `field[LANG]`.\n\n**What v54 changed** (so you know what to audit):\n- Replaced flat `#131316` backgrounds with `linear-gradient(170deg, #151518, #111114)`\n- Replaced bordered badges with filled-background badges (`{color}15` opacity fills)\n- Removed `border-left` accent lines from cards\n- Added CSS transitions (0.15s) to interactive elements\n- Added gradient text treatment to page titles\n- Changed topographic animation speed to ~18s\n- Replaced 700px max-width with responsive container (breakpoints at 480/768/1024px)\n- Added icon containers with accent-colored gradient backgrounds\n\n### STEP 1: Visual consistency audit\nWrite a Python script that searches the entire HTML for inconsistencies from v54:\n\n1. Find ALL remaining `border-left: 3px solid` or `border-left: 4px solid` or `borderLeft:\"3px solid` or `borderLeft:\"4px solid` — list line numbers and surrounding context. These should be zero.\n2. Find ALL remaining `background:\"#131316\"` or `background: #131316` without `gradient` nearby — list them. These should all be gradients now.\n3. Find ALL remaining `max-width:700` or `maxWidth:\"700` or `maxWidth:700` or `max-width: 700px` — list them. Should be zero.\n4. Find ALL remaining `border:\"1px solid` on badge/pill elements that also have `background:\"transparent\"` or no background — list them. Badges should have filled backgrounds.\n5. Find ALL `font-family` values containing `Inter` or `Roboto` or `Arial` — should be zero.\n6. Find ALL card/tile style objects missing `transition` — interactive elements should have `transition: \"all 0.15s ease\"` or similar.\n\nFor each inconsistency found: apply the v54 fix. Output a summary of what was found and fixed.\n\n### STEP 2: Dead code removal\nSearch for:\n1. Component functions defined with `function` that are never referenced elsewhere (never appear as `<ComponentName` or in the view-switch). List them. Remove confirmed dead ones.\n2. `const` declarations at the top level that are never referenced anywhere after their declaration. List them. Remove confirmed dead ones.\n3. Translation keys in the translation object that don't match any `tL(\"...\")` call in the file. List them. Remove confirmed dead ones.\n4. Blocks of commented-out code (lines starting with `//` or wrapped in `/* */`) longer than 3 lines. Remove them.\n\nBe conservative: if uncertain whether something is referenced (e.g. referenced via dynamic string construction), keep it and flag it.\n\n### STEP 3: Mobile touch-target audit\nSearch for all elements with `onClick` handlers and check their sizing:\n1. Any `height` or `minHeight` less than 44 on a tappable element — fix to 44px minimum\n2. Any `padding` less than \"8px\" on a standalone tappable element — increase\n3. Any `fontSize` less than \"0.7rem\" on a tappable text element — verify it has adequate padding to compensate\n\nFix any violations.\n\n### STEP 4: Language toggle verification\nSearch for all components that render data from `KUMITE_DRILLS`, `STRENGTH_MOBILITY`, or `WARMUP_DATA` and verify they access bilingual fields correctly:\n1. Every `name` field should be accessed as `name[LANG]` or `name.en`/`name.pt` with LANG switch — NOT as a bare `name` string\n2. Every `description` field same pattern\n3. Every `tags` field: `tags[LANG]` or `tags.en`/`tags.pt`\n4. Search for any hardcoded English strings in the new library components (strings like \"Beginner\", \"Solo Drill\", \"Key Points\", \"Common Error\", \"Filters\", \"Clear all\") — these should go through `tL()` or have an inline `LANG==='pt'?...:...` ternary\n\nList any missing translations. Add PT translations for any untranslated UI strings:\n- \"Filters\" → \"Filtros\"\n- \"Clear all\" → \"Limpar tudo\"\n- \"No drills match\" → \"Nenhum exercício corresponde\"\n- \"Key Points\" → \"Pontos-Chave\"\n- \"Common Error\" → \"Erro Comum\"\n- \"Variations\" → \"Variações\"\n- \"Equipment\" → \"Equipamento\"\n- \"Duration\" → \"Duração\"\n- \"Foundation\" → \"Base\"\n- \"Performance\" → \"Desempenho\"\n- \"Competition\" → \"Competição\"\n- \"Solo Drill\" → \"Exercício Individual\"\n- \"Partnered Drill\" → \"Exercício a Pares\"\n- \"All\" → \"Todos\"\n- \"drills\" → \"exercícios\"\n- \"exercises\" → \"exercícios\"\n- \"patterns\" → \"padrões\"\n- \"zones\" → \"zonas\"\n- \"levels\" → \"níveis\"\n- \"phases\" → \"fases\"\n- \"slots\" → \"estações\"\n- \"options\" → \"opções\"\n\n### STEP 5: Performance check\n1. Calculate total file size in KB\n2. Count number of base64 image strings (search for `data:image`)\n3. Check if any component renders ALL exercises/drills at once without virtualization — if a library renders 80 cards simultaneously with full expanded content in the DOM, note it (acceptable for now, but flag if over 200 items)\n4. List the 5 largest `const` declarations by character count\n\n### STEP 6: Footer update\nFind the footer text (search for the version string like `v54` or `Karate Handbook v`). Update to:\n`Karate Handbook v55 · AWIKP · Built with 🥋`\nEnsure it appears correctly in both EN and PT modes.\n\n### DO NOT:\n- Change any styling decisions made in v54\n- Change the responsive breakpoints\n- Change the component structure from v53\n- Add any new features or content\n- Touch any base64 image data" }]
+  },
+  {
+    id: "10i", name: "Phase 10I — Design System Normalization + Icon System", desc: "v56: Design tokens, typography scale, surface normalization, Material Icons", version: "v56",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "10i-1", title: "10I: v56 — Design System Normalization + Icon System", done: true, text: `✅ DONE — shipped as karate-handbook-v56.html then v57.
+
+## v56: Design system audit, token normalization, and icon system
+
+**TARGET FILE**: \`karate-handbook-v55.html\`
+**VERSION**: Bump to v56 in filename (\`karate-handbook-v56.html\`) and footer.
+
+**Do NOT read the full HTML into your context. Write a Python script that uses targeted string search/replace.** The file is 500KB+ with base64 images.
+
+### THE PROBLEM
+
+As of v54, the app has ~518 inline style objects across ~60 components, 35 different font sizes, 53 different padding values, 28 text colors (many hardcoded hex instead of CSS variables), and ~53 card surfaces all copy-pasting the same 3 inline properties instead of using a CSS class. v54 elevated only 6 surfaces (ExpandableCard + filter panels) to gradient+shadow; the other ~53 are still flat. v55 (polish pass) may have changed some of these counts — the script should audit first, then normalize.
+
+This prompt creates a design token system, CSS utility classes, normalizes the entire codebase to use them, and replaces all emoji icons with Material Symbols.
+
+### STEP 0: PRE-AUDIT (run before any changes)
+Scan the file and print: total background:"var(--bg-card)" count, linear-gradient(170deg count, boxShadow count, unique fontSize values with counts, fontWeight:600 count, hardcoded hex color:"# count (excluding <style>), non-flag emoji count.
+
+### STEP 1: DESIGN TOKENS
+Add to :root: Typography scale (--text-xs through --text-3xl, 8 levels), Spacing scale (--sp-1 through --sp-7), Surface tokens (--surface-bg gradient, --surface-shadow, --surface-border). Add light-theme overrides.
+
+### STEP 2: CSS UTILITY CLASSES
+Add .card, .card-interactive, .text-page-title, .text-section-label, .text-card-title, .text-body, .text-meta, .badge, .material-symbols-rounded sizing classes.
+
+### STEP 3: MATERIAL ICONS FONT
+Add Google Fonts Material Symbols Rounded <link> after existing fonts <link>.
+
+### STEP 4: ICON HELPER + MAPPING
+Insert MI({name,size,color,style}) component + ICON_MAP constant after data, before first function component.
+
+### STEP 5: GLOBAL CARD SURFACE NORMALIZATION
+5A: Replace ~53× background:"var(--bg-card)",border:"1px solid var(--border)",borderRadius:0 → surface tokens
+5B: Fix remaining #131316 backgrounds
+5C: Fix HomeTile (kill tile-frost, add accent wash)
+5D: Verify SectionTile caught
+5E: Fix ExpandableCard hardcoded gradient → var(--surface-bg)
+5F: Fix filter panel hardcoded gradients
+5G: Kill .tile-frost CSS, update .tile to include surface
+
+### STEP 6: TYPOGRAPHY NORMALIZATION
+6A: 12 hardcoded hex color → CSS variable replacements (add --accent-brown:#a0522d)
+6B: 35 font sizes → 8 token values (only inside style={{}} JSX, NOT <style> CSS)
+6C: fontWeight:600 → 700
+6D: Font family normalization
+6E: 15 line-heights → 7
+
+### STEP 7: EMOJI → MATERIAL ICONS
+7A: HomeTile/StrengthMobilityPage/SportKumiteHub icon props → MI() calls
+7B: Data constant icon strings → Material Symbol names (KIHON_SECTIONS, WEAPONS_DATA, HISTORY_PAGES, PRINCIPLES_PAGES + PT variants)
+7C: Update render patterns ({w.icon} spans → <MI name={w.icon}/>)
+7D: Nav drawer icons
+7E: Filter button 🔍 → tune
+7F: Theme toggle ☀️/🌙 → light_mode/dark_mode
+7G: Footer — remove 🥋, plain text: Wado-Ryū Handbook v56 · AWIKP
+7H: Final emoji audit — only 🇬🇧/🇵🇹 flags survive
+
+### STEP 8: VERIFY
+Print final counts for all normalized properties. Expected: zero hardcoded surfaces/fonts/emoji, all using tokens.
+
+### DO NOT:
+- Change data content, routing, or component hierarchy
+- Touch base64 image data
+- Change colour palette hex values (only MOVE them from inline to CSS vars)
+- Remove topo SVG overlay inside HomeTile
+- Break <style> CSS syntax` + CLEANUP_SINGLE }]
+  },
+  {
+    id: "12a", name: "Phase 12A — CSS Class System + Inline Style Purge", desc: "v58: Unified CSS classes, tile gradient system, content-card class, font rendering fix (DM Sans + Space Mono everywhere)", version: "v58",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "12a-1", title: "12A: v58 — CSS Class System + Inline Style Purge", done: true, text: "✅ DONE — shipped as karate-handbook-v58.html." }]
+  },
+  {
+    id: "12b", name: "Phase 12B — Component Unification + Gradient Application", desc: "v59: NavTile, gradient combos, belt-color exam tiles, icon sizing", version: "v59",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "12b-1", title: "12B: v59 — Component Unification + Gradient Application", done: true, text: "✅ DONE — shipped as karate-handbook-v59.html." }]
+  },
+  {
+    id: "12c", name: "Phase 12C — WCAG Audit + Light Mode + Final Polish", desc: "v60: Contrast ratio audit (dark+light), inline cleanup, touch targets, font fix", version: "v60",
+    status: "done", accent: "var(--teal)",
+    prompts: [{ id: "12c-1", title: "12C: v60 — WCAG Audit + Light Mode + Final Polish", done: true, text: "✅ DONE — shipped as karate-handbook-v60.html." }]
+  },
+  {
+    id: "13a", name: "Phase 13A — Replace Kumite Drills + Levels UI", desc: "v61: 88 drills (replaces 80), levels array UI for 8 new multi-level drills", version: "v61",
+    status: "todo", accent: "var(--red)",
+    prompts: [{ id: "13a-1", title: "13A: v61 — Replace Kumite Drills Data + Levels UI", done: false, text: `⛔ MANDATORY: Do NOT read the HTML into context. Do NOT use cat/view/grep on the HTML. Write ONE Python script — one read, all edits in memory, one write. If output < 95% of input size, ERROR and exit.
+
+TARGET FILE: karate-handbook-v60.html → karate-handbook-v61.html
+SOURCE DATA: kumite-drills-library-v1_2-bilingual.json (88 drills, 5 categories)
+
+STEP 1: Load JSON. Extract categories array and drills array.
+
+STEP 2: REPLACE KUMITE_DRILLS — Find existing const KUMITE_DRILLS declaration (starts with "const KUMITE_DRILLS" through closing "];"). Replace ENTIRE const with new data from JSON. Each drill must include: id, name{en,pt}, category, level, format, equipment, japanese, scoring_value, description{en,pt}, coaching_cues{en,pt}, common_error{en,pt}, dosage{en,pt}, wkf_note{en,pt}. Legacy drills: include variations{en,pt}. 8 new drills (those with levels key): include levels array [{level, description:{en,pt}}], NO variations field.
+
+Also find and replace DRILL_CATEGORIES (or however the 5 categories are stored). Replace with new categories from JSON.
+
+STEP 3: LEVELS UI — Find drill card expanded rendering where variations is displayed (inside KumiteDrillsLibrary or ExpandableCard content). Add conditional: if drill has levels array, render numbered progression (Level 1/2/3 with description). Falls back to existing variations paragraph for legacy drills.
+
+STEP 4: UPDATE COUNTS — Search for hardcoded "80" near "drills" text in tile subtitles/labels. Replace with "88". Check EN and PT.
+
+STEP 5: VERIFY — Print: total drills (88), drills with levels (8), drills with variations (80), categories (5), file size comparison.
+
+Footer: Wado-Ryū Handbook v61 · AWIKP (EN+PT)
+
+CLEANUP: Delete script + old HTML version. try/finally.` + CLEANUP_SINGLE }]
+  },
+  {
+    id: "13b", name: "Phase 13B — Sessions Data + Session Library", desc: "v62: 5 kumite sessions with blocks/drills, Session Library page", version: "v62",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "13b-1", title: "13B: v62 — Sessions Data + Session Library", done: false, text: `⛔ MANDATORY: Do NOT read the HTML into context. Do NOT use cat/view/grep on the HTML. Write ONE Python script — one read, all edits in memory, one write. If output < 95% of input size, ERROR and exit.
+
+TARGET FILE: karate-handbook-v61.html → karate-handbook-v62.html
+SOURCE DATA: sport-kumite-sessions-v2.json (5 sessions, EN + PT)
+
+STEP 1: Load JSON. Has sessions_en (5) and sessions_pt (5). Each session: id, title, params{Duration,Level,Type,Season,Focus,Size}, color, blocks[{slot,time,mins,drills[{ref,name,mins,notes,ri}]}].
+
+STEP 2: ADD KUMITE_SESSIONS CONST — Build const KUMITE_SESSIONS = { en: [...], pt: [...] }. Insert AFTER KUMITE_DRILLS and BEFORE first component.
+
+STEP 3: BUILD SESSION LIBRARY VIEW — Find existing SessionLibrary component/stub. Replace with SessionLibraryView:
+- Collapsed: title + param pills (Level, Duration, Type, Focus) + color accent
+- Expanded: full params table + block timeline (slot label colored by type: WARM-UP=gold, MAIN=red, FINISHER=orange, COOL-DOWN=teal, REST/RECOVERY=dim) + drill list with name, mins, notes, RI tag
+Use ExpandableCard pattern / .expand-card class. Language-aware: KUMITE_SESSIONS[LANG].
+
+STEP 4: VERIFY ROUTE — Confirm Session Library route from Sport Kumite hub tile points to new view.
+
+STEP 5: VERIFY — Print: sessions (5+5), total blocks, total drill refs, route confirmation, file size.
+
+Footer: Wado-Ryū Handbook v62 · AWIKP (EN+PT)
+
+CLEANUP: Delete script + old HTML version. try/finally.` + CLEANUP_SINGLE }]
+  },
+  {
+    id: "13c", name: "Phase 13C — Homepage Restructure + Hero Upgrade", desc: "v63: Wado-Ryū Syllabus section, Physical Conditioning section, hero glow + divider", version: "v63",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "13c-1", title: "13C: v63 — Homepage Restructure + Hero Upgrade", done: false, text: `⛔ MANDATORY: Do NOT read the HTML into context. Do NOT use cat/view/grep on the HTML. Write ONE Python script — one read, all edits in memory, one write. If output < 95% of input size, ERROR and exit.
+
+TARGET FILE: karate-handbook-v62.html → karate-handbook-v63.html
+
+STEP 1: HOMEPAGE SECTION RESTRUCTURE
+1a. Rename technique section label: EN "WADO-RYŪ SYLLABUS" / PT "SYLLABUS WADO-RYŪ"
+1b. Move Weapons & Defence tile into that section (after Kumite Forms)
+1c. Create new section after Sport Kumite: EN "PHYSICAL CONDITIONING" / PT "CONDICIONAMENTO FÍSICO", accent var(--accent-teal)
+1d. Move Strength & Mobility tile into new section. Remove old container if empty.
+Verify: count sections, count tiles per section, no lost/duplicated tiles.
+
+STEP 2: HOMEPAGE HERO UPGRADE
+2a. Logo size → 80-96px (up from ~48-60px)
+2b. Title font-size → clamp(2.5rem, 5vw, 3.5rem), weight 800
+2c. Subtitle → DM Sans (not Space Mono), font-size var(--text-base), color var(--text-secondary)
+2d. Pulsing glow: add @keyframes pulse-glow { 0%,100% { filter:drop-shadow(0 0 20px rgba(255,25,67,0.3)) } 50% { filter:drop-shadow(0 0 40px rgba(255,25,67,0.6)) } } on red circle, animation: pulse-glow 3s ease-in-out infinite
+2e. Hero padding: 5rem top, 4rem bottom
+2f. Gradient divider after hero: .hero-divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-red),transparent); margin:0 auto; max-width:60% }
+
+STEP 3: VERIFY — Print: section count + tiles per section, hero logo size, title font-size, pulse-glow in CSS, divider element, file size.
+
+Footer: Wado-Ryū Handbook v63 · AWIKP (EN+PT)
+
+CLEANUP: Delete script + old HTML version. try/finally.` + CLEANUP_SINGLE }]
+  },
+  {
+    id: "13d", name: "Phase 13D — Subpage Heroes + Grid Fixes", desc: "v64: S&M + Sport Kumite hero sections, 2×2 grids, stat summaries", version: "v64",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "13d-1", title: "13D: v64 — Subpage Heroes + Grid Fixes", done: false, text: `⛔ MANDATORY: Do NOT read the HTML into context. Do NOT use cat/view/grep on the HTML. Write ONE Python script — one read, all edits in memory, one write. If output < 95% of input size, ERROR and exit.
+
+TARGET FILE: karate-handbook-v63.html → karate-handbook-v64.html
+
+STEP 1: STRENGTH & MOBILITY HERO + 2×2 GRID
+Find StrengthMobilityPage component. Add hero section before tiles:
+- Title: EN "Strength & Mobility" / PT "Força & Mobilidade"
+- Subtitle: EN "Structured training to prevent injuries, build athletic capacity, and improve karate performance. Exercises for strength, mobility, sport-specific movement, and warm-up preparation." / PT equivalent
+- Stats: EN "69 exercises · 23 patterns · 10 body zones · 3 levels" / PT equivalent
+- Hero divider (reuse .hero-divider from v63)
+Fix tile grid: grid-template-columns: repeat(2, 1fr). Single column <600px.
+
+STEP 2: SPORT KUMITE HERO
+Find SportKumiteHub component. Same hero pattern:
+- Title: EN "Sport Kumite" / PT "Kumite Desportivo"
+- Subtitle: EN "WKF kumite drills, structured training sessions, and competition resources for athletes and coaches." / PT equivalent
+- Stats: EN "88 drills · 5 sessions · 5 categories · 3 levels" / PT equivalent
+- Hero divider. Balanced tile grid.
+
+STEP 3: ADD CSS — .subpage-hero { text-align:center; padding:3rem 1rem 2rem } .subpage-hero-subtitle { font-family:'DM Sans',sans-serif; font-size:var(--text-base,1rem); color:var(--text-secondary); line-height:1.7; max-width:600px; margin:1rem auto 0 } .subpage-hero-stats { font-family:'Space Mono',monospace; font-size:var(--text-xs,0.75rem); color:var(--text-muted); letter-spacing:0.05em; margin-top:1rem }
+
+STEP 4: REMOVE OLD TITLE/BACK — Replace old standalone title + back link in both pages with back link inside hero.
+
+STEP 5: VERIFY — Print: hero found in both pages, grid columns, tile counts, CSS classes, file size.
+
+Footer: Wado-Ryū Handbook v64 · AWIKP (EN+PT)
+
+CLEANUP: Delete script + old HTML version. try/finally.` + CLEANUP_SINGLE }]
+  },
+  {
+    id: "tbd", name: "Phase TBD — PWA + Android App", desc: "Service worker, manifest, APK wrapper — future", version: "TBD",
+    status: "todo", accent: "var(--ghost)",
+    prompts: [{ id: "tbd-1", title: "TBD: PWA + Android Wrapper", done: false, text: "Future: manifest.json, service worker, app icons, offline caching. Host on GitHub Pages. PWABuilder -> TWA APK. Package: com.awikp.wadoryu.handbook." }]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE & RENDERING (unchanged logic, preserved localStorage)
+// ═══════════════════════════════════════════════════════════════
+let state = JSON.parse(localStorage.getItem('karate-tracker') || '{}');
+
+function saveState() {
+  localStorage.setItem('karate-tracker', JSON.stringify(state));
+}
+
+function isPromptDone(id) {
+  if (state[id] !== undefined) return state[id];
+  const phase = PHASES.find(p => p.prompts.some(pr => pr.id === id));
+  const prompt = phase?.prompts.find(pr => pr.id === id);
+  return prompt?.done || false;
+}
+
+function togglePrompt(id) {
+  state[id] = !isPromptDone(id);
+  saveState();
+  render();
+}
+
+function getStats() {
+  let total = 0, done = 0;
+  PHASES.forEach(p => p.prompts.forEach(pr => {
+    total++;
+    if (isPromptDone(pr.id)) done++;
+  }));
+  const lastDone = [...PHASES].reverse().find(p => p.prompts.every(pr => isPromptDone(pr.id)));
+  const version = lastDone ? lastDone.version : 'v60';
+  return { total, done, remaining: total - done, version };
+}
+
+function getPhaseStatus(phase) {
+  const allDone = phase.prompts.every(pr => isPromptDone(pr.id));
+  const anyDone = phase.prompts.some(pr => isPromptDone(pr.id));
+  if (allDone) return 'done';
+  if (anyDone) return 'active';
+  const idx = PHASES.indexOf(phase);
+  if (idx > 0) {
+    const prev = PHASES[idx - 1];
+    if (prev.prompts.every(pr => isPromptDone(pr.id))) return 'active';
+  }
+  return 'todo';
+}
+
+let openPhase = null;
+let openPrompts = {};
+
+function copyText(text, btnEl) {
+  navigator.clipboard.writeText(text).then(() => {
+    btnEl.classList.add('copied');
+    btnEl.textContent = '✓ COPIED';
+    setTimeout(() => {
+      btnEl.classList.remove('copied');
+      btnEl.textContent = '📋 COPY PROMPT';
+    }, 2000);
+  });
+}
+
+function render() {
+  const stats = getStats();
+  document.getElementById('done-count').textContent = stats.done;
+  document.getElementById('remaining-count').textContent = stats.remaining;
+  document.getElementById('version-count').textContent = stats.version;
+  document.getElementById('progress-fill').style.width = (stats.total ? (stats.done / stats.total * 100) : 0) + '%';
+
+  const container = document.getElementById('phases-container');
+  let html = '';
+  let lastSection = '';
+
+  PHASES.forEach((phase, pi) => {
+    const status = getPhaseStatus(phase);
+    const section = (phase.id.match(/^\d+/) || [phase.id.charAt(0)])[0];
+    const sectionLabels = { '0': 'ARCHITECTURE', '1': 'CORE REFERENCE', '2': 'KUMITE FORMS', '3': 'ADVANCED & WEAPONS', '4': 'IDENTITY & KNOWLEDGE', '5': 'POLISH', '6': 'VISUAL REDESIGN', '7': 'DESIGN OVERHAUL + WKF RULES', '8': 'PORTUGUESE TRANSLATION', '9': 'KATA VIDEOS', '10': 'RESTRUCTURING + UI REFACTOR', '12': 'CSS CONSOLIDATION', '13': 'CONTENT + LAYOUT REFRESH' };
+    if (section !== lastSection) {
+      html += `<div class="section-label">${sectionLabels[section] || ''}</div>`;
+      lastSection = section;
+    }
+
+    const isOpen = openPhase === phase.id;
+    const badgeClass = status === 'done' ? 'badge-done' : status === 'active' ? 'badge-active' : 'badge-todo';
+    const badgeText = status === 'done' ? '✓ DONE' : status === 'active' ? 'ACTIVE' : 'TODO';
+    const borderColor = status === 'done' ? 'var(--teal)' : status === 'active' ? 'var(--red)' : 'var(--border)';
+
+    html += `<div class="phase">`;
+    html += `<div class="phase-header ${status === 'done' ? 'done' : ''}" onclick="openPhase=openPhase==='${phase.id}'?null:'${phase.id}';render()" style="border-left:4px solid ${borderColor}">`;
+    html += `<div class="phase-info"><div class="phase-name">${phase.name}</div><div class="phase-desc">${phase.desc}</div></div>`;
+    html += `<span class="phase-badge ${badgeClass}">${badgeText}</span>`;
+    html += `<span class="phase-chevron ${isOpen ? 'open' : ''}">›</span>`;
+    html += `</div>`;
+    html += `<div class="prompts ${isOpen ? 'open' : ''}">`;
+
+    phase.prompts.forEach(pr => {
+      const done = isPromptDone(pr.id);
+      const bodyOpen = openPrompts[pr.id];
+      html += `<div class="prompt">`;
+      html += `<div class="prompt-header">`;
+      html += `<div class="prompt-check ${done ? 'checked' : ''}" onclick="event.stopPropagation();togglePrompt('${pr.id}')"></div>`;
+      html += `<span class="prompt-title ${done ? 'checked' : ''}">${pr.title}</span>`;
+      html += `<button class="prompt-expand" onclick="event.stopPropagation();openPrompts['${pr.id}']=!openPrompts['${pr.id}'];render()">SHOW</button>`;
+      html += `</div>`;
+      html += `<div class="prompt-body ${bodyOpen ? 'open' : ''}">`;
+      html += `<div class="prompt-text">${pr.text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+      html += `<button class="copy-btn" onclick="copyText(this.parentElement.querySelector('.prompt-text').textContent,this)">📋 COPY PROMPT</button>`;
+      html += `</div></div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>

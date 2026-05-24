@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exercise Compendium — Coach Pedro Miguel</title>
+<style>
+  :root{--red:#c8102e;--ink:#141414;--paper:#fff;--soft:#f6f6f7;--line:#e3e3e6;--muted:#76767a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--paper);line-height:1.55;}
+  header.top{background:var(--ink);color:#fff;padding:14px 26px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:13px;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  header.top .mark{width:30px;height:30px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--red);}
+  header.top h1{font-size:16px;font-weight:600;margin:0;letter-spacing:.4px;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+  .hero{text-align:center;padding:50px 20px 12px;}
+  .hero h2{font-size:clamp(30px,5vw,52px);font-weight:400;letter-spacing:2px;margin:0;}
+  .hero .rule{width:min(420px,80%);height:6px;background:var(--red);margin:16px auto 0;}
+  .intro{max-width:680px;margin:22px auto 0;font-size:15px;color:#333;text-align:left;}
+  .intro p{margin:8px 0;}
+  .about{max-width:700px;margin:28px auto 0;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:8px;background:var(--soft);padding:20px 26px;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  .about h3{margin:0 0 6px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--red);}
+  .about dl{margin:0;}
+  .about dt{font-weight:700;font-size:13px;margin-top:13px;color:var(--ink);}
+  .about dd{margin:3px 0 0;font-size:13.5px;color:#333;line-height:1.55;}
+  .about .stamp{font-size:11.5px;color:var(--muted);margin:15px 0 0;}
+  .toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;margin:30px 0;padding:20px 24px;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  .toc h3{margin:0 0 10px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--red);}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;font-size:13px;color:#333;text-decoration:none;}
+  .toc a:hover{color:var(--red);}
+  .section-divider{background:var(--ink);color:#fff;text-align:center;font-size:22px;letter-spacing:3px;text-transform:uppercase;padding:18px;margin:48px 0 0;font-weight:600;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  .chapter{padding:26px 0 6px;border-bottom:1px solid var(--line);}
+  .chapter > h2{font-size:27px;color:var(--red);margin:0 0 2px;}
+  .chapter .src{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-family:'Segoe UI',Roboto,Arial,sans-serif;margin-bottom:14px;}
+  .chapter .lead{font-size:14.5px;color:#444;margin:10px 0 16px;}
+  h3.grp{font-family:'Segoe UI',Roboto,Arial,sans-serif;background:var(--red);color:#fff;font-size:13px;font-weight:600;letter-spacing:.5px;padding:6px 12px;margin:20px 0 12px;text-transform:uppercase;}
+  h4.sub{font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#222;margin:16px 0 8px;border-bottom:1px solid var(--line);padding-bottom:3px;}
+  .ex{margin:0 0 11px;padding-left:14px;border-left:2px solid var(--line);}
+  .ex .n{font-weight:700;}
+  .ex .pt{color:var(--muted);font-style:italic;font-size:13px;}
+  .ex p{margin:3px 0 0;font-size:14.5px;}
+  .note{font-size:13.5px;color:var(--muted);font-style:italic;}
+  .totop{display:inline-block;margin:6px 0 18px;font-size:12px;color:var(--muted);text-decoration:none;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+  footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:40px;font-family:'Segoe UI',Roboto,Arial,sans-serif;}
+</style>
+</head>
+<body>
+<a id="top"></a>
+<header class="top">
+  <div class="mark">PM</div>
+  <h1>Exercise Compendium &mdash; Coach Pedro Miguel</h1>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h2>EXERCISE COMPENDIUM</h2>
+    <div class="rule"></div>
+  </div>
+  <section class="about">
+    <h3>About This Document</h3>
+    <dl>
+      <dt>What this is</dt>
+      <dd>An English-language reference compendium of every exercise catalogued on the training
+      website of Coach Pedro Miguel, a Portuguese karate and physical-preparation coach. It
+      gathers <strong>544 exercises</strong> spanning physical capacities, performance, movement
+      preparation, general training and karate technique &mdash; consolidated into 442 entries,
+      with closely related variants grouped under a single heading. It is a companion to the
+      full local site mirror (<em>index.html</em>) held in the same folder.</dd>
+
+      <dt>Where it came from</dt>
+      <dd>The source is the coach's own website, <em>sites.google.com/view/coachpedromiguel</em>
+      &mdash; a Portuguese-language Google Sites site organised entirely around demonstration
+      videos. It was accessed and reproduced with the owner's consent, for personal study.
+      This document keeps the site's original section structure.</dd>
+
+      <dt>How we got here</dt>
+      <dd>The full 57-page site was crawled and mirrored locally. Because every exercise on the
+      site is presented as a video, the <strong>video captions</strong> &mdash; not the
+      surrounding theory text &mdash; were used as the definitive exercise list: an earlier
+      text-only extraction was discarded because, in plain text, exercise names and theory
+      headings are indistinguishable. The site was then re-scanned video-by-video to produce
+      an accurate list, each name was translated from Portuguese to English, and, where the
+      movement could be identified, elaborated with a short note on execution and training
+      purpose.</dd>
+
+      <dt>Reading the elaborations</dt>
+      <dd>Strength, conditioning and standard physical-preparation movements carry full
+      elaboration. Karate techniques include translation of the Japanese terms. The coach's
+      own bespoke drills (cone, hoop, foam-roller and partner work) are translated with a
+      functional note on the quality they develop &mdash; inferred from the exercise name, so
+      worth checking against the original videos as the compendium is edited. Pages that
+      contain only theory (e.g. LTAD, Motor Skills, Energy Systems) are listed but flagged
+      as having no catalogued exercises.</dd>
+    </dl>
+    <p class="stamp">Compiled 21 May 2026 from the local site mirror &mdash; personal use.</p>
+  </section>
+
+  <nav class="toc">
+    <h3>Contents</h3>
+    <a href="#sec-capacidades">Physical Capacities</a>
+    <a href="#sec-performance">Performance</a>
+    <a href="#sec-pillar">Pillar Prep</a>
+    <a href="#sec-treino">Training</a>
+    <a href="#sec-tecnico">Technical (Karate)</a>
+    <a href="#sec-varios">Miscellaneous</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+<div class="section-divider" id="sec-capacidades">Physical Capacities</div>
+
+<div class="chapter" id="ch-coordenacao">
+  <h2>Coordination</h2>
+  <div class="src">Capacidades / Coordenação &mdash; 24 exercises</div>
+  <p class="lead">Drills organised by Bernstein's "levels of movement construction" &mdash;
+  tone, space, synergies and action &mdash; progressing from postural control to complex,
+  reactive movement.</p>
+
+  <h3 class="grp">Postural Organisation &mdash; "Level of Tonus"</h3>
+  <div class="ex"><span class="n">Plank with Reach (Partners)</span> <span class="pt">Prancha com Reach</span><p>From a forearm or high plank, the athlete extends one hand to touch a point cued by a partner. Trains anti-rotation core control and shoulder stability under unpredictable demand.</p></div>
+  <div class="ex"><span class="n">Two-Point Plank with Reach (Partners)</span> <span class="pt">Prancha 2 apoios com Reach</span><p>The same reach drill performed on only two contact points (e.g. one hand, one foot), sharply increasing the anti-rotation and balance challenge.</p></div>
+  <div class="ex"><span class="n">Plank with Rotation and Reach (Partners)</span> <span class="pt">Prancha com Rotação e Reach</span><p>Plank reach combined with a controlled trunk rotation, integrating rotary mobility with core stability.</p></div>
+  <div class="ex"><span class="n">Lunge with Rotational Chop</span> <span class="pt">Lunge Rotational Chop</span><p>A split-stance lunge paired with a diagonal "chop" of a ball or cable across the body. Links lower-body stability to trunk rotation and teaches force transfer through the core.</p></div>
+  <div class="ex"><span class="n">Bear Position &mdash; Alternating Tennis-Ball Hit</span> <span class="pt">Bear - Bater bola Tenis Intercalado</span><p>In the bear hold (hands and toes down, knees hovering just off the floor), the athlete alternately strikes a tennis ball. Builds shoulder stability and limb coordination under an isometric core load.</p></div>
+  <div class="ex"><span class="n">Bear Position &mdash; Catch Tennis Ball</span> <span class="pt">Bear - Agarrar bola Tenis</span><p>Bear-hold catching of a tossed tennis ball, adding a reactive grasp to the stability demand.</p></div>
+  <div class="ex"><span class="n">Plank &mdash; Touch the Cones</span> <span class="pt">Prancha - Tocar nos Pinos</span><p>From a plank, reaching to touch coloured cones placed around the hands. Variations: vary the number of colours, or assign a number to each cone for a cognitive load.</p></div>
+  <div class="ex"><span class="n">Bear Position &mdash; Alternating Tennis-Ball Catch</span> <span class="pt">Bear - Agarrar bola Tenis Intercalado</span><p>Alternating-hand ball catching from the bear hold; combines reaction, grip and contralateral coordination.</p></div>
+
+  <h3 class="grp">Precision Movements in Context &mdash; "Level of Space"</h3>
+  <div class="ex"><span class="n">Ball Control &mdash; Manual and Foot Dexterity</span> <span class="pt">Controlo da Bola - Destreza Manual e Pedal</span><p>Manipulating a ball with hands and feet. Variations: touch freely; limit the number of touches; keep the ball within a set area.</p></div>
+  <div class="ex"><span class="n">Diagonal Single-Leg Jump</span> <span class="pt">Salto Unilateral Diagonal</span><p>Hopping diagonally on one leg between targets &mdash; develops single-leg control and spatial accuracy.</p></div>
+
+  <h3 class="grp">Poly-Articular Synergies &mdash; "Level of Synergies"</h3>
+  <div class="ex"><span class="n">Motor-Challenge Circuit (Youth, July 2021)</span> <span class="pt">Coordenação - Desafio Motor</span><p>A recorded session: moving through an agility ladder while simultaneously controlling a ball &mdash; dual-task coordination.</p></div>
+  <div class="ex"><span class="n">Team Coordination &mdash; Basic Exercises</span> <span class="pt">Coordenação em equipa</span><p>Partner/group sequences such as jump forward + jump back + roll + plank, and rolling right then left &mdash; coordination under a shared rhythm.</p></div>
+  <div class="ex"><span class="n">Crawl and Move a Medicine Ball</span> <span class="pt">Gatinhar e Mover Bola Medicinal</span><p>Quadrupedal crawling while displacing a medicine ball; cross-body coordination with an added load.</p></div>
+
+  <h3 class="grp">Locomotion</h3>
+  <div class="ex"><span class="n">Animal Locomotion &mdash; Compilation</span> <span class="pt">Locomoção Animais</span><p>A compiled set of animal-pattern movements (bear, crab, etc.) used as a locomotion vocabulary.</p></div>
+  <div class="ex"><span class="n">Crawl Between Cones</span> <span class="pt">Gatinhar entre cones</span><p>Quadrupedal crawling weaving through cones; coordination, shoulder load and spatial control.</p></div>
+  <div class="ex"><span class="n">Crawl Between Cones &mdash; Forward and Back</span> <span class="pt">Gatinhar entre cones avançar recuar</span><p>The same crawl adding direction changes forward and backward.</p></div>
+  <div class="ex"><span class="n">Inchworm</span> <span class="pt">Minhoca</span><p>From standing, walking the hands out to a plank and the feet back in &mdash; posterior-chain mobility plus shoulder/core control.</p></div>
+  <div class="ex"><span class="n">Bunny Hop over Obstacle</span> <span class="pt">Salto coelho Obstáculo</span><p>Two-hands-then-two-feet "bunny" jump clearing a low obstacle; gymnastic locomotion and arm support strength.</p></div>
+  <div class="ex"><span class="n">Zig-Zag Crawl</span> <span class="pt">Gatinhar em Zig Zag</span><p>Crawling along a zig-zag path; coordination with continual direction change.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Multidirectional Jump, 4 Directions</span> <span class="pt">Arco - Salto multidirecional 4 direções</span><p>Jumping in and out of a hoop to the four cardinal directions &mdash; footwork, rhythm and reactive foot placement.</p></div>
+  <div class="ex"><span class="n">Six Jumps on the Foam Rollers, Guard Switch, Staggered</span> <span class="pt">Seis saltos nos chouriços com troca de guarda</span><p>A sequence of jumps across staggered foam rollers ("chouriços") while switching fighting stance &mdash; karate-specific footwork balance.</p></div>
+  <div class="ex"><span class="n">Weave Cones Zig-Zag &mdash; Hopping</span> <span class="pt">Contornar Pinos Zig Zag - Pé Coxinho</span><p>Single-leg hopping in a zig-zag around cones; ankle/knee control and lateral coordination.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Centre and Back, Feet Together</span> <span class="pt">Arco - centro e atras - pes juntos</span><p>One of a family of hoop footwork drills: feet-together jumps between the hoop centre and behind it.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Centre, Open and Close 3&times;, Switch</span> <span class="pt">Arco - centro, abre e fecha 3x, troca</span><p>Hoop footwork: three open-close jumps then a switch &mdash; rhythm and patterned foot placement.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Centre, Open and Close</span> <span class="pt">Arco - centro, abre e fecha</span><p>Basic open-close jump pattern in and around the hoop.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Centre, Front and Back, Feet Together</span> <span class="pt">Arco - centro, frente e atras - pes juntos</span><p>Feet-together jumps cycling centre / front / back of the hoop.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Front and Back, Opening at Centre</span> <span class="pt">Arco - Frente e atrás abrir no centro</span><p>Front-back travel with an open-stance landing at the hoop centre.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Hopping, Jump to the Side</span> <span class="pt">Arco - Pe coxinho - saltar na lateral</span><p>Single-leg hopping with lateral jumps relative to the hoop.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Feet Together, Jump to the Side</span> <span class="pt">Arco - Pes juntos - saltar na lateral</span><p>Two-footed lateral jumping around the hoop.</p></div>
+  <div class="ex"><span class="n">Hoop &mdash; Centre, Open, Close, Back</span> <span class="pt">Arco - Centro, abre, fecha, atras</span><p>A four-beat hoop footwork pattern combining stance changes with travel.</p></div>
+
+  <h3 class="grp">Complex Movements &mdash; "Level of Action"</h3>
+  <div class="ex"><span class="n">Shoulder Press &mdash; Perception and Action (Partners)</span> <span class="pt">Press Ombro - Perceção e Ação</span><p>A multidirectional shoulder press in which direction is dictated reactively by a partner &mdash; strength expressed under a decision-making demand.</p></div>
+  <div class="ex"><span class="n">Form a Shape Quickly Between Two Cones</span> <span class="pt">Realiza uma figura rapidamente entre 2 cones</span><p>Reactive task: rapidly assemble a body shape or pattern in the space between two cones.</p></div>
+  <div class="ex"><span class="n">Medicine-Ball Squat &mdash; Motor Control</span> <span class="pt">Agachamento Bola Medicinal - Controlo Motor</span><p>A squat holding/moving a medicine ball, emphasising controlled movement quality over load.</p></div>
+  <div class="ex"><span class="n">Catch a Moving Object &mdash; Perception and Action (Partners)</span> <span class="pt">Apanhar objecto em movimento</span><p>Intercepting and catching a moving object fed by a partner; couples reaction and motor control.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-equilibrio">
+  <h2>Balance</h2>
+  <div class="src">Capacidades / Equilíbrio &mdash; 19 exercises</div>
+  <p class="lead">Static and dynamic balance, much of it expressed through karate stances and kicks performed under destabilising conditions.</p>
+  <div class="ex"><span class="n">Hold the Partner's Leg (v2)</span> <span class="pt">Equilíbrio - Segurar a perna ao outro</span><p>One partner holds the other's raised leg; the standing athlete maintains balance and may reach to touch the partner. Single-leg stability under perturbation.</p></div>
+  <div class="ex"><span class="n">Rooster Fight</span> <span class="pt">Polinhos de Galo</span><p>A balance game: two athletes try to unbalance each other and force a loss of footing. Reactive single-leg balance and core control.</p></div>
+  <div class="ex"><span class="n">Curl-Up to Knee Drive</span> <span class="pt">Enrolamento e subida joelho</span><p>Rolling up from the floor to a balanced stand with a driven knee &mdash; transitional balance and trunk control.</p></div>
+  <div class="ex"><span class="n">Jump into Hoops with Knee Stability</span> <span class="pt">Saltar para os arcos com estabilidade do Joelho</span><p>Jumping to land inside hoops with emphasis on a stable, aligned knee on landing &mdash; landing mechanics and joint control.</p></div>
+  <div class="ex"><span class="n">Half-Pirouette Advancing with Hoop</span> <span class="pt">Meia pirueta em avanço com arco</span><p>A half-turn performed while advancing through a hoop; rotational balance and spatial orientation.</p></div>
+  <div class="ex"><span class="n">Walk Across Four Foam Rollers</span> <span class="pt">Caminhar sobre quatro chouriços</span><p>Walking along a line of unstable foam rollers &mdash; dynamic balance on a narrow, compliant surface.</p></div>
+  <div class="ex"><span class="n">Squat to Shiko Dachi, Knee to Shoulder (L &amp; R)</span> <span class="pt">Agachamento saída para shiko dashi e subida joelho ao ombro</span><p>From a squat, exiting into the wide horse-straddle stance (Shiko Dachi), then driving the knee up toward the shoulder on each side.</p></div>
+  <div class="ex"><span class="n">Squat to Shiko Dachi, Knee to Shoulder + Yoko Geri</span> <span class="pt">...+ yoko geri</span><p>The same sequence finished with a side kick (Yoko Geri) &mdash; balance through a full kicking action.</p></div>
+  <div class="ex"><span class="n">On the Bag &mdash; Mae Geri and Yoko Geri</span> <span class="pt">Em cima do saco mae geri e yoko geri</span><p>Front and side kicks executed while balancing on top of a bag &mdash; extreme single-leg stability demand.</p></div>
+  <div class="ex"><span class="n">On the Bag &mdash; Mae, Yoko and Ushiro Geri</span> <span class="pt">Cima do saco mae geri, yoko e ushiro geri</span><p>Front, side and back kicks chained while balancing on a bag.</p></div>
+  <div class="ex"><span class="n">Kamae &mdash; Lift Knee, Rotate Front to Mawashi Position</span> <span class="pt">Kamae levantar o joelho roda pela frente</span><p>From fighting stance (Kamae), lifting the knee and rotating through the front into the chambered roundhouse-kick position.</p></div>
+  <div class="ex"><span class="n">Zenkutsu Dachi on the Bags with Mae Geri</span> <span class="pt">Zenkutsu Dashi nos sacos com Mae Geri</span><p>Front-stance work on unstable bags finished with a front kick.</p></div>
+  <div class="ex"><span class="n">Trampoline &mdash; Single-Leg Jump and Stabilise</span> <span class="pt">Trampolim numa só perna salta e estabiliza</span><p>Jumping on a trampoline on one leg and sticking the landing without the other foot touching down (knee bent). Scored on landing quality.</p></div>
+  <div class="ex"><span class="n">Retreat Switching Leg to Mawashi Geri Position</span> <span class="pt">Recua a trocar a perna para a posição de mawashi geri</span><p>Stepping back while switching legs into the chambered roundhouse position &mdash; four retreating movements with a kick executed (knee kept bent).</p></div>
+  <div class="ex"><span class="n">Throw Ball on Unstable Platform</span> <span class="pt">Atirar bola em plataforma instavel</span><p>Medicine-ball passing with a partner while standing on an unstable surface &mdash; balance under an upper-body task.</p></div>
+  <div class="ex"><span class="n">Single-Leg Stand &mdash; Touch Cone (stance-leg side)</span> <span class="pt">Tocar no pino em pé coxinho (lado da perna)</span><p>Standing on one leg, reaching to touch a cone placed diagonally toward the support leg. Good knee-stabiliser work.</p></div>
+  <div class="ex"><span class="n">Single-Leg Stand &mdash; Touch Cone (opposite side)</span> <span class="pt">Tocar no pino em pé coxinho (lado oposto perna)</span><p>The same drill reaching to the side opposite the support leg, increasing the balance challenge.</p></div>
+  <div class="ex"><span class="n">Touch Cone &mdash; Airplane</span> <span class="pt">Tocar no pino - Avião</span><p>A single-leg "airplane"/arabesque reach to touch a cone &mdash; hip-hinge balance and posterior-chain control.</p></div>
+  <div class="ex"><span class="n">Single-Leg Stand &mdash; 8 Directions</span> <span class="pt">Pé coxinho - 8 direcções</span><p>Touching the toe to the floor in eight directions while balancing on one leg, keeping the body facing front throughout.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-flexibilidade">
+  <h2>Flexibility</h2>
+  <div class="src">Capacidades / Flexibilidade &mdash; 14 exercises</div>
+  <p class="lead">Active and passive flexibility work, oriented toward the wide stances and high kicks of karate.</p>
+  <h3 class="grp">Active (Static or Dynamic)</h3>
+  <div class="ex"><span class="n">Shiko Dachi Position on the Floor</span> <span class="pt">Posição de Shiko Dachi no chão</span><p>Holding the wide horse-straddle stance at floor level to open the hips and adductors.</p></div>
+  <div class="ex"><span class="n">Front and Side Flexibility with Ball</span> <span class="pt">Flexibilidade frontal e lateral com bola</span><p>Using a ball as a reach target to drive front and side splits range.</p></div>
+  <div class="ex"><span class="n">Dynamic Split &mdash; Open and Close Legs</span> <span class="pt">Flexibilidade Dinâmica abrir e fechar pernas</span><p>Rhythmic opening and closing of the legs toward a split &mdash; dynamic adductor mobility.</p></div>
+  <div class="ex"><span class="n">Dynamic Split with Backward Roll</span> <span class="pt">Flexibilidade Dinâmica com rolamento atrás</span><p>A split entered dynamically out of a backward roll, combining mobility with gymnastic flow.</p></div>
+  <div class="ex"><span class="n">Raise Straight Leg to Ball (overhead)</span> <span class="pt">Elevar perna esticada à bola</span><p>Lifting a straight leg to a ball held above head height &mdash; active hamstring/hip-flexor range for high kicks.</p></div>
+  <div class="ex"><span class="n">Ring (Backbend)</span> <span class="pt">Anel</span><p>A "ring"-shaped backbend &mdash; spinal extension and shoulder/hip-flexor flexibility.</p></div>
+  <h3 class="grp">Passive</h3>
+  <div class="ex"><span class="n">Partner Flexibility &mdash; Legs Apart / Split</span> <span class="pt">Flexibilidade Pares Pernas Afastadas</span><p>Partner-assisted straddle-split stretch.</p></div>
+  <div class="ex"><span class="n">Partner Flexibility &mdash; Legs Together</span> <span class="pt">Flexibilidade Pares Pernas Juntas</span><p>Partner-assisted seated forward-fold (legs together) for hamstrings.</p></div>
+  <div class="ex"><span class="n">Shiko Dachi &mdash; Belt Pull (Partners)</span> <span class="pt">Shiko Dachi - Puxar cinto - Pares</span><p>Partner uses a belt to deepen the horse-straddle stance &mdash; assisted adductor and hip stretch.</p></div>
+  <div class="ex"><span class="n">Unilateral Hip Flexibility &mdash; A</span> <span class="pt">Flexibilidade Unilateral Quadril - A</span><p>First of a three-part progression of single-side hip-opening stretches.</p></div>
+  <div class="ex"><span class="n">Unilateral Hip Flexibility &mdash; B</span> <span class="pt">Flexibilidade Unilateral Quadril - B</span><p>Second progression, increasing depth/range.</p></div>
+  <div class="ex"><span class="n">Unilateral Hip Flexibility &mdash; C</span> <span class="pt">Flexibilidade Unilateral Quadril - C</span><p>Third and deepest progression of the single-side hip series.</p></div>
+  <div class="ex"><span class="n">Static Front Split (with Plastron)</span> <span class="pt">Espargata Frontal estática</span><p>Holding a front split, using a plastron/pad for support &mdash; passive hamstring and hip-flexor lengthening.</p></div>
+  <h3 class="grp">Various</h3>
+  <div class="ex"><span class="n">Flexibility Routine</span> <span class="pt">Victoria - Rotina de Flexibilidade</span><p>A complete demonstrated flexibility routine for general use.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-ltad">
+  <h2>LTAD &mdash; Long-Term Athlete Development</h2>
+  <div class="src">Capacidades / LTAD</div>
+  <p class="note">A theory chapter on long-term athlete development &mdash; pre/post-pubertal training, coordination, strength, power and plyometric progressions. No catalogued exercises; conceptual content only.</p>
+</div>
+
+<div class="chapter" id="ch-motricidade">
+  <h2>Motor Skills</h2>
+  <div class="src">Capacidades / Motricidade</div>
+  <p class="note">A theory chapter on motor development, fundamental motor skills and motor learning. No catalogued exercises; conceptual content only.</p>
+</div>
+
+<div class="chapter" id="ch-reaccao">
+  <h2>Reaction</h2>
+  <div class="src">Capacidades / Reacção &mdash; 3 exercises</div>
+  <div class="ex"><span class="n">Catch Tennis Balls</span> <span class="pt">Agarrar Bolas de Ténis</span><p>Reacting to and catching dropped or thrown tennis balls &mdash; visual reaction and grasp speed.</p></div>
+  <div class="ex"><span class="n">Catch Tennis Balls with Movement (Partners)</span> <span class="pt">Agarrar Bolas de Ténis com Deslocação</span><p>Catching while moving; the ball may bounce only once. Adds footwork to the reaction task.</p></div>
+  <div class="ex"><span class="n">Catch Tennis Ball + Arm Strike (Partners)</span> <span class="pt">Agarrar Bola Ténis + Ataque Braço</span><p>Catch a ball then immediately deliver an arm strike &mdash; trains focus, body organisation after the catch, and post-catch decision-making.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="section-divider" id="sec-performance">Performance</div>
+
+<div class="chapter" id="ch-analise">
+  <h2>Analysis &amp; Assessment</h2>
+  <div class="src">Performance / Análise e Avaliação &mdash; 4 tests</div>
+  <p class="lead">Field tests used to profile the athlete and set success criteria.</p>
+  <div class="ex"><span class="n">Lower-Body Power Test</span> <span class="pt">Potência dos Membros Inferiores</span><p>A jump-based assessment (e.g. countermovement or horizontal jump) used to quantify lower-limb power.</p></div>
+  <div class="ex"><span class="n">Cardiovascular Endurance Test</span> <span class="pt">Resistência Cardiovascular</span><p>A field test of aerobic capacity.</p></div>
+  <div class="ex"><span class="n">Push-Up Test (FitEscola)</span> <span class="pt">Flexões de Braços - Fit Escola</span><p>Standardised push-up test from the Portuguese FitEscola battery &mdash; upper-body muscular endurance.</p></div>
+  <div class="ex"><span class="n">Core Endurance Test</span> <span class="pt">Resistência do Core</span><p>A timed trunk-endurance assessment (plank-type hold).</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-forca">
+  <h2>Strength &amp; Power</h2>
+  <div class="src">Performance / Força &amp; Potência</div>
+  <p class="lead">The strength-and-power hub. Exercises are classified as primary, auxiliary or accessory; power work is split into ballistic, accommodating-resistance and assisted methods.</p>
+  <h3 class="grp">Strength &mdash; Sample Session</h3>
+  <div class="ex"><span class="n">Strength &mdash; Lower Body A (recorded session)</span> <span class="pt">Força - Lower Body A</span><p>A recorded example of a lower-body strength session used as a programming template.</p></div>
+  <h3 class="grp">Olympic Derivatives</h3>
+  <div class="ex"><span class="n">Clean Pull</span> <span class="pt">Clean Pull</span><p>The pulling portion of the power clean &mdash; the bar is accelerated explosively from the floor with a powerful triple extension of ankles, knees and hips, without the catch. A safe, high-value way to train rate of force development.</p></div>
+  <div class="ex"><span class="n">Push Press</span> <span class="pt">Push Press</span><p>An overhead press driven by a short dip-and-drive of the legs. Trains whole-body power transfer from the lower body through a rigid trunk to the bar.</p></div>
+  <h3 class="grp">Core</h3>
+  <div class="ex"><span class="n">Bear to Plank &mdash; Crawl Out</span> <span class="pt">Bear para prancha - Crawl Out</span><p>From the bear hold, walking the hands forward into a plank and back. Anti-extension core control through a moving base.</p></div>
+  <div class="ex"><span class="n">Dead Bug &mdash; Two Legs</span> <span class="pt">Deadbug a 2 pernas</span><p>Lying supine, lowering both legs (and arms) while pressing the low back into the floor. A foundational anti-extension drill teaching the core to resist arching.</p></div>
+  <div class="ex"><span class="n">Sit-Through to Plank</span> <span class="pt">Subias para prancha</span><p>Rotational sit-through transitions into and out of the plank &mdash; dynamic core control with rotation.</p></div>
+  <div class="ex"><span class="n">Trunk Rotation &mdash; Core</span> <span class="pt">Rotação do tronco - Core</span><p>Controlled rotation drill training the core's ability to produce and control trunk rotation.</p></div>
+  <div class="ex"><span class="n">Rotational Core Stability Exercises #1 &amp; #4</span> <span class="pt">Rotational Core Stability (A. Harrison)</span><p>Two anti-rotation drills from coach Adonis Harrison &mdash; the core resists a rotational force to keep the trunk square.</p></div>
+  <h3 class="grp">Isometrics</h3>
+  <div class="ex"><span class="n">Glute Bridge in Extension</span> <span class="pt">Ponte glúteos em extensão</span><p>An isometric glute-bridge hold at full hip extension &mdash; posterior-chain and lumbo-pelvic control.</p></div>
+  <div class="ex"><span class="n">Glute Bridge with Isometric Adduction</span> <span class="pt">Ponte glúteos com adutores isométrico</span><p>Glute bridge holding a ball/block squeezed between the knees &mdash; combines hip extension with adductor co-contraction.</p></div>
+  <div class="ex"><span class="n">Wall Sit</span> <span class="pt">Wall-sit</span><p>An isometric seated hold against a wall, thighs parallel &mdash; quadriceps endurance and tendon stiffness.</p></div>
+  <div class="ex"><span class="n">Isometric Calf Hold</span> <span class="pt">Gémeos ISO</span><p>A sustained calf-raise hold &mdash; isometric plantar-flexor and Achilles stiffness work.</p></div>
+  <div class="ex"><span class="n">Single-Leg Wall Sit (Max Voluntary Contraction)</span> <span class="pt">Wall sit uni CVM</span><p>A one-legged wall sit performed as a maximal isometric effort.</p></div>
+  <div class="ex"><span class="n">Isometric Abduction Holds</span> <span class="pt">Aberturas ISO</span><p>Isometric hip-abductor holds &mdash; lateral hip and glute-medius strength.</p></div>
+  <h3 class="grp">Legs &mdash; Knee &amp; Hip Dominant</h3>
+  <div class="ex"><span class="n">Single-Leg Squat</span> <span class="pt">Single Leg Squat</span><p>A squat on one leg &mdash; knee-dominant single-leg strength, balance and control.</p></div>
+  <div class="ex"><span class="n">Reverse Nordics</span> <span class="pt">Nórdicos invertidos</span><p>Kneeling and leaning back with a straight hip line &mdash; a strong eccentric stretch and strengthener for the quadriceps and hip flexors.</p></div>
+  <div class="ex"><span class="n">Deep Squat</span> <span class="pt">Deep Squat</span><p>A full-depth squat &mdash; maximal knee/hip range under load, building strength through the bottom position.</p></div>
+  <div class="ex"><span class="n">Quarter Squat</span> <span class="pt">Quarter Squat</span><p>A partial-range squat &mdash; used for heavy supramaximal loading and to train stiffness in the range relevant to sprinting and jumping.</p></div>
+  <div class="ex"><span class="n">Back Squat</span> <span class="pt">The Back Squat</span><p>Barbell held on the upper back; the foundational lower-body strength lift &mdash; trains quads, glutes and the whole posterior chain. (Reference clip from CrossFit.)</p></div>
+  <div class="ex"><span class="n">Front Squat</span> <span class="pt">The Front Squat</span><p>Barbell racked on the front of the shoulders; a more upright squat that loads the quads and demands trunk rigidity. (Reference clip from CrossFit.)</p></div>
+  <div class="ex"><span class="n">Dynamic Lunge &mdash; Unilateral</span> <span class="pt">Lunge dinâmico - Unilateral</span><p>Repeated dynamic lunges on one leg &mdash; single-leg strength and control under a split stance.</p></div>
+  <div class="ex"><span class="n">Bulgarian Split Squat &mdash; Lengthened</span> <span class="pt">Bulgarian Split Squat - Alongar</span><p>Rear-foot-elevated split squat with emphasis on the deep, lengthened bottom position &mdash; strong stimulus for quads and glutes.</p></div>
+  <div class="ex"><span class="n">Bulgarian Split Squat</span> <span class="pt">Bulgarian Split Squat</span><p>Rear foot elevated on a bench, squatting on the front leg &mdash; a staple single-leg strength builder for quads and glutes with a balance demand.</p></div>
+  <h3 class="grp">Plyometrics &mdash; Upper Body / Trunk</h3>
+  <div class="ex"><span class="n">Split-Squat Jump</span> <span class="pt">Salto em Split Squat</span><p>An explosive jump from the split-squat position, switching or holding the stance &mdash; lower-body power in a lunge pattern.</p></div>
+  <div class="ex"><span class="n">Supine Medicine-Ball Throw</span> <span class="pt">Supine Med Ball</span><p>Lying on the back, throwing a medicine ball explosively &mdash; upper-body power with the trunk supported.</p></div>
+  <div class="ex"><span class="n">Reactive Push-Ups (with countermovement)</span> <span class="pt">Flexões Reativas</span><p>Push-ups using a fast countermovement (dip then explode) &mdash; trains upper-body stretch-shortening-cycle power.</p></div>
+  <div class="ex"><span class="n">Clap/Jump Push-Ups (no countermovement)</span> <span class="pt">Flexões com Salto</span><p>Explosive push-ups from a dead stop, the hands leaving the floor &mdash; concentric upper-body power.</p></div>
+  <div class="ex"><span class="n">Elbow Extensions &mdash; Triceps Push-Ups</span> <span class="pt">Extensões de Cotovelo - Subidas para tricípite</span><p>Push-up-style elbow extensions targeting the triceps.</p></div>
+  <div class="ex"><span class="n">Medicine-Ball Arm Press &mdash; Hip Focus</span> <span class="pt">Press Braços Bola medicinal - Foco na Anca</span><p>A medicine-ball press driven from the hips &mdash; teaches power transfer from the lower body to the arms.</p></div>
+  <div class="ex"><span class="n">Landmine Press with Hip Rotation</span> <span class="pt">Landmine - Press com rotação da anca</span><p>A landmine (angled barbell) press initiated by hip rotation &mdash; rotational power into a press.</p></div>
+  <div class="ex"><span class="n">Parallel Rotational Continuous Med-Ball Throw</span> <span class="pt">Parallel Rotational Continuous Med Ball throw</span><p>Continuous rotational medicine-ball throws against a wall, standing parallel to it &mdash; repeated rotational power.</p></div>
+  <div class="ex"><span class="n">Perpendicular Rotational Continuous Med-Ball Throw</span> <span class="pt">Perpendicular Rotational Continuous Med Ball Throw</span><p>The same continuous rotational throw standing perpendicular to the wall.</p></div>
+  <div class="ex"><span class="n">Landmine Press + Leg Movement</span> <span class="pt">Landmine - Press + movimentação pernas</span><p>Landmine press combined with footwork &mdash; integrating press power with lower-body movement.</p></div>
+  <h3 class="grp">Trunk &mdash; Push &amp; Pull</h3>
+  <div class="ex"><span class="n">Unilateral Push-Up</span> <span class="pt">Flexão Unilateral</span><p>A push-up loaded mainly through one arm &mdash; a progression toward the one-arm push-up.</p></div>
+  <div class="ex"><span class="n">Push-Ups (wide / medium / narrow)</span> <span class="pt">Flexões (aberto, média, fechada)</span><p>Push-ups across three hand widths to shift emphasis between chest and triceps.</p></div>
+  <div class="ex"><span class="n">Barbell Row (technique reference)</span> <span class="pt">The Truth about Barbell Rows</span><p>An external Athlean-X reference clip on barbell row technique and common mistakes &mdash; horizontal pulling for the back.</p></div>
+  <div class="ex"><span class="n">Row with Isometric Shoulder Abduction</span> <span class="pt">Remada com isometria abdução ombro</span><p>A row performed while holding an isometric shoulder-abduction position &mdash; mid-back and rotator-cuff integration.</p></div>
+  <div class="ex"><span class="n">Towel Row</span> <span class="pt">Remada com toalha</span><p>An inverted/bodyweight row using a towel as the grip &mdash; back strength plus grip.</p></div>
+  <div class="ex"><span class="n">Towel Lat Pulldown</span> <span class="pt">Lat pull down - toalha</span><p>A lat-pulldown action improvised with a towel &mdash; vertical pulling for the lats.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-reforco">
+  <h2>Muscular Reinforcement</h2>
+  <div class="src">Performance / Reforço Muscular &mdash; 14 exercises</div>
+  <p class="lead">Targeted strengthening, heavily weighted toward the lower body, ankle and hamstrings &mdash; injury-resilience work.</p>
+  <div class="ex"><span class="n">Penguin March</span> <span class="pt">Penguin March</span><p>A stiff-ankle marching drill on the balls of the feet &mdash; builds ankle/Achilles stiffness for sprinting.</p></div>
+  <div class="ex"><span class="n">AirTrack Pogos</span> <span class="pt">AirTrack Pogos</span><p>Repeated short, stiff "pogo" hops on an air-track &mdash; reactive ankle stiffness and elastic recoil.</p></div>
+  <div class="ex"><span class="n">Leg Raise + Lunge &mdash; Ankle</span> <span class="pt">Subida Perna + Lunge - Tornozelo</span><p>A leg-raise into a lunge emphasising ankle control.</p></div>
+  <div class="ex"><span class="n">Jump in Lunge</span> <span class="pt">Salto em Lunge</span><p>An explosive jump from and to a lunge position.</p></div>
+  <div class="ex"><span class="n">Acceleration Wall Position Holds + Heel Raise</span> <span class="pt">Acceleration Wall Position Holds</span><p>Holding the forward-lean acceleration position against a wall, adding heel raises &mdash; sprint posture plus calf strength.</p></div>
+  <div class="ex"><span class="n">Leg Curl (Bilateral &amp; Unilateral) on the Rower</span> <span class="pt">Leg Curl no Remo</span><p>Improvised hamstring leg-curls using a rowing machine &mdash; knee-flexor strength.</p></div>
+  <div class="ex"><span class="n">Single-Leg Deadlift with Kettlebell</span> <span class="pt">Peso Morto a uma perna com Kettlebell</span><p>A one-legged hip hinge holding a kettlebell &mdash; posterior-chain strength, balance and hip control.</p></div>
+  <div class="ex"><span class="n">Deadlift with Accommodating Resistance</span> <span class="pt">Peso Morto com resistência acomodativa</span><p>A deadlift with bands/chains so resistance rises through the range &mdash; trains force production where leverage is strongest.</p></div>
+  <div class="ex"><span class="n">Assisted Nordic Hamstring Curl</span> <span class="pt">Nordic Hamstring assistidos</span><p>The Nordic curl &mdash; a knee-anchored eccentric hamstring lower &mdash; performed with assistance to manage the load. A leading hamstring-injury prevention exercise.</p></div>
+  <div class="ex"><span class="n">Sliding Nordic &mdash; Hamstrings</span> <span class="pt">Nórdico a Deslizar - Posterior Coxa</span><p>A sliding variation of the Nordic curl for eccentric hamstring strength.</p></div>
+  <div class="ex"><span class="n">Copenhagen Adduction</span> <span class="pt">Copenhaga</span><p>A side-plank with the top leg supported, raising the body via the adductors &mdash; the key groin/adductor strengthener for change-of-direction resilience.</p></div>
+  <div class="ex"><span class="n">Dead Bug</span> <span class="pt">Deadbug</span><p>Supine alternating arm/leg lowering with the low back pinned &mdash; foundational anti-extension core control.</p></div>
+  <div class="ex"><span class="n">Banded Glute Bridge</span> <span class="pt">Ponte de glúteos com elástico</span><p>A glute bridge with a band around the knees adding abduction tension &mdash; glute max and medius.</p></div>
+  <div class="ex"><span class="n">Adductor Squeeze</span> <span class="pt">Squeeze adductors</span><p>An isometric squeeze of a ball/block between the knees &mdash; simple adductor activation and strength.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-sistemas">
+  <h2>Energy Systems</h2>
+  <div class="src">Performance / Sistemas Energéticos</div>
+  <p class="note">A theory chapter on the body's energy systems. No catalogued exercises; conceptual content only.</p>
+</div>
+
+<div class="chapter" id="ch-aceleracao">
+  <h2>Acceleration &amp; Maximum Velocity</h2>
+  <div class="src">Performance / Velocidade-Agilidade / Aceleração</div>
+  <p class="lead">Sprint-technique drills, progressing from stationary wall work to acceleration and max-velocity mechanics.</p>
+  <h3 class="grp">Technical Drills &mdash; Stationary</h3>
+  <div class="ex"><span class="n">Wall Drive</span> <span class="pt">Wall Drive</span><p>Leaning into a wall in the acceleration position and driving one knee up and the foot down forcefully &mdash; teaches the front-side mechanics and ground strike of sprinting.</p></div>
+  <div class="ex"><span class="n">Wall Switches</span> <span class="pt">Wall Switches</span><p>Rapid alternation of the drive legs against the wall &mdash; sprint leg-switch timing and rhythm.</p></div>
+  <div class="ex"><span class="n">Load &amp; Lift &amp; Switch</span> <span class="pt">Load &amp; Lift &amp; Switch</span><p>A wall-drill sequence: load the stance leg, lift the drive knee, then switch &mdash; sequencing the acceleration stride.</p></div>
+  <div class="ex"><span class="n">Wall Drive &mdash; Progressions</span> <span class="pt">wall drive - progressões</span><p>The progression series for the wall-drive drill, from single reps to continuous switches.</p></div>
+  <h3 class="grp">Technical Drills &mdash; Moving</h3>
+  <div class="ex"><span class="n">A-Series &amp; Switches</span> <span class="pt">A-series e Switches</span><p>The classic sprint "A" drills (A-march, A-skip, A-run) plus leg switches &mdash; coordination and mechanics of the running stride in motion.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-agilidade">
+  <h2>Agility / Velocity</h2>
+  <div class="src">Performance / Velocidade-Agilidade / Caracterização</div>
+  <p class="note">A theory chapter defining agility &mdash; closed-skill technique, cognitive/decision speed, and physical components. No catalogued exercises; conceptual content only.</p>
+</div>
+
+<div class="chapter" id="ch-desaceleracao">
+  <h2>Deceleration &amp; Change of Direction</h2>
+  <div class="src">Performance / Velocidade-Agilidade / Desaceleração-COD &mdash; 31 exercises</div>
+  <p class="lead">Braking, cutting and reactive agility drills &mdash; the ability to stop and re-direct under control.</p>
+  <h3 class="grp">Change of Direction &mdash; Drills</h3>
+  <div class="ex"><span class="n">Lateral Shuffle &mdash; Progressions (PEAK)</span> <span class="pt">Deslocação Lateral - Progressões</span><p>A graded progression of lateral shuffling drills &mdash; the base of side-to-side change of direction.</p></div>
+  <div class="ex"><span class="n">Lateral Shuffle &mdash; Continuous Progression (+ Dynamic)</span> <span class="pt">Deslocação Lateral - Progressão Continua</span><p>Continuous lateral shuffling with a dynamic finish.</p></div>
+  <div class="ex"><span class="n">Lateral Ski Jumps (COD)</span> <span class="pt">Lateral Ski Jumps - CODS</span><p>Side-to-side "skier" jumps &mdash; lateral elasticity and braking through the outside leg.</p></div>
+  <div class="ex"><span class="n">Lateral Shuffle with Hurdle Jump (COD)</span> <span class="pt">Deslocação lateral com salto barreira</span><p>Lateral movement combined with a hurdle jump &mdash; shuffle plus reactive jump.</p></div>
+  <div class="ex"><span class="n">Lateral Shuffle &mdash; Medicine Ball</span> <span class="pt">Deslocação Lateral - Bola Medicinal</span><p>Lateral shuffling while holding/moving a medicine ball for added load (a three-part #1&ndash;#3 series).</p></div>
+  <div class="ex"><span class="n">Improve Multidirectional Movement (1 &amp; 2)</span> <span class="pt">Improve Multidirectional movement</span><p>Two drills targeting general multidirectional movement quality.</p></div>
+  <div class="ex"><span class="n">Lateral Lunge with Cable</span> <span class="pt">Lunge Lateral com Cabo</span><p>A lateral lunge loaded by a cable &mdash; resisted side-lunge strength for cutting.</p></div>
+  <div class="ex"><span class="n">Change of Direction with Added Load</span> <span class="pt">Mudança de Direção com Carga Adicional</span><p>Cutting drills performed with extra resistance &mdash; strengthens the braking and re-acceleration steps.</p></div>
+  <div class="ex"><span class="n">Dynamic Lunge</span> <span class="pt">Lunge Dinâmico</span><p>Continuous dynamic lunging used as a COD strength primer.</p></div>
+  <div class="ex"><span class="n">Lateral Single-Leg Hop + COD (Plyometric #2)</span> <span class="pt">Lateral Single Leg Hop + COD</span><p>A sideways single-leg hop feeding into a change of direction &mdash; reactive single-leg cutting.</p></div>
+  <h3 class="grp">Agility &mdash; Drills</h3>
+  <div class="ex"><span class="n">Multilateral Movement in Pairs</span> <span class="pt">Deslocação Multilateral a Pares</span><p>Partner-mirrored multidirectional movement &mdash; reactive agility against a live stimulus.</p></div>
+  <div class="ex"><span class="n">Forward-Back with Reaction</span> <span class="pt">Frente Trás com reacção</span><p>Forward and backward movement triggered by a reactive cue.</p></div>
+  <div class="ex"><span class="n">Backpedal + Turn with Sprint</span> <span class="pt">Correr para trás + Gira com Sprint</span><p>Running backward, then turning and sprinting &mdash; transition speed.</p></div>
+  <div class="ex"><span class="n">Lateral Jump + Backpedal + Turn Sprint</span> <span class="pt">Salto Lateral + Correr Costas + Gira Sprint</span><p>A chained sequence: lateral jump, backpedal, turn and sprint.</p></div>
+  <div class="ex"><span class="n">Sprint + Agility &mdash; Colour Cue (Partners)</span> <span class="pt">Sprint + Agilidade - Estimulo de Cor</span><p>Sprinting and changing direction in response to a coloured cue &mdash; perception-action agility.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-pliometricos">
+  <h2>Plyometrics &amp; Jumps</h2>
+  <div class="src">Performance / Velocidade-Agilidade / Pliométricos &amp; Saltos &mdash; 42 exercises</div>
+  <p class="lead">A large jump-training library organised around landing skill, the stretch-shortening cycle and varied jump tasks.</p>
+  <h3 class="grp">Long Stretch-Shortening Cycle &mdash; Continuum</h3>
+  <div class="ex"><span class="n">Long SSC &mdash; Hurdle Jump</span> <span class="pt">CMAE Longo - Salto Barreira</span><p>Repeated hurdle jumps using a long ground contact &mdash; trains the long stretch-shortening cycle.</p></div>
+  <div class="ex"><span class="n">Long SSC &mdash; Hurdle Jump, 180&deg;</span> <span class="pt">CMAE Longo - Salto Barreira - 180 graus</span><p>Hurdle jumps with a 180-degree turn in the air &mdash; adds rotation to the jump.</p></div>
+  <h3 class="grp">Landing Skill</h3>
+  <div class="ex"><span class="n">Landing &mdash; Skill</span> <span class="pt">Landing - Skill</span><p>Teaching the fundamental landing: soft, aligned, absorbing force through hips and knees. The foundation of safe plyometrics.</p></div>
+  <div class="ex"><span class="n">Landing + Jump</span> <span class="pt">Landing + Jump</span><p>A controlled landing immediately followed by a jump.</p></div>
+  <div class="ex"><span class="n">Landing + 2 Jumps</span> <span class="pt">Landing + 2 Jumps</span><p>Landing then two consecutive jumps &mdash; progressing reactive ability.</p></div>
+  <div class="ex"><span class="n">Landing (no arms)</span> <span class="pt">Landing (sem braços)</span><p>Landing skill with the arms removed from the action, isolating lower-body absorption.</p></div>
+  <div class="ex"><span class="n">Altitude Landing</span> <span class="pt">Altitude Landing</span><p>Dropping from a height and "sticking" the landing &mdash; trains high-force eccentric absorption.</p></div>
+  <div class="ex"><span class="n">Altitude Landing &mdash; Unilateral</span> <span class="pt">Altitude Landing - Unilateral</span><p>Single-leg altitude landing &mdash; high eccentric demand on one limb.</p></div>
+  <div class="ex"><span class="n">Drop Jump</span> <span class="pt">Drop Jump</span><p>Dropping from a box and rebounding immediately into a maximal jump &mdash; the classic short-SSC reactive-strength exercise.</p></div>
+  <h3 class="grp">Varied Jumps</h3>
+  <div class="ex"><span class="n">Box Jump</span> <span class="pt">Box Jump</span><p>A two-footed jump onto a box &mdash; concentric lower-body power with a safe landing.</p></div>
+  <div class="ex"><span class="n">Elasticity + Vertical Explosion</span> <span class="pt">Elasticidade + Explosão Vertical</span><p>A drill pairing elastic rebounds with a maximal vertical jump.</p></div>
+  <div class="ex"><span class="n">Lateral Jump + Quick Broad Jump (Reactive)</span> <span class="pt">Lateral Jump + Quick Broad Jump</span><p>A lateral jump feeding a fast horizontal jump &mdash; reactive multi-plane power.</p></div>
+  <div class="ex"><span class="n">Jump Squat</span> <span class="pt">Jump Squat</span><p>A squat exploding into a jump &mdash; lower-body concentric power.</p></div>
+  <div class="ex"><span class="n">Multi-Jumps</span> <span class="pt">Multisaltos</span><p>Continuous repeated bounding jumps &mdash; reactive strength and rhythm.</p></div>
+  <div class="ex"><span class="n">Multi-Jumps &mdash; Single Leg</span> <span class="pt">Multisaltos unilateral</span><p>Continuous single-leg jumps &mdash; high reactive demand on one limb.</p></div>
+  <div class="ex"><span class="n">Split-Squat Box Jump &mdash; Alternating</span> <span class="pt">Split Squat Box Jump - Alternado</span><p>Alternating split-stance jumps onto a box.</p></div>
+  <div class="ex"><span class="n">Single-Leg Countermovement Jump</span> <span class="pt">Salto com contramovimento unilateral</span><p>A one-legged countermovement jump &mdash; single-leg power and the SSC.</p></div>
+  <div class="ex"><span class="n">Loaded Jump</span> <span class="pt">Loaded Jump</span><p>Jumps performed with added external load &mdash; strength-speed development.</p></div>
+  <div class="ex"><span class="n">Improve Ground Contact Time</span> <span class="pt">Improve Ground Contact Time</span><p>A drill cueing minimal, stiff ground contacts.</p></div>
+  <div class="ex"><span class="n">Improve Elastic Strength &amp; Power</span> <span class="pt">Improve Elastic Strength &amp; Power</span><p>Jump work targeting elastic (tendon) qualities.</p></div>
+  <div class="ex"><span class="n">Improve Reaction Time &amp; Rhythm</span> <span class="pt">Improve Reaction time &amp; Rhythm</span><p>Jump drills cued for fast, rhythmic response.</p></div>
+  <div class="ex"><span class="n">Improve Stretch-Shortening Cycle</span> <span class="pt">Improve Stretch Shortening Cycle</span><p>Jump work specifically loading the SSC.</p></div>
+  <div class="ex"><span class="n">Single-Leg Drop Jumps &mdash; 90&deg;</span> <span class="pt">Single Leg Drop Jumps - 90 graus</span><p>One-legged drop jumps with a 90-degree turn.</p></div>
+  <div class="ex"><span class="n">Single-Leg Box Jumps</span> <span class="pt">Single Leg Box Jumps</span><p>Jumping onto a box off one leg.</p></div>
+  <div class="ex"><span class="n">Bulgarian Split Jump</span> <span class="pt">Bulgarian split jump</span><p>An explosive jump from the rear-foot-elevated split-squat position.</p></div>
+  <div class="ex"><span class="n">Hip Thrust with Jump</span> <span class="pt">Hip thrust com salto</span><p>A hip-thrust pattern finished explosively into a jump &mdash; glute-driven power.</p></div>
+  <div class="ex"><span class="n">Broad Jump</span> <span class="pt">Broad Jump</span><p>A maximal two-footed horizontal jump for distance &mdash; horizontal power.</p></div>
+  <div class="ex"><span class="n">Lateral Lunges</span> <span class="pt">Lunge laterais</span><p>Side lunges used within the jump session as a strength/mobility primer.</p></div>
+  <div class="ex"><span class="n">Single-Leg Horizontal Jump</span> <span class="pt">Salto horizontal unilateral</span><p>A one-legged jump for horizontal distance.</p></div>
+  <div class="ex"><span class="n">High Skip with Stop (COD)</span> <span class="pt">Skipping alto com Paragem - CoDS</span><p>High skipping interrupted by a sharp stop &mdash; rhythm into deceleration.</p></div>
+  <div class="ex"><span class="n">Explosive Knee Thrusts</span> <span class="pt">Explosive Knee Thrusts</span><p>Explosive driven-knee repetitions &mdash; hip-flexor power and rhythm.</p></div>
+  <div class="ex"><span class="n">Isometric Squat + Unilateral Movement</span> <span class="pt">Agachamento ISO + Movimento Unilateral</span><p>Holding an isometric squat while adding a single-leg action.</p></div>
+  <div class="ex"><span class="n">Single-Leg Travel and Jump</span> <span class="pt">Deslocação e Salto a uma perna</span><p>Moving and jumping on one leg &mdash; reactive single-leg locomotion.</p></div>
+  <div class="ex"><span class="n">Jump from Knees to Feet</span> <span class="pt">Salto Joelhos no chão - Joelhos acima</span><p>Exploding from a kneeling position up to the feet &mdash; hip-drive power.</p></div>
+  <div class="ex"><span class="n">Open-Close + 3 Jumps</span> <span class="pt">Abrir e fechar + 3 saltos</span><p>An open-close stance action followed by three jumps.</p></div>
+  <div class="ex"><span class="n">Reverse Lunge + High Skip</span> <span class="pt">Lunge Atrás + Skipping Alto</span><p>A backward lunge feeding into a high skip &mdash; strength into elastic action.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="section-divider" id="sec-pillar">Pillar Prep</div>
+
+<div class="chapter" id="ch-alongamentos">
+  <h2>Stretching</h2>
+  <div class="src">Pillar Prep / Alongamentos &mdash; 3 exercises</div>
+  <div class="ex"><span class="n">Walking Adductor Extension</span> <span class="pt">Andar Executa Extensão dos adutores</span><p>A walking drill that takes the adductors through extension &mdash; dynamic groin mobility.</p></div>
+  <div class="ex"><span class="n">Walking Flexion-to-Extension of the Adductors</span> <span class="pt">Andar Executa Flexão para Extensão dos adutores</span><p>Walking adductor drill cycling from flexion to extension.</p></div>
+  <div class="ex"><span class="n">General Stretching Routine (15 min)</span> <span class="pt">Rotina de Alongamentos Gerais</span><p>A complete 15-minute full-body stretching routine.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-ativacao">
+  <h2>Neural Activation / Nervous Potentiation</h2>
+  <div class="src">Pillar Prep / Activação Neural &mdash; 11 exercises</div>
+  <p class="lead">Short, fast, low-fatigue actions used to prime the nervous system before training or competition.</p>
+  <div class="ex"><span class="n">Power Rope &mdash; Nervous Potentiation</span> <span class="pt">Power Rope - Potenciação Nervosa</span><p>Fast rope work used as a nervous-system primer.</p></div>
+  <div class="ex"><span class="n">Small Jumps &mdash; Sagittal &amp; Frontal Plane</span> <span class="pt">Saltinhos - Plano Sagital e Frontal</span><p>Quick low pogo-style hops forward-back and side-to-side &mdash; ankle stiffness and priming.</p></div>
+  <div class="ex"><span class="n">Small Jumps &mdash; Single Leg</span> <span class="pt">Saltinhos Unilateral</span><p>Quick single-leg hops for reactive ankle priming.</p></div>
+  <div class="ex"><span class="n">Low Lateral Skips</span> <span class="pt">Skippings Baixos Laterais</span><p>Low, fast lateral skipping &mdash; rhythm and frontal-plane priming.</p></div>
+  <div class="ex"><span class="n">Fast Contact Time</span> <span class="pt">Fast Contact Time</span><p>Drills cueing the shortest possible ground contacts.</p></div>
+  <div class="ex"><span class="n">Skipping with Sprint</span> <span class="pt">Skipping com Sprint - Potenciação Nervosa</span><p>Skipping that breaks into a sprint &mdash; priming into top-speed mechanics.</p></div>
+  <div class="ex"><span class="n">Lateral Skip + Ball Throw</span> <span class="pt">Skipping Lateral + Atirar a Bola</span><p>Lateral skipping combined with a ball throw &mdash; coordinated whole-body priming.</p></div>
+  <div class="ex"><span class="n">Medicine Ball &mdash; Nervous Potentiation</span> <span class="pt">Bola Medicinal - Potenciação Nervosa</span><p>Explosive medicine-ball throws used as a primer.</p></div>
+  <div class="ex"><span class="n">Open and Close &mdash; Frontal Plane</span> <span class="pt">Abrir e Fechar - Plano Frontal</span><p>Fast open-close foot action in the frontal plane.</p></div>
+  <div class="ex"><span class="n">Lateral Jumps, Feet Together &mdash; Frontal Plane</span> <span class="pt">Saltos laterais Pés Juntos - Plano Frontal</span><p>Two-footed side jumps for frontal-plane priming.</p></div>
+  <div class="ex"><span class="n">Push-Up &mdash; Slow Eccentric + Fast Concentric</span> <span class="pt">Push-Up Slow Excentric + Fast Concentric</span><p>A push-up lowered slowly then driven up explosively &mdash; upper-body potentiation.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-integrativo">
+  <h2>Integrative</h2>
+  <div class="src">Pillar Prep / +Integrativo &mdash; 25 exercises</div>
+  <p class="lead">Games and SAQ (speed-agility-quickness) drills that combine physical preparation with reaction, cognition and fun &mdash; mostly for youth groups.</p>
+  <div class="ex"><span class="n">SAQ Drills &mdash; coach_watkins #1&ndash;#7</span> <span class="pt">SAQ Drill - coach_watkins</span><p>A seven-part set of speed-agility-quickness drills sourced from coach Watkins.</p></div>
+  <div class="ex"><span class="n">SAQ Drill 1, 2 &amp; 3 (Rope Jumps)</span> <span class="pt">SAQ Drill - +Integrativo</span><p>The coach's own three SAQ drills, the third built around rope jumps.</p></div>
+  <div class="ex"><span class="n">Call Outs</span> <span class="pt">Call Outs</span><p>Movement responses triggered by called cues &mdash; reaction and decision speed.</p></div>
+  <div class="ex"><span class="n">Cone Reaction Drill (1 &amp; 2)</span> <span class="pt">Cone Reaction Drill</span><p>Reacting and moving to cones on cue &mdash; reactive agility.</p></div>
+  <div class="ex"><span class="n">Medicine-Ball Throw Relay</span> <span class="pt">Medball Throw Relay</span><p>A team relay built around medicine-ball throws.</p></div>
+  <div class="ex"><span class="n">Plank Relay</span> <span class="pt">Plank Relay</span><p>A team relay incorporating plank holds &mdash; core endurance as a game.</p></div>
+  <div class="ex"><span class="n">Pizza Game</span> <span class="pt">Pizza Game</span><p>A coordination/agility tag-style game for youth groups.</p></div>
+  <div class="ex"><span class="n">Chair Game</span> <span class="pt">Chair Game</span><p>A reaction game (musical-chairs style) used for quickness.</p></div>
+  <div class="ex"><span class="n">Mirror Drills (1 &amp; 2)</span> <span class="pt">Mirror Drills</span><p>Two athletes mirror each other's movement &mdash; reactive agility against a live partner.</p></div>
+  <div class="ex"><span class="n">Medicine-Ball Funnel Tag</span> <span class="pt">Medball Funnel Tag</span><p>A tag game using a medicine ball within a funnel area.</p></div>
+  <div class="ex"><span class="n">Tic-Tac-Toe</span> <span class="pt">Tic Tac Toe</span><p>A running tic-tac-toe relay &mdash; speed plus decision-making.</p></div>
+  <div class="ex"><span class="n">Sharks and Fish</span> <span class="pt">Sharks and Fish</span><p>A classic chasing/dodging agility game.</p></div>
+  <div class="ex"><span class="n">Hi-5s and Low-5s</span> <span class="pt">Hi 5s and Low 5s</span><p>A reaction game based on high and low hand targets.</p></div>
+  <div class="ex"><span class="n">Human Burpees</span> <span class="pt">Human Burpees</span><p>A partner/group burpee game.</p></div>
+  <div class="ex"><span class="n">Activation and Coordination</span> <span class="pt">Activation and Coordination</span><p>A combined activation-and-coordination warm-up game.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-miofasciais">
+  <h2>Myofascial Release</h2>
+  <div class="src">Pillar Prep / Miofasciais &mdash; 2 exercises</div>
+  <div class="ex"><span class="n">Hamstrings &mdash; Foam Roller</span> <span class="pt">Posterior Coxa - Foam Roller</span><p>Self-myofascial release of the hamstrings with a foam roller.</p></div>
+  <div class="ex"><span class="n">Sole of Foot &mdash; Lacrosse Ball</span> <span class="pt">Planta do Pé - Bola Lacrosse</span><p>Rolling the plantar fascia with a lacrosse ball.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-mobilidade">
+  <h2>Mobility &amp; Motor Control &mdash; Corrective Exercises</h2>
+  <div class="src">Pillar Prep / Mobilidade e Controlo Motor &mdash; ~60 exercises</div>
+  <p class="lead">Region-by-region corrective work. Many drills are run through the three planes of motion (sagittal, frontal, transverse), often with a "driver" (a body part used to drive range).</p>
+
+  <h3 class="grp">Hip, Squat &amp; Quadriceps</h3>
+  <div class="ex"><span class="n">Hip Mobility &mdash; Planar Drills</span> <span class="pt">Região Interna/Externa Coxofemoral &mdash; Planos</span><p>A family of hip-joint mobility drills (inner and outer hip region) worked through the sagittal, frontal and transverse planes.</p></div>
+  <div class="ex"><span class="n">Hip Extension &mdash; Hands as Driver (3 planes)</span> <span class="pt">Extensão Anca - Mãos Driver</span><p>Hip-extension mobility using the hands to drive range in each plane.</p></div>
+  <div class="ex"><span class="n">Kickstand Stretch &mdash; Hip</span> <span class="pt">Anca - Kickstand stretch</span><p>A staggered-stance hip stretch.</p></div>
+  <div class="ex"><span class="n">Pigeon with Reach</span> <span class="pt">pigeon with reach</span><p>The pigeon stretch (outer-hip/glute) combined with a reach to drive deeper range.</p></div>
+  <div class="ex"><span class="n">Squat Mobility (front, back &amp; overhead) &mdash; CrossTips</span> <span class="pt">CrossTips - Exercícios de mobilidade para agachamentos</span><p>A mobility set preparing the ankles, hips and shoulders for front, back and overhead squats.</p></div>
+
+  <h3 class="grp">Core</h3>
+  <div class="ex"><span class="n">Core &mdash; Definition &amp; Function (Go Athlete)</span> <span class="pt">Core - Definição e Função</span><p>An explanatory reference clip on what the core is and how it functions.</p></div>
+  <div class="ex"><span class="n">Disc Twist</span> <span class="pt">Disc Twist</span><p>A rotation drill on a sliding disc &mdash; controlled trunk rotation.</p></div>
+  <div class="ex"><span class="n">Pallof Press</span> <span class="pt">Pallof Press</span><p>Pressing a band/cable straight out from the chest while resisting its pull to the side &mdash; the definitive anti-rotation core exercise.</p></div>
+  <div class="ex"><span class="n">Pointer (Bird-Dog)</span> <span class="pt">Pointer - Activação Muscular</span><p>From all fours, extending the opposite arm and leg &mdash; anti-extension/anti-rotation control and deep-core activation.</p></div>
+  <div class="ex"><span class="n">Rotational Core Stability Exercises #2 &amp; #3</span> <span class="pt">Rotational Core Stability (A. Harrison)</span><p>Further anti-rotation drills from coach Adonis Harrison.</p></div>
+  <div class="ex"><span class="n">Lunge on Pilates Ball &mdash; Stability</span> <span class="pt">Lunge - Bola Pilates - Estabilidade</span><p>A lunge with a foot/hand on a Pilates ball &mdash; stability under an unstable base.</p></div>
+  <div class="ex"><span class="n">Single-Leg Stand on Swiss Ball</span> <span class="pt">Pé Coxinho - Bola Suíça - Estabilidade</span><p>Balancing on one leg with support on a Swiss ball.</p></div>
+  <div class="ex"><span class="n">Plank, 4 &amp; 3 Points, on Swiss Ball</span> <span class="pt">Prancha 4/3 Apoios - Bola Suíça</span><p>Plank holds on a Swiss ball with four then three contact points &mdash; progressive anti-extension stability.</p></div>
+  <div class="ex"><span class="n">Low-Back Pain &mdash; 3 Best Exercises</span> <span class="pt">Dores de Costas na Zona Lombar</span><p>A reference clip on three exercises for lumbar pain (typically the McGill "big three").</p></div>
+  <div class="ex"><span class="n">Glute Bridge &mdash; Muscle Activation</span> <span class="pt">Ponte Glúteos - Activação Muscular</span><p>A glute bridge used to wake up the glutes before training.</p></div>
+
+  <h3 class="grp">Knee</h3>
+  <div class="ex"><span class="n">Lunge Mobility &mdash; 3 Planes</span> <span class="pt">Lunge - Planos Sagital / Frontal / Transverso</span><p>Lunge-based knee mobility driven through each plane of motion, including posterior and crossing variations.</p></div>
+  <div class="ex"><span class="n">Knee Toe-Touch &mdash; Pelvis Driver</span> <span class="pt">Joelho - Toe Touch - Bacia Driver</span><p>A toe-touch drill using pelvic movement to drive knee range.</p></div>
+  <div class="ex"><span class="n">Tube Walking</span> <span class="pt">Tube Walking</span><p>Walking against a resistance band around the legs &mdash; hip-abductor and knee-stabiliser activation.</p></div>
+
+  <h3 class="grp">Multi-Joint</h3>
+  <div class="ex"><span class="n">Reverse Lunge with Lateral Flexion</span> <span class="pt">Lunge Reverso com Flexão Lateral</span><p>A backward lunge with a side-bend &mdash; combined hip and lateral-trunk mobility.</p></div>
+  <div class="ex"><span class="n">World's Greatest Stretch</span> <span class="pt">Melhor Alongamento do Mundo</span><p>A multi-joint lunge-and-rotate sequence opening hips, thoracic spine and hamstrings &mdash; a staple full-body mobiliser.</p></div>
+  <div class="ex"><span class="n">Groiners</span> <span class="pt">Groiners</span><p>From a plank, driving a foot up beside the hand &mdash; dynamic hip and adductor mobility.</p></div>
+  <div class="ex"><span class="n">Half-Kneeling Corkscrews</span> <span class="pt">Half Kneeling Corkscrews</span><p>A half-kneeling rotational "corkscrew" drill for hip and thoracic mobility.</p></div>
+  <div class="ex"><span class="n">3D Maps &mdash; Planar Reaches</span> <span class="pt">Plano Frontal/Transverso/Sagital - 3D Maps</span><p>Reaching drills mapping mobility across all three planes.</p></div>
+  <div class="ex"><span class="n">Rollers &mdash; Stretch</span> <span class="pt">Rollers - Alongar</span><p>A foam-roller-assisted stretching drill.</p></div>
+  <div class="ex"><span class="n">Mountain Climbers</span> <span class="pt">Mountain Climbers</span><p>From a plank, alternately driving the knees to the chest &mdash; dynamic core, hip flexion and conditioning.</p></div>
+
+  <h3 class="grp">Shoulder &amp; Scapula</h3>
+  <div class="ex"><span class="n">Shoulder Extension/Flexion &mdash; Pelvis Driver (3 planes)</span> <span class="pt">Extensão/Flexão Ombro - Bacia Driver</span><p>Shoulder mobility drills using pelvic movement as the driver across the planes.</p></div>
+  <div class="ex"><span class="n">Shoulders &amp; Thoracic Spine Mobility</span> <span class="pt">Shoulders and Thoracic Spine Mobility</span><p>A combined shoulder and upper-back mobility routine.</p></div>
+  <div class="ex"><span class="n">Wall Slides</span> <span class="pt">Wall Slides</span><p>Sliding the arms up a wall keeping contact &mdash; scapular upward-rotation and shoulder mobility. Also done lying supine for scapulo-humeral rhythm.</p></div>
+  <div class="ex"><span class="n">Belly Press Test &mdash; Muscle Activation</span> <span class="pt">Belly Press Test</span><p>A subscapularis activation/assessment drill.</p></div>
+  <div class="ex"><span class="n">Shoulder Joint &mdash; Medicine Ball</span> <span class="pt">Articulação Ombro - Bola Medicinal</span><p>Shoulder mobility/stability work against a medicine ball.</p></div>
+  <div class="ex"><span class="n">External Rotation for the Rotator Cuff</span> <span class="pt">Rotação Externa para Coifa dos Rotadores</span><p>External-rotation strengthening for the rotator cuff.</p></div>
+  <div class="ex"><span class="n">Lift Off &mdash; Muscle Activation</span> <span class="pt">Lift Off</span><p>A subscapularis "lift-off" activation drill.</p></div>
+  <div class="ex"><span class="n">Scap Pull-Up &mdash; Stretch</span> <span class="pt">Scap Pull-Up - Alongar</span><p>Hanging scapular pull-ups &mdash; scapular control and a decompressive stretch.</p></div>
+  <div class="ex"><span class="n">Shoulder Press &mdash; Kettlebell</span> <span class="pt">Ombro - Press Kettlebell</span><p>An overhead press with a kettlebell &mdash; shoulder strength with a stability demand.</p></div>
+  <div class="ex"><span class="n">Shoulder External/Internal Rotation &mdash; Kettlebell</span> <span class="pt">Ombros - Rotação externa e interna - Kettlebell</span><p>Kettlebell rotation work for shoulder stability; also paired with foam-roller stretching.</p></div>
+
+  <h3 class="grp">Foot &amp; Ankle</h3>
+  <div class="ex"><span class="n">Ankle &mdash; Split-Stance Mobility (3 planes)</span> <span class="pt">Tornozelo - split stance</span><p>Split-stance ankle mobility drills using the foot or knee as the driver, worked through the sagittal, frontal and transverse planes.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="section-divider" id="sec-treino">Training</div>
+
+<div class="chapter" id="ch-animalflow">
+  <h2>Animal Flow</h2>
+  <div class="src">Treino / Animal Flow &mdash; 2 exercises</div>
+  <div class="ex"><span class="n">Crab Reach</span> <span class="pt">Animal Flow Crab Reach</span><p>From the crab position, reaching one arm overhead while driving the hips up &mdash; thoracic extension, shoulder mobility and posterior-chain control.</p></div>
+  <div class="ex"><span class="n">Scorpion Reach</span> <span class="pt">Animal Flow Scorpion Reach</span><p>From the bear/beast position, reaching a leg up and across behind the body &mdash; thoracic rotation and hip mobility.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-calistenicos">
+  <h2>Calisthenics</h2>
+  <div class="src">Treino / Calisténicos &mdash; 75 exercises</div>
+  <p class="lead">A large bodyweight-training library &mdash; lower body, upper body and core, plus compound movements, partner work, set sequences and gymnastics.</p>
+
+  <h3 class="grp">Lower Body</h3>
+  <div class="ex"><span class="n">Backward Roll to Feet-Together Jump</span> <span class="pt">Rolamento atrás e salto pes juntos</span><p>A backward roll finished by springing up into a two-footed jump.</p></div>
+  <div class="ex"><span class="n">Lower-Body Endurance &mdash; Kneeling Leg Advance/Retract (v2)</span> <span class="pt">Resistencia ZI - joelhos no chão</span><p>From kneeling, advancing and recovering the leg &mdash; lower-body muscular endurance.</p></div>
+  <div class="ex"><span class="n">Glute Bridge</span> <span class="pt">Ponte Glúteos</span><p>Lying supine, driving the hips up by squeezing the glutes &mdash; foundational glute and posterior-chain exercise.</p></div>
+  <div class="ex"><span class="n">Adductor &mdash; Medicine Ball</span> <span class="pt">Adutor - Bola Medicinal</span><p>Adductor work squeezing a medicine ball.</p></div>
+  <div class="ex"><span class="n">High Skip (in place)</span> <span class="pt">Skipping Alto (no lugar)</span><p>Stationary high-knee skipping &mdash; coordination and conditioning.</p></div>
+  <div class="ex"><span class="n">Tuck Jumps</span> <span class="pt">Tuck Jumps</span><p>Maximal vertical jumps tucking the knees to the chest &mdash; explosive power and hip flexion.</p></div>
+  <div class="ex"><span class="n">Split-Squat Lateral Hops</span> <span class="pt">Split Squat Lateral Hops</span><p>Lateral hopping from a split-squat stance.</p></div>
+  <div class="ex"><span class="n">Ratchet Squats</span> <span class="pt">Ratchet Squats</span><p>Squats performed in small "ratcheting" pulses through the range &mdash; time-under-tension for the quads.</p></div>
+  <div class="ex"><span class="n">Prisoner Walk-Ups</span> <span class="pt">Prisioner Walk-Ups</span><p>Lunge/step-up walking with the hands behind the head &mdash; lower-body endurance with an upright trunk.</p></div>
+  <div class="ex"><span class="n">Sidewinders</span> <span class="pt">Sidewinders</span><p>A lateral, low travelling drill &mdash; hip mobility and lower-body conditioning.</p></div>
+
+  <h3 class="grp">Upper Body</h3>
+  <div class="ex"><span class="n">Hover Hops</span> <span class="pt">Hover Hops</span><p>From a hovering quadruped/plank, hopping the hands or feet &mdash; shoulder stability and conditioning.</p></div>
+  <div class="ex"><span class="n">Step-Through Push-Ups</span> <span class="pt">Step Through Pushups</span><p>A push-up combined with a rotational step-through of a leg &mdash; pressing strength with rotation.</p></div>
+  <div class="ex"><span class="n">Push-Up Toe Taps</span> <span class="pt">Pushup Toe Taps</span><p>Push-ups alternating a hand reaching to tap the opposite toe &mdash; pressing plus anti-rotation.</p></div>
+  <div class="ex"><span class="n">Hover Pulses</span> <span class="pt">Hover Pulses</span><p>Small pulses in the hovering quadruped hold &mdash; isometric shoulder/core endurance.</p></div>
+
+  <h3 class="grp">Core / Midsection</h3>
+  <div class="ex"><span class="n">Crunches &mdash; Plank on Bosu</span> <span class="pt">Abdominais - Prancha em Bosu</span><p>Core work in a plank on an unstable Bosu.</p></div>
+  <div class="ex"><span class="n">Plank &mdash; Knees Front and Back</span> <span class="pt">Prancha - Joelhos Frente e Atras</span><p>Plank driving the knees forward and back &mdash; dynamic core.</p></div>
+  <div class="ex"><span class="n">Knee-Ins</span> <span class="pt">Knee Ins - Ab</span><p>Drawing the knees toward the chest &mdash; lower-abdominal work.</p></div>
+  <div class="ex"><span class="n">Scissors Plank</span> <span class="pt">Scissors Plank - Prancha Tesouras</span><p>A plank with a scissoring leg action &mdash; anti-rotation under movement.</p></div>
+  <div class="ex"><span class="n">Superman</span> <span class="pt">Super Man Ab</span><p>Prone simultaneous arm/leg lift &mdash; spinal-extensor and posterior-chain endurance.</p></div>
+  <div class="ex"><span class="n">Reverse Crunches &mdash; Band</span> <span class="pt">Reverse Crunches - Band</span><p>Band-resisted reverse crunches &mdash; lower-abdominal emphasis.</p></div>
+  <div class="ex"><span class="n">Double Crunches</span> <span class="pt">Double Crunches</span><p>Simultaneous upper and lower crunch &mdash; whole rectus abdominis.</p></div>
+  <div class="ex"><span class="n">Feet to Sky</span> <span class="pt">Feet to Sky</span><p>Supine leg/hip raises pressing the feet upward &mdash; lower abs.</p></div>
+  <div class="ex"><span class="n">Flutter Kicks</span> <span class="pt">Flutter Kicks</span><p>Small alternating leg flutters held just off the floor &mdash; lower-ab endurance.</p></div>
+  <div class="ex"><span class="n">One-Leg Pull</span> <span class="pt">One-Leg Pull</span><p>Single-leg tuck/pull core drill.</p></div>
+  <div class="ex"><span class="n">Side Plank</span> <span class="pt">Side Plank - Prancha Lateral</span><p>A side-lying plank &mdash; the key anti-lateral-flexion (lateral core) hold.</p></div>
+  <div class="ex"><span class="n">Contralateral Plank</span> <span class="pt">Contralateral Plank</span><p>A plank holding opposite arm and leg lifted &mdash; strong anti-rotation demand.</p></div>
+  <div class="ex"><span class="n">Plank Knee Tucks</span> <span class="pt">Plank Knee Tucks</span><p>Drawing the knees in toward the chest from a plank.</p></div>
+  <div class="ex"><span class="n">Plank Reach-Through</span> <span class="pt">Plank reach through</span><p>Threading an arm under the body from a plank &mdash; rotation with stability.</p></div>
+  <div class="ex"><span class="n">Reverse Crunch Twist</span> <span class="pt">Reverse crunch twist</span><p>Reverse crunch with a rotational finish &mdash; lower abs plus obliques.</p></div>
+  <div class="ex"><span class="n">Windshield Wipers</span> <span class="pt">Windshield wipers</span><p>Supine, rotating straight/bent legs side to side &mdash; advanced oblique and anti-rotation control.</p></div>
+  <div class="ex"><span class="n">Side Oblique Crunch</span> <span class="pt">Side oblique crunch</span><p>A side-bending crunch targeting the obliques.</p></div>
+  <div class="ex"><span class="n">Plank with Rotation</span> <span class="pt">Prancha com Rotação</span><p>Rotating into a side plank and back &mdash; dynamic core.</p></div>
+  <div class="ex"><span class="n">Twisting Pistons</span> <span class="pt">Twisting Pistons</span><p>A rotational knee-drive core drill.</p></div>
+  <div class="ex"><span class="n">Black Widow Knee Slides</span> <span class="pt">Black Widow Knee Slides</span><p>From a plank, sliding a knee out to the same-side elbow &mdash; oblique and hip-flexor work.</p></div>
+  <div class="ex"><span class="n">Lateral Mountain Climbers</span> <span class="pt">Lateral Mountain Climbers</span><p>Mountain climbers driving the knees out to the sides &mdash; obliques and conditioning.</p></div>
+  <div class="ex"><span class="n">V-Sit Pulses</span> <span class="pt">V-Sit Pulses</span><p>Small pulses held in the V-sit position &mdash; strong isometric core demand.</p></div>
+  <div class="ex"><span class="n">Plank + Toe Touch</span> <span class="pt">Prancha + Toe Touch</span><p>Plank with a hand reaching to the opposite toe.</p></div>
+  <div class="ex"><span class="n">Sit-Up</span> <span class="pt">Sit Up</span><p>The classic full sit-up &mdash; trunk flexion strength.</p></div>
+
+  <h3 class="grp">Compound</h3>
+  <div class="ex"><span class="n">Burpee + Jump + Kamae</span> <span class="pt">Burpee + Salto + Kamae</span><p>A burpee finished with a jump into the karate fighting stance &mdash; conditioning into a sport-specific position.</p></div>
+  <div class="ex"><span class="n">Side Kick-Through (Animal Flow)</span> <span class="pt">Side kick through - animal flow</span><p>A rotational kick-through from the beast position.</p></div>
+  <div class="ex"><span class="n">Bulgarian Split Squat</span> <span class="pt">Bulgarian Split Squat</span><p>Rear-foot-elevated single-leg squat &mdash; here as a bodyweight strength movement.</p></div>
+
+  <h3 class="grp">Partner Work</h3>
+  <div class="ex"><span class="n">Partner Drills</span> <span class="pt">Pares</span><p>A set of partner exercises &mdash; seated ball crunches, partner straight-leg raises, ball back-extensions, foot-touch jumps, leapfrog ("salto ao eixo"), travelling plank, backward roll with ball pass, bunny-jump + V-up, extended-body bunny jumps, Superman back-extension with jumps and with rolls, plank-push-up + jump + crawl, and seated arm-extension plyometrics. Partner resistance and shared timing throughout.</p></div>
+
+  <h3 class="grp">Sequences &amp; Gymnastics</h3>
+  <div class="ex"><span class="n">Calisthenic Sequences A&ndash;D</span> <span class="pt">Calisténico - Sequência A&ndash;D</span><p>Four set bodyweight flows combining the movements above into continuous routines.</p></div>
+  <div class="ex"><span class="n">Gymnastics &mdash; Roll &amp; Bunny-Jump Circuits</span> <span class="pt">Ginastica - Circuito Cambalhota e Coelho</span><p>Circuits chaining forward rolls and bunny jumps, including over a hurdle; plus Arsénio's gymnastic sequence.</p></div>
+  <div class="ex"><span class="n">Bridge &mdash; Knees Down, Hips Forward</span> <span class="pt">Ponte - Joelhos no chão e quadril frente</span><p>A back-bridge progression from the knees &mdash; spinal extension and shoulder/hip-flexor mobility.</p></div>
+  <div class="ex"><span class="n">Cartwheel</span> <span class="pt">Roda</span><p>The gymnastic cartwheel &mdash; coordination, hand support and spatial awareness.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-kettlebell">
+  <h2>Kettlebell</h2>
+  <div class="src">Treino / Kettlebell &mdash; 7 exercises</div>
+  <div class="ex"><span class="n">Kettlebell Snatch</span> <span class="pt">Kettlebell Snatch</span><p>Driving the kettlebell from between the legs to overhead in one explosive movement &mdash; full-body power and conditioning.</p></div>
+  <div class="ex"><span class="n">Kettlebell Swing (1 &amp; 2)</span> <span class="pt">Kettlebell Swing</span><p>A hip-hinge "hike and snap" swinging the bell to chest/eye height &mdash; the foundational ballistic posterior-chain exercise.</p></div>
+  <div class="ex"><span class="n">Goblet Squat with Kettlebell</span> <span class="pt">Squat com Kettlebell</span><p>A squat holding the bell at the chest &mdash; teaches an upright, deep squat.</p></div>
+  <div class="ex"><span class="n">Kettlebell Around-the-World with Stall</span> <span class="pt">Kettlebell Around the world with stall</span><p>Passing the bell around the body with a brief hold &mdash; grip, coordination and core.</p></div>
+  <div class="ex"><span class="n">Single-Leg Kettlebell Deadlift</span> <span class="pt">Kettlebell Single Deadlift</span><p>A one-legged hip hinge with a kettlebell &mdash; posterior-chain strength and balance.</p></div>
+  <div class="ex"><span class="n">Kettlebell Goblet Reverse Lunge</span> <span class="pt">Kettlebell Goblet Reverse Lunge</span><p>A backward lunge holding the bell in the goblet position &mdash; single-leg strength with an anterior load.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-musculacao">
+  <h2>Weight Training</h2>
+  <div class="src">Treino / Musculação</div>
+  <p class="note">A concepts-and-tips chapter on resistance training. No catalogued exercises; conceptual content only.</p>
+</div>
+
+<div class="chapter" id="ch-programas">
+  <h2>Programmes &mdash; Workout of the Day</h2>
+  <div class="src">Treino / Programas &mdash; 14 exercises</div>
+  <div class="ex"><span class="n">WOD &mdash; "Don't Run Loredo" (6 rounds for time)</span> <span class="pt">WOD - Dont Run Loredo</span><p>A timed CrossFit-style benchmark workout, six rounds for time.</p></div>
+  <div class="ex"><span class="n">Bunny Jump + V-Up</span> <span class="pt">Salto Coelho + V-up</span><p>A bunny jump paired with a V-up &mdash; explosive plus core.</p></div>
+  <div class="ex"><span class="n">Open WOD 14.5 &mdash; Thrusters + Burpees</span> <span class="pt">Open WOD 14.5</span><p>The CrossFit Open 14.5 workout: descending thrusters and bar-facing burpees.</p></div>
+  <div class="ex"><span class="n">Band Ripper 1&ndash;4 (Frank Medrano)</span> <span class="pt">Band Ripper - Frank Medrano</span><p>A four-part banded ab series from athlete Frank Medrano.</p></div>
+  <div class="ex"><span class="n">Plank &mdash; Medicine Ball, Forearm</span> <span class="pt">Prancha - AnteBraço - Bola Medicinal</span><p>Forearm plank with a medicine ball under an arm &mdash; added instability.</p></div>
+  <div class="ex"><span class="n">Crunch and Push-Up &mdash; Plank, Medicine Ball</span> <span class="pt">Abdominal e Flexão - Prancha - Bola Medicinal</span><p>Combined crunch/push-up plank work over a medicine ball.</p></div>
+  <div class="ex"><span class="n">Plank &mdash; Hand Switch on Medicine Ball</span> <span class="pt">Prancha - Troca Mão - Bola Medicinal</span><p>Switching a hand on and off a medicine ball from the plank &mdash; anti-rotation.</p></div>
+  <div class="ex"><span class="n">Bicycle Crunch holding Medicine Ball</span> <span class="pt">Bicycle Ab - Segurar Bola Medicinal</span><p>The bicycle crunch loaded with a medicine ball.</p></div>
+  <div class="ex"><span class="n">Medicine-Ball Plank Hand Switch</span> <span class="pt">Medicine Ball Plank hand Switch</span><p>Plank hand-switching across a medicine ball.</p></div>
+  <div class="ex"><span class="n">Ball Bounces</span> <span class="pt">Ball Bounces</span><p>Rapid medicine-ball bouncing &mdash; reactive upper-body/core conditioning.</p></div>
+  <div class="ex"><span class="n">Russian Ball Release</span> <span class="pt">Russain Ball Release</span><p>A Russian-twist action releasing/catching the ball &mdash; rotational core.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-trx">
+  <h2>TRX &amp; Resistance Bands</h2>
+  <div class="src">Treino / TRX | Band &mdash; 28 exercises</div>
+  <h3 class="grp">Resistance Band</h3>
+  <div class="ex"><span class="n">Banded Glute Bridge</span> <span class="pt">Banded Glute Bridge</span><p>Glute bridge with a band adding abduction tension &mdash; glute max and medius.</p></div>
+  <div class="ex"><span class="n">Banded Jump Squats</span> <span class="pt">Banded Jumo Squats</span><p>Jump squats against band resistance &mdash; resisted lower-body power.</p></div>
+  <div class="ex"><span class="n">Banded Pistol Squat</span> <span class="pt">Banded Pistol Squat</span><p>A band-assisted single-leg "pistol" squat &mdash; single-leg strength and control.</p></div>
+  <div class="ex"><span class="n">Banded Sprints</span> <span class="pt">Banded Sprints</span><p>Resisted sprinting against a band &mdash; acceleration and horizontal force.</p></div>
+  <div class="ex"><span class="n">Banded Biceps Curls (Overhead, Seated, Lateral, Concentration)</span> <span class="pt">Bicep Curls - Band</span><p>A set of band biceps curls from varied angles &mdash; arm strength.</p></div>
+  <div class="ex"><span class="n">Arms &amp; Legs Open-Close &mdash; Band</span> <span class="pt">Braços e Pernas - Abrir Fechar - Elástico</span><p>Banded open-close action for the limbs &mdash; abduction strength.</p></div>
+  <div class="ex"><span class="n">Single-Leg Leg Press &mdash; Band</span> <span class="pt">Leg Press Unilateral - Band</span><p>A band-resisted single-leg press.</p></div>
+  <div class="ex"><span class="n">Calf Raises &mdash; Band</span> <span class="pt">Gémeos - Band</span><p>Band-resisted calf raises.</p></div>
+  <div class="ex"><span class="n">Single-Leg Deadlift &mdash; Band</span> <span class="pt">Deadlift Unilateral - Band</span><p>A band-resisted single-leg hip hinge.</p></div>
+  <div class="ex"><span class="n">18 Advanced Resistance-Band Exercises</span> <span class="pt">18 Advanced Exercises with Resistance Bands</span><p>A compiled reference set of advanced band exercises.</p></div>
+  <div class="ex"><span class="n">Band Training for Strength and Power</span> <span class="pt">Band Training For Strength And Power</span><p>A reference clip on programming bands for strength and power.</p></div>
+  <h3 class="grp">TRX Suspension Trainer</h3>
+  <div class="ex"><span class="n">TRX Lunge with Knee Drive</span> <span class="pt">TRX - Lunge Subida Joelho</span><p>A suspended-foot lunge finished with a knee drive &mdash; single-leg strength and balance.</p></div>
+  <div class="ex"><span class="n">TRX Mountain Climbers</span> <span class="pt">TRX - Mountain Climbers</span><p>Mountain climbers with the feet in the TRX &mdash; high core demand.</p></div>
+  <div class="ex"><span class="n">TRX Mixed Row</span> <span class="pt">TRX - Puxada Mista</span><p>A TRX row with a mixed pulling angle &mdash; back strength.</p></div>
+  <div class="ex"><span class="n">TRX Push-Up + Crunch</span> <span class="pt">TRX - Flexão + Abdominal</span><p>A suspended push-up combined with a knee-tuck crunch.</p></div>
+  <div class="ex"><span class="n">TRX Low-Back Extension</span> <span class="pt">TRX - Lombar</span><p>A TRX exercise for the lumbar extensors.</p></div>
+  <div class="ex"><span class="n">TRX Gyaku Leg Drive (Kumite)</span> <span class="pt">Kumite - Avanço perna em Gyaku TRX</span><p>A karate-specific TRX drill training the lead-leg drive of the reverse punch.</p></div>
+  <div class="ex"><span class="n">TRX Pistol Squat</span> <span class="pt">Pistols - TRX</span><p>A TRX-assisted single-leg pistol squat.</p></div>
+  <div class="ex"><span class="n">TRX "T" and "Y"</span> <span class="pt">T / Y - TRX</span><p>TRX raises tracing T and Y shapes &mdash; mid-back and scapular strength.</p></div>
+  <div class="ex"><span class="n">TRX One-Arm Pull + Twist</span> <span class="pt">One Arm Pull + Twist - TRX</span><p>A single-arm TRX row with a trunk rotation &mdash; pulling strength plus rotation.</p></div>
+  <div class="ex"><span class="n">TRX Squat</span> <span class="pt">Agachamento - TRX</span><p>A TRX-supported squat &mdash; squat pattern with assistance.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="section-divider" id="sec-tecnico">Technical (Karate)</div>
+
+<div class="chapter" id="ch-arquivo-t">
+  <h2>Archive</h2>
+  <div class="src">Técnico / Arquivo</div>
+  <p class="note">A documentation and planning archive. No catalogued exercises.</p>
+</div>
+
+<div class="chapter" id="ch-biomecanica">
+  <h2>Biomechanics</h2>
+  <div class="src">Técnico / Bio-Mecânica &mdash; 10 exercises</div>
+  <p class="lead">Drills built around correct foot placement ("settling") and the mechanics of stances and turns. <i>Zenkutsu Dachi</i> = front stance; <i>Mae Geri</i> = front kick; <i>Gyaku Tsuki</i> = reverse punch; <i>Mate</i> = a held pause.</p>
+  <div class="ex"><span class="n">Foot-Shape Correction (Partners)</span> <span class="pt">Correcção formas dos pés - Pares</span><p>Partner drill correcting the angle and shape of the feet in stance (also a second variation).</p></div>
+  <div class="ex"><span class="n">Foot Settling into Stances</span> <span class="pt">Assentamentos pés com posições</span><p>Drilling the correct "settling" of the feet as the body sinks into each stance.</p></div>
+  <div class="ex"><span class="n">Zenkutsu Dachi: Leg Raise + Rotation + 180&deg; (Level 1)</span> <span class="pt">Zenkutsu Dachi - Subida Perna - Rotação - 180&deg;</span><p>Front-stance drill with a leg raise, rotation and 180-degree turn &mdash; turning mechanics, level 1.</p></div>
+  <div class="ex"><span class="n">Zenkutsu Dachi: Mae Geri + Mate + 180&deg; + Gyaku Tsuki (Level 2)</span> <span class="pt">Zenkutsu Dachi - Mae Geri - Mate - 180&deg; - Gyaku Tsuki</span><p>Front kick, held pause, 180-degree turn and reverse punch &mdash; level 2; a level-3 version is performed in threes.</p></div>
+  <div class="ex"><span class="n">Zenkutsu Dachi with Knee/Leg Raise (Level 0)</span> <span class="pt">Zenkutsu Dachi com Subida Joelho Perna</span><p>The introductory front-stance drill with a knee/leg raise.</p></div>
+  <div class="ex"><span class="n">Lumbar &amp; Abdominal Proprioception (Level 0)</span> <span class="pt">Proprioceptividade da zona lombar e abdominal</span><p>Proprioceptive control work for the trunk; also an abdominal-only variation.</p></div>
+  <div class="ex"><span class="n">Anatomy in Focus #7 &mdash; Hip Flexors</span> <span class="pt">Treino em FOCO Anatomia #7</span><p>A reference clip on the hip flexors and their role in technique.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-bunkai">
+  <h2>Bunkai</h2>
+  <div class="src">Técnico / Bunkai &mdash; 2 exercises</div>
+  <p class="lead"><i>Bunkai</i> is the practical application of the movements of a kata against an opponent.</p>
+  <div class="ex"><span class="n">Playful Bunkai &mdash; Sequence A (and v2)</span> <span class="pt">Lúdo Bunkai - Sequência A</span><p>A game-based bunkai sequence applying kata movements with a partner.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-circuitos">
+  <h2>Motor-Literacy Circuits</h2>
+  <div class="src">Técnico / Circuitos AM &mdash; 9 exercises</div>
+  <div class="ex"><span class="n">Yoko Geri Circuit (Beginners)</span> <span class="pt">Circuito Yoko Geri - Iniciados</span><p>A side-kick technical circuit for beginner classes.</p></div>
+  <div class="ex"><span class="n">Kiba Dachi Circuit (Children)</span> <span class="pt">Circuito Kiba Dachi - Infantis</span><p>A horse-stance circuit for children's classes.</p></div>
+  <div class="ex"><span class="n">Motor-Literacy Circuit &mdash; Speed &amp; Plyometrics (Advanced)</span> <span class="pt">Circuito AM - Velocidade e Pliometria</span><p>An advanced speed-and-plyometric circuit.</p></div>
+  <div class="ex"><span class="n">Motor-Literacy Circuit &mdash; Speed (A &amp; B)</span> <span class="pt">Circuito AM - Velocidade</span><p>Speed-focused motor circuits, versions A and B.</p></div>
+  <div class="ex"><span class="n">Motor-Literacy Circuit &mdash; Gymnastics &amp; Agility</span> <span class="pt">Circuito AM - Ginástica e Agilidade</span><p>A circuit blending gymnastic skills with agility; also a gymnastics-only version.</p></div>
+  <div class="ex"><span class="n">Individual Karate Choreography (FIJILKAM)</span> <span class="pt">Coreografia Karate Individual - FIJILKAM</span><p>A solo karate choreography sequence from the Italian federation FIJILKAM.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-dachiwaza">
+  <h2>Dachi Waza &mdash; Stances</h2>
+  <div class="src">Técnico / Dachi Waza &mdash; 8 exercises</div>
+  <p class="lead"><i>Kiba Dachi</i> = horse-riding stance; <i>Shiko Dachi</i> = square/sumo stance; <i>Heisoku Dachi</i> = feet-together stance.</p>
+  <div class="ex"><span class="n">Kiba Dachi with Hoop</span> <span class="pt">kiba dachi arco</span><p>Horse-stance work using a hoop as a positional reference.</p></div>
+  <div class="ex"><span class="n">Kiba Dachi with Roll</span> <span class="pt">Kiba Dachi com Rolamento</span><p>Entering the horse stance out of a roll &mdash; stance recovery from the floor.</p></div>
+  <div class="ex"><span class="n">Shiko Dachi Eccentric Strength</span> <span class="pt">Força excêntrica Shiko Dachi</span><p>Slow, controlled lowering into the square stance &mdash; eccentric leg strength.</p></div>
+  <div class="ex"><span class="n">Kiba Dachi in Pairs</span> <span class="pt">Kiba dachi a Pares</span><p>Partner-resisted horse-stance work.</p></div>
+  <div class="ex"><span class="n">Kiba Dachi in 4 Directions</span> <span class="pt">Kiba Dachi em 4 Direcções</span><p>Moving the horse stance through the four directions.</p></div>
+  <div class="ex"><span class="n">Shiko Dachi with Roll</span> <span class="pt">Shiko Dachi com rolamento</span><p>Entering the square stance out of a roll.</p></div>
+  <div class="ex"><span class="n">Kiba Dachi Star Jump, 4 Directions</span> <span class="pt">Kiba Dachi Salto Estrela 4 Direccoes</span><p>Star jumps landing in the horse stance facing the four directions.</p></div>
+  <div class="ex"><span class="n">Heisoku Dachi to Zenkutsu Dachi, 4 Directions</span> <span class="pt">A partir Heisoku Dashi quatro direções Zenkutsu Dashi</span><p>From the feet-together stance, stepping into the front stance toward each of the four directions, left and right.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-kata">
+  <h2>Kata</h2>
+  <div class="src">Técnico / Kata</div>
+  <p class="note">A page referencing kata (FIKTA forms). No catalogued exercise videos.</p>
+</div>
+
+<div class="chapter" id="ch-keriwaza">
+  <h2>Keri Waza &mdash; Kicking Techniques</h2>
+  <div class="src">Técnico / Keri Waza &mdash; 26 exercises</div>
+  <p class="lead"><i>Yoko Geri</i> = side kick; <i>Mae Geri</i> = front kick; <i>Mawashi Geri</i> = roundhouse kick; <i>Ura Mawashi Geri</i> = reverse/hook roundhouse; <i>Keage</i> = snap kick.</p>
+  <h3 class="grp">Yoko Geri &mdash; Side Kick</h3>
+  <div class="ex"><span class="n">Side Kick on the Floor (simple &amp; alternating)</span> <span class="pt">Yoko Geri Simples no Chão</span><p>Lying/seated side-kick reps on the floor, single and alternating &mdash; isolating the kicking mechanics without balance demand.</p></div>
+  <div class="ex"><span class="n">Side Kick to Ball on the Floor (Partners)</span> <span class="pt">Yoko Geri intercalado à bola no chão</span><p>Floor side kicks alternating to a ball held by a partner &mdash; accuracy and control.</p></div>
+  <div class="ex"><span class="n">Side Kick in Pairs (Floor)</span> <span class="pt">yoko geri simples a pares</span><p>Partnered floor side-kick drilling.</p></div>
+  <div class="ex"><span class="n">Standing Side Kick with Rotation</span> <span class="pt">Yoko Geri em pé rotação</span><p>Standing side kick driven by hip rotation.</p></div>
+  <div class="ex"><span class="n">Side Kick inside the Hoop</span> <span class="pt">Yoko Geri dentro do Arco</span><p>Side kick performed with the support foot placed in a hoop &mdash; positional reference.</p></div>
+  <div class="ex"><span class="n">Side Kick &mdash; Kiba Dachi Travel with Hoop (v1 &amp; v2)</span> <span class="pt">Yoko Geri - Kiba Dachi Deslocação - Arco</span><p>Side kicks while travelling in the horse stance, using hoops to mark footwork.</p></div>
+  <div class="ex"><span class="n">Side Kick over Hurdle</span> <span class="pt">Yoko Geri por cima de Barreira</span><p>Side kick clearing a hurdle &mdash; height and chamber.</p></div>
+  <div class="ex"><span class="n">Side-Kick Leg Balance (Partners)</span> <span class="pt">Equilibrio pernas yoko geri Pares</span><p>Holding the side-kick position with partner support &mdash; balance and chamber endurance.</p></div>
+  <h3 class="grp">Mae Geri &mdash; Front Kick</h3>
+  <div class="ex"><span class="n">Knee Raise &mdash; Transition to Mae Geri (v1 &amp; v2)</span> <span class="pt">Subida Joelho - Transição Mae Geri</span><p>Drilling the knee chamber and its transition into the front kick.</p></div>
+  <div class="ex"><span class="n">Front Kick to Ball on the Floor</span> <span class="pt">Mae Geri no Chão com bola</span><p>Floor front-kick reps to a ball &mdash; mechanics and accuracy.</p></div>
+  <div class="ex"><span class="n">Front Kick inside the Hoop</span> <span class="pt">Mae Geri Dentro do Arco</span><p>Front kick with the support foot in a hoop.</p></div>
+  <div class="ex"><span class="n">Front-Kick Leg Balance (Partners)</span> <span class="pt">Equilibrio pernas mae geri Pares</span><p>Partner-supported front-kick balance and chamber hold.</p></div>
+  <div class="ex"><span class="n">Front Kick in Bridge</span> <span class="pt">Mae Geri em Ponte</span><p>Front-kick action performed from a bridge position &mdash; mobility and control.</p></div>
+  <h3 class="grp">Mawashi Geri &mdash; Roundhouse Kick</h3>
+  <div class="ex"><span class="n">Mawashi Progression &mdash; Knee &amp; Straight-Leg Raises</span> <span class="pt">Progressão para Mawashi</span><p>A progression: knee raises and straight-leg raises building toward the roundhouse, including a version without the kick itself.</p></div>
+  <div class="ex"><span class="n">Mawashi Geri Around a Partner</span> <span class="pt">Mawashi Geri Contornar Colega</span><p>Roundhouse kicks while moving around a partner.</p></div>
+  <div class="ex"><span class="n">Mawashi Geri to Target with Ball Control</span> <span class="pt">Mawashi Geri a Alvo com Controlo Bola</span><p>Roundhouse kicks to a target combined with ball control &mdash; accuracy under a dual task.</p></div>
+  <div class="ex"><span class="n">Mawashi Geri to Ball at Distance (Partners)</span> <span class="pt">Pares - Mawashi Geri à bola com distancia</span><p>Roundhouse kicks to a partner-held ball at range &mdash; distancing.</p></div>
+  <div class="ex"><span class="n">Mawashi Geri &mdash; Knee Raise Only, in Hoops</span> <span class="pt">Mawashi Geri só subida joelho nos arcos</span><p>Drilling only the knee chamber of the roundhouse, footwork marked by hoops.</p></div>
+  <h3 class="grp">Ura Mawashi Geri &mdash; Reverse Roundhouse</h3>
+  <div class="ex"><span class="n">Ura Mawashi inside the Hoop (Trios)</span> <span class="pt">Ura Maowashi dentro do arco - Trio</span><p>Reverse-roundhouse drilling in groups of three with a hoop reference.</p></div>
+  <div class="ex"><span class="n">Ura Mawashi with Squat (Partners)</span> <span class="pt">Ura Maowashi com Agachamento - Pares</span><p>Reverse roundhouse combined with a squat &mdash; strength into the kick.</p></div>
+  <h3 class="grp">Various</h3>
+  <div class="ex"><span class="n">Endurance &mdash; Keage and Yoko Geri</span> <span class="pt">Resistencia - Keage e Yoko Geri</span><p>Endurance drilling of snap kicks and side kicks.</p></div>
+  <div class="ex"><span class="n">Yoko Geri and Mawashi Geri (Partners)</span> <span class="pt">Pares - Yoko Geri e Mawashi geri</span><p>Partnered combination of side and roundhouse kicks.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-kihon">
+  <h2>Kihon &mdash; Basics</h2>
+  <div class="src">Técnico / Kihon &mdash; 19 exercises</div>
+  <p class="lead"><i>Kihon</i> is the practice of fundamental techniques. <i>Oi Tsuki</i> = lunge punch; <i>Gedan Barai</i> = downward block; <i>Age Uke</i> = rising block; <i>Shuto</i> = knife-hand.</p>
+  <div class="ex"><span class="n">Oi Tsuki in Zenkutsu Dachi (Partners)</span> <span class="pt">Oi Tsuki em Zenkutsu Dachi - Pares</span><p>Lunge punch in front stance, drilled with a partner.</p></div>
+  <div class="ex"><span class="n">Gedan Barai in Kiba Dachi (Partners)</span> <span class="pt">Gedan Barai em Kiba Dachi - Pares</span><p>Downward block in horse stance, drilled with a partner.</p></div>
+  <div class="ex"><span class="n">Arm Techniques in Kiba Dachi</span> <span class="pt">técnicas de braços Kiba dachi</span><p>A set of arm techniques from the horse stance &mdash; punch to the front, rising block left, outside block right, downward block to the rear.</p></div>
+  <div class="ex"><span class="n">Circuit &mdash; Kiba Dachi + Yoko Geri (Beginners)</span> <span class="pt">Circuito - Kiba Dachi + Yoko Geri</span><p>A basics circuit combining the horse stance with side kicks.</p></div>
+  <div class="ex"><span class="n">Hold the Hoop &mdash; Mae Geri and Tsuki in Heisoku Dachi</span> <span class="pt">Segurar no arco Mae geri e tsuki heisoku dashi</span><p>Front kick and punch from the feet-together stance, using a hoop.</p></div>
+  <div class="ex"><span class="n">Age Uke Combination Sequences</span> <span class="pt">Sequência age uke</span><p>Linked rising-block sequences &mdash; e.g. age uke + gyaku + mae geri + shiko dachi + gedan barai, advancing and retreating, with neko-ashi and shuto variations.</p></div>
+  <div class="ex"><span class="n">Kihon Keri Waza with Support</span> <span class="pt">Kihon - Keri Waza com apoio</span><p>Basic kicking technique practised with external support for balance.</p></div>
+  <div class="ex"><span class="n">Weave Cones + Technique (Levels 0&ndash;5)</span> <span class="pt">Contornar cones + técnica</span><p>A six-level progression weaving through cones and executing a technique &mdash; footwork plus basics, the higher levels in pairs.</p></div>
+  <div class="ex"><span class="n">Weave Cones (Children, July 2021)</span> <span class="pt">Contornar Cones - Infantis</span><p>The cone-weaving drill adapted for children's classes.</p></div>
+  <div class="ex"><span class="n">Hoops &mdash; Kiba Dachi: Oi Tsuki, Gedan Barai, Age Uke, Soto Uke</span> <span class="pt">Arcos - Kibadachi - OT - GB - AU - SU</span><p>Horse-stance drill cycling lunge punch, downward block, rising block and outside block across hoops.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-kumite">
+  <h2>Sport Kumite</h2>
+  <div class="src">Técnico / Kumite Desportivo &mdash; 33 exercises</div>
+  <p class="lead">Competition-sparring preparation: movement speed, punch and leg speed, reaction and tactics. <i>Gyaku</i> = reverse punch; <i>Oi-zuki</i> = lunge punch; <i>Kizami</i> = lead-hand jab.</p>
+  <h3 class="grp">Footwork &mdash; Deslocamentos</h3>
+  <div class="ex"><span class="n">Movement Speed &mdash; Unloaded / Weighted Vest / Elastic (resisted &amp; assisted)</span> <span class="pt">Kumite - Velocidade de deslocamento</span><p>The core footwork-speed series: stepping speed performed with no load, with a weighted vest, and with elastic resistance both opposing and assisting the movement &mdash; the contrast develops fast, controlled displacement.</p></div>
+  <div class="ex"><span class="n">Ladder &mdash; Kamae In-and-Out, Lateral (and with Guard Switch)</span> <span class="pt">Escadas Kamae - entra e saida - deslocamento lateral</span><p>Agility-ladder footwork from the fighting stance: lateral in-and-out steps, one version switching guard.</p></div>
+  <div class="ex"><span class="n">Cones &mdash; Simple Step-In Entry (and 2-Beat + Gyaku)</span> <span class="pt">Cones - Deslocação Simples com entrada</span><p>Cone footwork drilling the entry step, one version a two-beat entry finished with a reverse punch.</p></div>
+  <h3 class="grp">Arms &mdash; Braços</h3>
+  <div class="ex"><span class="n">Oi-zuki Speed &mdash; Unloaded</span> <span class="pt">Kumite - Velocidade do oitsuki sem carga</span><p>Lunge-punch speed drilled without load.</p></div>
+  <div class="ex"><span class="n">Gyaku Speed &mdash; Elastic (resisted &amp; assisted) and Weighted</span> <span class="pt">Kumite - Velocidade do gyaku</span><p>Reverse-punch speed with elastic opposing the punch, elastic assisting it, and with added weight &mdash; a contrast method for hand speed.</p></div>
+  <div class="ex"><span class="n">Gyaku Explosion</span> <span class="pt">Explosão Gyaku</span><p>Explosive reverse-punch reps from the fighting stance.</p></div>
+  <div class="ex"><span class="n">Lateral Jump with Gyaku (v1 &amp; v2)</span> <span class="pt">Salto Lateral com gyaku</span><p>A lateral jump combined with a reverse punch &mdash; linking footwork displacement to the strike.</p></div>
+  <div class="ex"><span class="n">Plastron Reaction &mdash; Punch/Kick Combinations</span> <span class="pt">Reação aos plastrons</span><p>Reacting to a coach's body-shield cues with combinations: punch, punch+punch, punch+kick, kick+kick.</p></div>
+  <div class="ex"><span class="n">Kumite &mdash; Arm/Tsuki Circuit</span> <span class="pt">KUMITE - Circuito Braços Tsukis</span><p>A circuit drilling punching techniques.</p></div>
+  <h3 class="grp">Legs &mdash; Pernas</h3>
+  <div class="ex"><span class="n">Leg Speed &mdash; Unloaded / Elastic / Weighted</span> <span class="pt">Kumite - Velocidade de pernas</span><p>Kicking-leg speed drilled with no load, with elastic, and with added weight (two unloaded versions).</p></div>
+  <div class="ex"><span class="n">Geri Technique &mdash; Skill and Control</span> <span class="pt">Habilidade e Controlo de técnicas Geri</span><p>Two drills developing kicking skill and then controlled accuracy of the kicks.</p></div>
+  <div class="ex"><span class="n">Mawashi Geri Technical Work &amp; Reinforcement with Chair</span> <span class="pt">Trabalho técnico e de reforço muscular do Mawashi Geri com cadeira</span><p>Roundhouse-kick technique and strengthening using a chair for support.</p></div>
+  <div class="ex"><span class="n">Mawashi and Ura Mawashi (Partners)</span> <span class="pt">Mawashi e Ura Mawashi - Pares</span><p>Partnered roundhouse and reverse-roundhouse drilling.</p></div>
+  <h3 class="grp">Basics &amp; Defence</h3>
+  <div class="ex"><span class="n">Geri Leg Circuit</span> <span class="pt">Circuito Pernas Geri</span><p>A circuit drilling kicking techniques.</p></div>
+  <div class="ex"><span class="n">Plastron Reaction &mdash; Leg and Arm Attacks</span> <span class="pt">Reacção aos plastrons - ataques perna e braço</span><p>Reacting to body-shield cues with mixed leg and arm attacks.</p></div>
+  <div class="ex"><span class="n">Kizami + Gyaku on the Ladder</span> <span class="pt">Kizame + Gyaku na Escada</span><p>Jab + reverse-punch combination drilled on the agility ladder.</p></div>
+  <div class="ex"><span class="n">Zone Defence &mdash; Static</span> <span class="pt">Defesas à zona - Estático</span><p>Drilling defensive coverage of the scoring zones from a static base.</p></div>
+  <div class="ex"><span class="n">Zone Defence + Movement &mdash; Figure-of-Eight</span> <span class="pt">Defesas à zona + Deslocação - Símbolo do Infinito</span><p>Zone defence combined with footwork tracing a figure-of-eight path.</p></div>
+  <div class="ex"><span class="n">Reaction to NKS Attack</span> <span class="pt">Vídeo Reacção a Ataque NKS</span><p>A reaction drill against a defined attack pattern.</p></div>
+  <h3 class="grp">Rules</h3>
+  <div class="ex"><span class="n">Karate Rules &mdash; What Is Kumite (Olympic Committee)</span> <span class="pt">REGRAS DO KARATÉ - O QUE É O KUMITE</span><p>An explanatory video on the rules of competition kumite.</p></div>
+  <div class="ex"><span class="n">Karate Rules &mdash; Kumite Scoring System (WKF)</span> <span class="pt">Karate Rules - Kumite Scoring System - WKF</span><p>A reference video on the World Karate Federation scoring system.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-literacia">
+  <h2>Physical Literacy</h2>
+  <div class="src">Técnico / Literacia Física</div>
+  <p class="note">A conceptual page on physical literacy. No catalogued exercises.</p>
+</div>
+
+<div class="chapter" id="ch-ludokumite">
+  <h2>Playful Kumite</h2>
+  <div class="src">Técnico / Lúdo Kumite &mdash; 7 exercises</div>
+  <p class="lead">Game-based sparring progressions for developing attack, defence and decision-making.</p>
+  <div class="ex"><span class="n">Level 1 &mdash; One Attack, One Defence (Tsuki)</span> <span class="pt">Nivel 1 - Um ataque e Uma Defesa - Tuski</span><p>The most basic exchange: a single punch and a single defence, in horse-stance movement.</p></div>
+  <div class="ex"><span class="n">Level 2 &mdash; One Attack, One Defence (Tsuki Jodan)</span> <span class="pt">Nivel 2 - ... Tsuki shodan</span><p>The same exchange directed to the head level.</p></div>
+  <div class="ex"><span class="n">Level 3 &mdash; Jodan and Chudan Alternating</span> <span class="pt">Nivel 3 - Jodan e Shodan Intercalado</span><p>Alternating head- and body-level attacks &mdash; adds target variation.</p></div>
+  <div class="ex"><span class="n">Level 4 &mdash; Random Attack</span> <span class="pt">Nivel 4 - Ataque Aleatório</span><p>Unpredictable attacks &mdash; reactive defence and decision-making.</p></div>
+  <div class="ex"><span class="n">Touch Game &mdash; Levels 1&ndash;3</span> <span class="pt">Jogo dos Toques</span><p>A three-level "touch" sparring game training distancing, timing and evasion through variables of target, evasion, footwork and defence.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-newaza">
+  <h2>Ne Waza &mdash; Ground Work</h2>
+  <div class="src">Técnico / Ne Waza &mdash; 4 exercises</div>
+  <div class="ex"><span class="n">Turn Opponent Over</span> <span class="pt">Ne Waza - Rodar Adversário para cima</span><p>Ground drill turning a resisting opponent onto their back.</p></div>
+  <div class="ex"><span class="n">Wrestle &mdash; Back-to-Back (Alternating &amp; Level 2)</span> <span class="pt">Luta - Costas com Costas</span><p>A grappling game starting back-to-back &mdash; reaction, strength and positioning.</p></div>
+  <div class="ex"><span class="n">Wrestle &mdash; Variation 1</span> <span class="pt">Luta - Outro 1</span><p>A further ground-wrestling game variation.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-uchiwaza">
+  <h2>Uchi Waza &mdash; Arm Techniques</h2>
+  <div class="src">Técnico / Uchi Waza &mdash; 2 exercises</div>
+  <div class="ex"><span class="n">Plank on Forefists (Seiken)</span> <span class="pt">Prancha em Seiken</span><p>A plank held on the forefists &mdash; conditions the <i>seiken</i> (punching knuckles) and wrist alignment while training the core.</p></div>
+  <div class="ex"><span class="n">Oi Tsuki &mdash; Grip the Hoop</span> <span class="pt">Oi Tsuki - Agarrar no arco</span><p>Lunge-punch drill using a hoop as a grip/target reference.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-ukemi">
+  <h2>Ukemi Waza &mdash; Breakfalls</h2>
+  <div class="src">Técnico / Ukemi Waza</div>
+  <p class="note">A page on breakfall techniques. No catalogued exercise videos.</p>
+</div>
+
+<div class="section-divider" id="sec-varios">Miscellaneous</div>
+
+<div class="chapter" id="ch-arquivo-v">
+  <h2>Archive</h2>
+  <div class="src">Vários / Arquivo</div>
+  <p class="note">A links-and-sites archive. No catalogued exercises.</p>
+</div>
+
+<div class="chapter" id="ch-fisiologia">
+  <h2>Physiology</h2>
+  <div class="src">Vários / Fisiologia</div>
+  <p class="note">A theory chapter on physiology &mdash; passive structures, elastic energy and mechanical energy. No catalogued exercises.</p>
+</div>
+
+<div class="chapter" id="ch-formacoes">
+  <h2>Courses / Webinars</h2>
+  <div class="src">Vários / Formações &mdash; 4 reference webinars</div>
+  <p class="lead">Educational webinars rather than exercises &mdash; included for completeness.</p>
+  <div class="ex"><span class="n">Post-Activation Potentiation</span> <span class="pt">Post Activation Potentiation - Webinar GoAthlete #01</span><p>A webinar on PAP &mdash; using a heavy or explosive "conditioning" effort to acutely boost subsequent power output.</p></div>
+  <div class="ex"><span class="n">Rating of Perceived Exertion (RPE)</span> <span class="pt">SC Perceção Subjetiva de Esforço PSE - Bwizer</span><p>A webinar on collecting and using session-RPE to monitor training load.</p></div>
+  <div class="ex"><span class="n">Training Load vs Injury Risk</span> <span class="pt">Carga de Treino vs. Risco de Lesão - Bwizer</span><p>A webinar on the relationship between training load and injury risk.</p></div>
+  <div class="ex"><span class="n">Why Control Training Load</span> <span class="pt">Porque controlar a Carga do Treino - Bwizer</span><p>A webinar on the rationale for monitoring and managing training load.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+<div class="chapter" id="ch-jogos">
+  <h2>Games</h2>
+  <div class="src">Vários / Jogos &mdash; 17 exercises</div>
+  <p class="lead">Game-format drills developing speed, agility, reaction, coordination and object manipulation &mdash; mostly for youth groups.</p>
+  <div class="ex"><span class="n">Agility Game &mdash; 3 Protect 4 Cones vs 1</span> <span class="pt">Jogo Agilidade - 3 pessoas proteger 4 pinos contra 1</span><p>Three players defend four cones against one attacker &mdash; reactive agility and teamwork.</p></div>
+  <div class="ex"><span class="n">8 Cones, 3 in the Hoop Game</span> <span class="pt">Jogo 8 cones 3 no arco</span><p>A cone-collecting speed and decision game.</p></div>
+  <div class="ex"><span class="n">Noughts and Crosses (Running)</span> <span class="pt">Jogo do Galo</span><p>A running tic-tac-toe relay &mdash; speed plus tactical decision-making.</p></div>
+  <div class="ex"><span class="n">Reaction Game &mdash; Catch Ball and Touch Body (v2)</span> <span class="pt">Jogo - Reacção apanhar a bola e tocar no corpo</span><p>Catch a ball then touch a body part &mdash; reaction and coordination.</p></div>
+  <div class="ex"><span class="n">Manipulation Game &mdash; Place/Remove Cone with the Feet</span> <span class="pt">Jogo Manipulação - Colocar / Tirar o cone do arco com os pés</span><p>Foot-dexterity game moving a cone in and out of a hoop.</p></div>
+  <div class="ex"><span class="n">Rock-Paper-Scissors</span> <span class="pt">JAN-KEN-PON</span><p>The hand game used as a reactive-decision starter for movement tasks.</p></div>
+  <div class="ex"><span class="n">Hands and Feet Game &mdash; Coordination</span> <span class="pt">Jogo das Mãos e Pés - Coordenação</span><p>A coordination game pairing hand and foot patterns.</p></div>
+  <div class="ex"><span class="n">Speed Game &mdash; Cones (v2)</span> <span class="pt">Jogo Exercicio de Velocidade Cones</span><p>A cone-based speed game.</p></div>
+  <div class="ex"><span class="n">Speed Game &mdash; Remove Pins from Cones</span> <span class="pt">Jogo de Velocidade - Tirar pinos dos cones</span><p>A speed race removing pins from cones.</p></div>
+  <div class="ex"><span class="n">Locomotion &amp; Manipulation &mdash; Place Pins in the Batons</span> <span class="pt">Locomoção e Manipulação - Colocar Pinos dentro dos Bastões</span><p>Combined movement and object-placement task.</p></div>
+  <div class="ex"><span class="n">Speed Game &mdash; Place Pins on Cones</span> <span class="pt">Jogo de Velocidade - Colocar pinos nos cones</span><p>A speed race placing pins onto cones.</p></div>
+  <div class="ex"><span class="n">Speed Game &mdash; Remove and Place Pins</span> <span class="pt">Jogo de Velocidade - Tirar e Colocar pinos nos cones</span><p>A speed game combining removing and placing pins.</p></div>
+  <div class="ex"><span class="n">Speed Session (Beginners, Jan 2020)</span> <span class="pt">Velocidade - Iniciados</span><p>A recorded beginners' speed session.</p></div>
+  <div class="ex"><span class="n">Ball on Cones Game</span> <span class="pt">Jogo - Bola nos cones</span><p>A game manipulating a ball among cones.</p></div>
+  <div class="ex"><span class="n">Plank &mdash; Touch the Cones</span> <span class="pt">Prancha - Tocar nos Pinos</span><p>Plank position reaching to touch coloured cones &mdash; core stability with a cognitive/reaction element.</p></div>
+  <div class="ex"><span class="n">Human Skipping Game</span> <span class="pt">Jogo - Skiping Humano</span><p>A group game in which players act as the "rope" for skipping.</p></div>
+  <div class="ex"><span class="n">Snake Hoops Game &mdash; Laterality</span> <span class="pt">Jogo dos arcos em cobra - Lateralidade</span><p>Footwork through a winding "snake" of hoops &mdash; trains laterality and foot placement.</p></div>
+</div>
+<a class="totop" href="#top">&uarr; contents</a>
+
+
+</div>
+<footer>English compendium compiled from the local copy of sites.google.com/view/coachpedromiguel &mdash; personal use.</footer>
+</body>
+</html>

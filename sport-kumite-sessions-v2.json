@@ -1,0 +1,1206 @@
+{
+  "sessions_en": [
+    {
+      "id": "S1",
+      "title": "Mid-Season Cadets — Counter-Attack & Reaction",
+      "params": {
+        "Duration": "60 min",
+        "Level": "Cadet (12–17)",
+        "Type": "Counter + Reactive",
+        "Season": "Mid-season",
+        "Focus": "Tactical + Speed",
+        "Size": "12–16 athletes"
+      },
+      "color": "var(--accent-orange)",
+      "blocks": [
+        {
+          "slot": "WARM-UP",
+          "time": "0:00–0:12",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "025",
+              "name": "Pulse Footwork Drill",
+              "mins": 5,
+              "notes": "Two lines. Pure pulse rhythm in kamae — no techniques yet. Coach walks lines correcting flat feet.",
+              "ri": "All athletes → CONTROLLED. Rhythm, not speed."
+            },
+            {
+              "ref": "019",
+              "name": "Ball-Drop Reaction Drill",
+              "mins": 5,
+              "notes": "Pair up. Tennis ball drops from shoulder height. Intercept with kizami-tsuki. Make it competitive — who gets the most catches in 15 drops?",
+              "ri": "Athlete → MATCH (react fully). Dropper → LIGHT (hold and release, no tells)."
+            },
+            {
+              "ref": "—",
+              "name": "Dynamic stretching",
+              "mins": 2,
+              "notes": "Hip circles, leg swings, arm rotations. Keep moving, no static holds.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Reading & Mirroring",
+          "time": "0:12–0:22",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "020",
+              "name": "Mirror Footwork Drill",
+              "mins": 5,
+              "notes": "Pairs. Leader moves, follower mirrors. Zero lag. Switch roles at 60s. 3 rounds.",
+              "ri": "Leader → CONTROLLED (set the pace). Follower → MATCH (zero lag mirror)."
+            },
+            {
+              "ref": "020",
+              "name": "Mirror Footwork + Attack",
+              "mins": 5,
+              "notes": "Same drill — leader adds kizami-tsuki at random. Follower must parry without breaking mirror rhythm. Bridge from reading to reacting.",
+              "ri": "Leader → CONTROLLED (footwork + occasional kizami). Follower → MATCH (mirror + parry)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Counter Mechanics",
+          "time": "0:22–0:36",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "011",
+              "name": "Nagashi-uke → Gyaku-tsuki Counter",
+              "mins": 7,
+              "notes": "Cadet adaptation: attacker throws committed but readable kizami-tsuki. Deflect with nagashi-uke, counter gyaku-tsuki. 5 reps then switch. Coach: parry and punch are ONE action, not two.",
+              "ri": "Attacker → CONTROLLED (honest attack, not overwhelming). Defender → MATCH (full speed counter)."
+            },
+            {
+              "ref": "013",
+              "name": "Step-back Counter Mawashi-geri",
+              "mins": 7,
+              "notes": "Cadet adaptation: attacker enters gyaku-tsuki at controlled pace. Step back, deflect, swivel into front-leg mawashi-geri chudan (not jodan — control first). Build speed only once form is clean.",
+              "ri": "Attacker → CONTROLLED (enters with intent, 60-70% speed). Defender → MATCH on the counter, but CHUDAN only for cadets."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Reaction Under Pressure",
+          "time": "0:36–0:46",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "021",
+              "name": "Called-Technique Rapid Fire",
+              "mins": 5,
+              "notes": "Full class in lines. Coach calls 'kizami!', 'mawashi!', 'gyaku!'. Execute from kamae instantly. Add 'jogai!' — step laterally instead of striking. Builds impulse control.",
+              "ri": "All athletes → MATCH. Full speed execution."
+            },
+            {
+              "ref": "017",
+              "name": "Gyaku-tsuki Pad Reaction (simplified)",
+              "mins": 5,
+              "notes": "One mitt, presented at random. Fire gyaku-tsuki on sight. 3 × 90s rounds. One weapon, one target, build speed.",
+              "ri": "Athlete → MATCH (fire on sight). Pad holder → CONTROLLED (vary timing, not trying to trick)."
+            }
+          ]
+        },
+        {
+          "slot": "FINISHER — Counter-Only Sparring",
+          "time": "0:46–0:55",
+          "mins": 9,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Counter-only jiyu kumite",
+              "mins": 9,
+              "notes": "Attacker initiates freely, defender can ONLY score with counters. No first-strike scoring for defender. 3 × 2-min rounds, switch roles. Coach watches for constraint-cheating — the discipline IS the drill.",
+              "ri": "Attacker → MATCH (free initiative, real attacks). Defender → MATCH (counter only — the constraint is the difficulty, not the effort)."
+            }
+          ]
+        },
+        {
+          "slot": "COOL-DOWN",
+          "time": "0:55–1:00",
+          "mins": 5,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Technical review + stretching",
+              "mins": 5,
+              "notes": "Gather in. Coach demos one counter that worked well and one common mistake. 2 min static stretching. Bow out.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Elite Peak — Offensive Pressure",
+      "params": {
+        "Duration": "60 min",
+        "Level": "Elite",
+        "Type": "Offensive",
+        "Season": "Peak (1–2 wks to comp)",
+        "Focus": "Speed + Tactical",
+        "Size": "6–8 athletes"
+      },
+      "color": "var(--accent-red)",
+      "blocks": [
+        {
+          "slot": "WARM-UP",
+          "time": "0:00–0:12",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "030",
+              "name": "Resistance-Band Dynamic Warm-Up",
+              "mins": 12,
+              "notes": "Full 12-min protocol. Resistance band at ~10% bodyweight. Dynamic stretching → kumite patterns under resistance → technique shadows. 7.3% faster punch reaction time. Non-negotiable before peak sessions.",
+              "ri": "All → CONTROLLED. Primer, not conditioning. Quality under resistance."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Primary Combination",
+          "time": "0:12–0:22",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "003",
+              "name": "Kizami → Gyaku Double-Punch",
+              "mins": 10,
+              "notes": "Competition speed from rep 1. Two mitts — jodan + chudan. Cover distance on kizami so gyaku lands without second step. After 3 sets, partner adds lateral movement. Bread-and-butter YUKO chain — sharpen, don't build.",
+              "ri": "Athlete → MATCH (competition speed from rep 1). Pad holder → CONTROLLED (present targets, add lateral movement in progression)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — IPPON Hunting",
+          "time": "0:22–0:32",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "005",
+              "name": "Kizami → Front-leg Jodan Mawashi-geri",
+              "mins": 10,
+              "notes": "The money technique. Kizami draws guard, front-leg jodan mawashi arrives before guard resets. 4 × 6 reps. If the kizami isn't convincing, the mawashi won't land in competition. Make them sell the jab.",
+              "ri": "Athlete → MATCH (the kizami must be convincing at competition speed). Pad holder → CONTROLLED (react to kizami as if in fight, present jodan mitt)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Exit Discipline",
+          "time": "0:32–0:40",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "009",
+              "name": "Slide Gyaku → Mawashi-geri Jodan Exit",
+              "mins": 8,
+              "notes": "Score and leave. Gyaku to body, immediate front-leg mawashi jodan, step OUT to safe maai. Elite athletes who linger at close range get equalized. One exhale: punch-kick-exit.",
+              "ri": "Athlete → MATCH (punch-kick-EXIT in one exhale). Pad holder → CONTROLLED (shield for body, mitt at jodan)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Live Tracking",
+          "time": "0:40–0:48",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "022",
+              "name": "Moving Focus-Mitt Accuracy",
+              "mins": 8,
+              "notes": "Coach moves unpredictably. Small targets. Track and land kizami/gyaku on moving mitts. Coach applies shoulder checks between presentations. Accuracy under chaos.",
+              "ri": "Athlete → MATCH (track and land). Coach → CONTROLLED (move unpredictably, apply pressure between presentations)."
+            }
+          ]
+        },
+        {
+          "slot": "FINISHER — Kabe Kumite (Offensive)",
+          "time": "0:48–0:56",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "023",
+              "name": "Kabe Kumite — Attacker Focus",
+              "mins": 8,
+              "notes": "Inverted: ATTACKER is focus. Pin defender to wall and score within 15s. If no score, reset. 4 × 60s rounds per attacker. Builds offensive closing pressure.",
+              "ri": "Attacker (focus) → MATCH (pin and score within 15s). Defender → MATCH (fight back — don't be a volunteer)."
+            }
+          ]
+        },
+        {
+          "slot": "COOL-DOWN",
+          "time": "0:56–1:00",
+          "mins": 4,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Light shadow + stretching",
+              "mins": 4,
+              "notes": "2 min free shadow at 30% — let the nervous system unwind. 2 min static stretching. No coaching — just recover.",
+              "ri": "All → LIGHT (30% shadow). Nervous system unwind."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Beginners — All-Purpose Foundation",
+      "params": {
+        "Duration": "60 min",
+        "Level": "Beginner (adult novice)",
+        "Type": "All-purpose",
+        "Season": "Any / Pre-season",
+        "Focus": "Technical",
+        "Size": "12–20 athletes"
+      },
+      "color": "var(--accent-teal)",
+      "blocks": [
+        {
+          "slot": "WARM-UP",
+          "time": "0:00–0:10",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "025",
+              "name": "Pulse Footwork Drill",
+              "mins": 5,
+              "notes": "Whole class in lines. Pulse rhythm in kamae — on the balls of the feet, constant micro-bounce. Coach demos first, then walks lines.",
+              "ri": "All → CONTROLLED. Rhythm and form, not speed."
+            },
+            {
+              "ref": "020",
+              "name": "Mirror Footwork Drill",
+              "mins": 5,
+              "notes": "Pair up. Leader moves (simple: in, out, lateral). Follower mirrors. Switch every 60s. 3 rounds. Learn maai through imitation before theory.",
+              "ri": "Leader → CONTROLLED (simple patterns). Follower → CONTROLLED (mirror — learning, not testing)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Building the Gyaku-tsuki",
+          "time": "0:10–0:22",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "002",
+              "name": "Gyaku-tsuki Power Line",
+              "mins": 12,
+              "notes": "The single most important technique in WKF. Full kinetic chain: rear heel → hip → shoulder → fist. Body shield absorbs impact — beginners need to feel the technique connect. 4 × 8 reps/side. Check hip recoil, don't let them arm-punch.",
+              "ri": "Athlete → CONTROLLED (build the chain correctly before adding speed). Shield holder → LIGHT (hold stable, absorb)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Building the Kizami-tsuki",
+          "time": "0:22–0:32",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "001",
+              "name": "Kizami-tsuki Slide Entry",
+              "mins": 10,
+              "notes": "Beginner adaptation: start stationary (no slide). Punch from kamae to jodan mitt. Once form is clean, add the rear-foot slide. Snapping shoulder-driven action, not full hip rotation. 5 × 8 reps/side.",
+              "ri": "Athlete → CONTROLLED (form first, then add slide). Pad holder → LIGHT (stationary mitt at jodan)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — First Combination",
+          "time": "0:32–0:42",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "003",
+              "name": "Kizami → Gyaku Double-Punch",
+              "mins": 10,
+              "notes": "Slow tempo. Kizami to jodan mitt, pause, gyaku to chudan mitt. Once two-count is clean, remove the pause — make it one continuous action. The kizami opens the door, the gyaku walks through it.",
+              "ri": "Athlete → CONTROLLED (slow tempo, build to flow). Pad holder → LIGHT (stationary targets at jodan + chudan)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — First Counter",
+          "time": "0:42–0:50",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "011",
+              "name": "Nagashi-uke → Gyaku-tsuki Counter",
+              "mins": 8,
+              "notes": "Attacker throws very slow, telegraphed kizami-tsuki. Defender practises nagashi-uke deflection and gyaku-tsuki as separate steps first, then connects them. 4 × 6 reps/side. First counter — keep it simple, make it work.",
+              "ri": "Attacker → LIGHT (slow, telegraphed. Beginners need to see it coming). Defender → CONTROLLED (learn the mechanics before adding speed)."
+            }
+          ]
+        },
+        {
+          "slot": "FINISHER",
+          "time": "0:50–0:56",
+          "mins": 6,
+          "drills": [
+            {
+              "ref": "021",
+              "name": "Called-Technique Rapid Fire",
+              "mins": 6,
+              "notes": "Full class. Only 3 techniques: 'kizami!', 'gyaku!', 'mawashi!'. 3 × 90s rounds. Small technique pool — beginners need repetition, not variety. Energy up, pressure down.",
+              "ri": "All athletes → CONTROLLED. Clean technique under moderate pressure — not match speed yet."
+            }
+          ]
+        },
+        {
+          "slot": "COOL-DOWN",
+          "time": "0:56–1:00",
+          "mins": 4,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Technique review + stretching",
+              "mins": 4,
+              "notes": "Gather in. 'What did we learn today?' (kizami, gyaku, the combination, the counter). 2 min static stretching. Bow out.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Anaerobic Conditioning — Technique Under Fatigue",
+      "params": {
+        "Duration": "60 min",
+        "Level": "All levels",
+        "Type": "Conditioning / Anaerobic",
+        "Season": "Pre-season",
+        "Focus": "Physical — VO2 Max",
+        "Size": "Any size (pairs)"
+      },
+      "color": "var(--accent-red)",
+      "blocks": [
+        {
+          "slot": "BLOCK 1 — Technique Rounds (Left & Right)",
+          "time": "0:00–0:20",
+          "mins": 20,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Kizami-Zuki Rounds",
+              "mins": 5,
+              "notes": "Pairs. Rounds of 45 seconds each at maximum intensity. Both left and right side. The Supporting Athlete holds pads or receives with guard. Full reset between rounds.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED (absorb and reset)."
+            },
+            {
+              "ref": "—",
+              "name": "Gyaku-Zuki Rounds",
+              "mins": 5,
+              "notes": "Same format. 45-second rounds at maximum intensity, both sides. Focus on hip rotation and full commitment despite accumulating fatigue.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            },
+            {
+              "ref": "—",
+              "name": "Mawashi-Geri Chudan Rounds",
+              "mins": 5,
+              "notes": "Same format. 45-second rounds, both sides. Supporting Athlete can hold body shield or absorb with guard. Maintain kick height and snap under fatigue.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            },
+            {
+              "ref": "—",
+              "name": "Ura-Mawashi Rounds",
+              "mins": 5,
+              "notes": "Same format. 45-second rounds, both sides. Technique quality will degrade under fatigue — coach monitors for dangerous form breakdown and calls rest if needed.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            }
+          ]
+        },
+        {
+          "slot": "REST",
+          "time": "0:20–0:25",
+          "mins": 5,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Active recovery",
+              "mins": 5,
+              "notes": "Walk, hydrate, light stretching. No sitting down — keep blood flowing.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        },
+        {
+          "slot": "BLOCK 2 — Technique Rounds (Left & Right)",
+          "time": "0:25–0:40",
+          "mins": 15,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Mawashi-Geri Jodan Rounds",
+              "mins": 5,
+              "notes": "Same 45-second round format, both sides. Maximum intensity. Height must stay jodan — if kicks drop to chudan, coach resets the round.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            },
+            {
+              "ref": "—",
+              "name": "Yoko-Geri Rounds",
+              "mins": 5,
+              "notes": "Same format. 45-second rounds, both sides. Focus on maintaining hip thrust and penetration despite leg fatigue from previous blocks.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            },
+            {
+              "ref": "—",
+              "name": "Kizami–Gyaku Combination Rounds",
+              "mins": 5,
+              "notes": "Same format. 45-second rounds, both sides. The combination must remain sharp — two distinct impacts, not a sloppy double. Quality under fatigue is the test.",
+              "ri": "Active Athlete → MAXIMUM. Supporting Athlete → CONTROLLED."
+            }
+          ]
+        },
+        {
+          "slot": "FINISHER — Quick Bouts",
+          "time": "0:40–1:00",
+          "mins": 20,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "1-Minute Bouts — Coach Referees",
+              "mins": 20,
+              "notes": "One pair fights at a time. 1-minute bouts. Coach referees with full WKF calls. Remaining athletes recover and observe. Rotate through all pairs. The point is to apply technique under genuine fatigue — this is where conditioning meets competition.",
+              "ri": "Fighting pair → MATCH. Resting athletes → LIGHT (active observation)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Anticipation & Destruction — Reaction Progression",
+      "params": {
+        "Duration": "60 min",
+        "Level": "All levels",
+        "Type": "Reaction / Anticipation",
+        "Season": "Mid-season",
+        "Focus": "Tactical + Reaction",
+        "Size": "Any size (pairs)"
+      },
+      "color": "var(--accent-purple)",
+      "blocks": [
+        {
+          "slot": "WARM-UP — Target Activation",
+          "time": "0:00–0:15",
+          "mins": 15,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Target-Hand Attack Warm-Up",
+              "mins": 15,
+              "notes": "The Supporting Athlete places hand as target. The Active Athlete attacks: first with hand techniques, then with kicks. Build intensity gradually — this is neural activation, not conditioning. Include dynamic stretching and footwork between target rounds.",
+              "ri": "Active Athlete → CONTROLLED building to MATCH. Supporting Athlete → LIGHT (present targets cleanly)."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Anticipation Progression",
+          "time": "0:15–0:29",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Anticipation Level 1 — Entry Without Attack",
+              "mins": 7,
+              "notes": "The Supporting Athlete enters without attacking. The Active Athlete reads the entry and anticipates with gyaku-zuki. Focus on reading the weight shift, not guessing.",
+              "ri": "Active Athlete → MATCH (anticipate on the read). Supporting Athlete → CONTROLLED (genuine entries, not telegraphed)."
+            },
+            {
+              "ref": "—",
+              "name": "Anticipation Level 2 — Entry with Gyaku",
+              "mins": 7,
+              "notes": "The Supporting Athlete enters with gyaku-zuki. The Active Athlete anticipates with gyaku-zuki, firing before the Supporting Athlete's technique completes. Timing is everything — too early is a guess, too late is a counter.",
+              "ri": "Active Athlete → MATCH (fire on commitment, not on guess). Supporting Athlete → CONTROLLED (committed entries at 70–80%)."
+            }
+          ]
+        },
+        {
+          "slot": "RECOVERY",
+          "time": "0:29–0:31",
+          "mins": 2,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Active recovery",
+              "mins": 2,
+              "notes": "Walk, hydrate, shake out legs. Stay on your feet.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Destruction Progression",
+          "time": "0:31–0:45",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Destruction Level 1 — Kizami Entry, Yoko Destroy",
+              "mins": 7,
+              "notes": "The Supporting Athlete enters with kizami-zuki. The Active Athlete destroys the entry with yoko geri — stopping the attack before it develops. The yoko must arrive as the Supporting Athlete commits, not after.",
+              "ri": "Active Athlete → MATCH (explosive yoko on commitment). Supporting Athlete → CONTROLLED (genuine kizami entries)."
+            },
+            {
+              "ref": "—",
+              "name": "Anticipation Level 3 — Kizami Entry, Ura Mawashi Anticipation",
+              "mins": 7,
+              "notes": "The Supporting Athlete enters with kizami-zuki. The Active Athlete anticipates with ura mawashi geri. Higher risk, higher reward — the ura mawashi must be committed but controlled.",
+              "ri": "Active Athlete → MATCH (committed ura mawashi on read). Supporting Athlete → CONTROLLED (genuine kizami entries)."
+            }
+          ]
+        },
+        {
+          "slot": "RECOVERY",
+          "time": "0:45–0:47",
+          "mins": 2,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Active recovery",
+              "mins": 2,
+              "notes": "Walk, hydrate, shake out legs. Stay on your feet.",
+              "ri": "All → LIGHT."
+            }
+          ]
+        },
+        {
+          "slot": "MAIN — Combined Destruction",
+          "time": "0:47–0:54",
+          "mins": 7,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Destruction Level 2 — Mawashi Defence to Hand Counter",
+              "mins": 7,
+              "notes": "The Supporting Athlete attacks with mawashi-geri chudan. The Active Athlete defends, deflects, or destroys the kick and immediately attacks with a hand technique. The counter must arrive while the Supporting Athlete is still recovering from the kick.",
+              "ri": "Active Athlete → MATCH (defend + counter in one action). Supporting Athlete → CONTROLLED (committed mawashi at 70–80%)."
+            }
+          ]
+        },
+        {
+          "slot": "FINISHER — Swimming Pools with Technique",
+          "time": "0:54–1:00",
+          "mins": 6,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Shuttle Runs with Technique",
+              "mins": 6,
+              "notes": "High-intensity cardio closer. Athletes sprint the length of the training area, execute an assigned technique at the far end, then sprint back. Continuous until coach stops. No walking, no half-speed — the point is technique execution under cardiovascular stress.",
+              "ri": "All → MAXIMUM. Sprint-technique-sprint. No pacing."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sessions_pt": [
+    {
+      "id": "S1",
+      "title": "Cadetes em Meio da Época — Contra-Ataque e Reação",
+      "params": {
+        "Duração": "60 min",
+        "Nível": "Cadete (12–17)",
+        "Tipo": "Contra-ataque + Reativo",
+        "Época": "Meio da época",
+        "Foco": "Tático + Velocidade",
+        "Tamanho": "12–16 atletas"
+      },
+      "color": "var(--accent-orange)",
+      "blocks": [
+        {
+          "slot": "AQUECIMENTO",
+          "time": "0:00–0:12",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "025",
+              "name": "Exercício de Footwork em Pulsação",
+              "mins": 5,
+              "notes": "Duas linhas. Ritmo de pulsação puro em kamae — ainda sem técnicas. O treinador percorre as linhas a corrigir pés chapados.",
+              "ri": "Todos os atletas → CONTROLADO. Ritmo, não velocidade."
+            },
+            {
+              "ref": "019",
+              "name": "Exercício de Reação à Queda da Bola",
+              "mins": 5,
+              "notes": "A pares. A bola de ténis cai da altura do ombro. Interceta com kizami-tsuki. Torna-o competitivo — quem apanha mais em 15 quedas?",
+              "ri": "Atleta → COMBATE (reage por completo). Lançador → LEVE (segura e larga, sem pistas)."
+            },
+            {
+              "ref": "—",
+              "name": "Alongamento dinâmico",
+              "mins": 2,
+              "notes": "Círculos de anca, balanços de perna, rotações de braços. Mantém o movimento, sem posições estáticas.",
+              "ri": "Todos → LEVE."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Leitura e Espelhamento",
+          "time": "0:12–0:22",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "020",
+              "name": "Exercício de Footwork em Espelho",
+              "mins": 5,
+              "notes": "A pares. O líder move-se, o seguidor espelha. Zero atraso. Trocam papéis aos 60s. 3 rondas.",
+              "ri": "Líder → CONTROLADO (define o ritmo). Seguidor → COMBATE (espelho com zero atraso)."
+            },
+            {
+              "ref": "020",
+              "name": "Footwork em Espelho + Ataque",
+              "mins": 5,
+              "notes": "Mesmo exercício — o líder acrescenta kizami-tsuki ao acaso. O seguidor tem de parar sem quebrar o ritmo de espelho. Ponte da leitura para a reação.",
+              "ri": "Líder → CONTROLADO (footwork + kizami ocasional). Seguidor → COMBATE (espelho + parada)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Mecânica de Contra-Ataque",
+          "time": "0:22–0:36",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "011",
+              "name": "Contra-ataque Nagashi-uke → Gyaku-tsuki",
+              "mins": 7,
+              "notes": "Adaptação para cadetes: o atacante lança kizami-tsuki comprometido mas legível. Desvia com nagashi-uke, contra-ataca gyaku-tsuki. 5 reps e troca. Treinador: parada e soco são UMA ação, não duas.",
+              "ri": "Atacante → CONTROLADO (ataque honesto, não esmagador). Defensor → COMBATE (contra à velocidade máxima)."
+            },
+            {
+              "ref": "013",
+              "name": "Contra-ataque Mawashi-geri com Recuo",
+              "mins": 7,
+              "notes": "Adaptação para cadetes: o atacante entra gyaku-tsuki a ritmo controlado. Recua, desvia, roda para mawashi-geri chudan da perna da frente (não jodan — controlo primeiro). Aumenta a velocidade só com a forma limpa.",
+              "ri": "Atacante → CONTROLADO (entra com intenção, 60-70% de velocidade). Defensor → COMBATE no contra, mas só CHUDAN para cadetes."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Reação Sob Pressão",
+          "time": "0:36–0:46",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "021",
+              "name": "Técnica Chamada — Fogo Rápido",
+              "mins": 5,
+              "notes": "Turma toda em linhas. O treinador chama 'kizami!', 'mawashi!', 'gyaku!'. Executa a partir de kamae instantaneamente. Acrescenta 'jogai!' — passo lateral em vez de golpear. Desenvolve o controlo de impulso.",
+              "ri": "Todos os atletas → COMBATE. Execução à velocidade máxima."
+            },
+            {
+              "ref": "017",
+              "name": "Reação de Gyaku-tsuki à Luva (simplificado)",
+              "mins": 5,
+              "notes": "Uma luva, apresentada ao acaso. Dispara gyaku-tsuki à vista. 3 × rondas de 90s. Uma arma, um alvo, ganha velocidade.",
+              "ri": "Atleta → COMBATE (dispara à vista). Quem segura a luva → CONTROLADO (varia o tempo, sem tentar enganar)."
+            }
+          ]
+        },
+        {
+          "slot": "FINAL — Combate Só de Contra-Ataque",
+          "time": "0:46–0:55",
+          "mins": 9,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Jiyu kumite só de contra-ataque",
+              "mins": 9,
+              "notes": "O atacante inicia livremente, o defensor SÓ pode pontuar com contras. Sem pontuação de primeiro golpe para o defensor. 3 × rondas de 2 min, troca de papéis. O treinador vigia o batota da restrição — a disciplina É o exercício.",
+              "ri": "Atacante → COMBATE (iniciativa livre, ataques reais). Defensor → COMBATE (só contra — a restrição é a dificuldade, não o esforço)."
+            }
+          ]
+        },
+        {
+          "slot": "RETORNO À CALMA",
+          "time": "0:55–1:00",
+          "mins": 5,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Revisão técnica + alongamento",
+              "mins": 5,
+              "notes": "Reúne. O treinador demonstra um contra que correu bem e um erro comum. 2 min de alongamento estático. Saudação de saída.",
+              "ri": "Todos → LEVE."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Pico Elite — Pressão Ofensiva",
+      "params": {
+        "Duração": "60 min",
+        "Nível": "Elite",
+        "Tipo": "Ofensivo",
+        "Época": "Pico (1–2 sem. p/ comp.)",
+        "Foco": "Velocidade + Tático",
+        "Tamanho": "6–8 atletas"
+      },
+      "color": "var(--accent-red)",
+      "blocks": [
+        {
+          "slot": "AQUECIMENTO",
+          "time": "0:00–0:12",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "030",
+              "name": "Aquecimento Dinâmico com Banda Elástica",
+              "mins": 12,
+              "notes": "Protocolo completo de 12 min. Banda elástica a ~10% do peso corporal. Alongamento dinâmico → padrões de kumite sob resistência → sombras de técnica. Tempo de reação do soco 7,3% mais rápido. Inegociável antes de sessões de pico.",
+              "ri": "Todos → CONTROLADO. Primer, não condição física. Qualidade sob resistência."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Combinação Principal",
+          "time": "0:12–0:22",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "003",
+              "name": "Kizami → Gyaku — Soco Duplo",
+              "mins": 10,
+              "notes": "Velocidade de competição desde a 1.ª rep. Duas luvas — jodan + chudan. Cobre a distância no kizami para o gyaku entrar sem segundo passo. Após 3 séries, o parceiro acrescenta movimento lateral. Cadeia YUKO de base — afia, não construas.",
+              "ri": "Atleta → COMBATE (velocidade de competição desde a 1.ª rep). Quem segura a luva → CONTROLADO (apresenta alvos, acrescenta movimento lateral na progressão)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Caça ao IPPON",
+          "time": "0:22–0:32",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "005",
+              "name": "Kizami → Mawashi-geri Jodan da Perna da Frente",
+              "mins": 10,
+              "notes": "A técnica do dinheiro. O kizami puxa a guarda, o mawashi jodan da perna da frente chega antes de a guarda recompor. 4 × 6 reps. Se o kizami não for convincente, o mawashi não entra em competição. Fá-los vender o jab.",
+              "ri": "Atleta → COMBATE (o kizami tem de ser convincente a velocidade de competição). Quem segura a luva → CONTROLADO (reage ao kizami como em combate, apresenta a luva a jodan)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Disciplina de Saída",
+          "time": "0:32–0:40",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "009",
+              "name": "Deslize Gyaku → Saída Mawashi-geri Jodan",
+              "mins": 8,
+              "notes": "Pontua e sai. Gyaku ao tronco, mawashi jodan da perna da frente imediato, SAI para maai seguro. Atletas de elite que ficam à curta distância são empatados. Uma expiração: soco-pontapé-saída.",
+              "ri": "Atleta → COMBATE (soco-pontapé-SAÍDA numa só expiração). Quem segura a luva → CONTROLADO (escudo para o tronco, luva a jodan)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Acompanhamento ao Vivo",
+          "time": "0:40–0:48",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "022",
+              "name": "Precisão em Luva de Foco em Movimento",
+              "mins": 8,
+              "notes": "O treinador move-se de forma imprevisível. Alvos pequenos. Acompanha e acerta kizami/gyaku nas luvas em movimento. O treinador aplica encontrões de ombro entre apresentações. Precisão no caos.",
+              "ri": "Atleta → COMBATE (acompanha e acerta). Treinador → CONTROLADO (move-te de forma imprevisível, aplica pressão entre apresentações)."
+            }
+          ]
+        },
+        {
+          "slot": "FINAL — Kabe Kumite (Ofensivo)",
+          "time": "0:48–0:56",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "023",
+              "name": "Kabe Kumite — Foco no Atacante",
+              "mins": 8,
+              "notes": "Invertido: o ATACANTE é o foco. Encurrala o defensor à parede e pontua em 15s. Se não pontuar, recomeça. 4 × rondas de 60s por atacante. Desenvolve a pressão ofensiva de fecho.",
+              "ri": "Atacante (foco) → COMBATE (encurrala e pontua em 15s). Defensor → COMBATE (responde — não sejas voluntário)."
+            }
+          ]
+        },
+        {
+          "slot": "RETORNO À CALMA",
+          "time": "0:56–1:00",
+          "mins": 4,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Sombra leve + alongamento",
+              "mins": 4,
+              "notes": "2 min de sombra livre a 30% — deixa o sistema nervoso relaxar. 2 min de alongamento estático. Sem coaching — só recupera.",
+              "ri": "Todos → LEVE (sombra a 30%). Relaxamento do sistema nervoso."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Iniciantes — Base Polivalente",
+      "params": {
+        "Duração": "60 min",
+        "Nível": "Iniciante (adulto principiante)",
+        "Tipo": "Polivalente",
+        "Época": "Qualquer / Pré-época",
+        "Foco": "Técnico",
+        "Tamanho": "12–20 atletas"
+      },
+      "color": "var(--accent-teal)",
+      "blocks": [
+        {
+          "slot": "AQUECIMENTO",
+          "time": "0:00–0:10",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "025",
+              "name": "Exercício de Footwork em Pulsação",
+              "mins": 5,
+              "notes": "Turma toda em linhas. Ritmo de pulsação em kamae — na ponta dos pés, micro-salto constante. O treinador demonstra primeiro, depois percorre as linhas.",
+              "ri": "Todos → CONTROLADO. Ritmo e forma, não velocidade."
+            },
+            {
+              "ref": "020",
+              "name": "Exercício de Footwork em Espelho",
+              "mins": 5,
+              "notes": "A pares. O líder move-se (simples: dentro, fora, lateral). O seguidor espelha. Troca a cada 60s. 3 rondas. Aprende maai pela imitação antes da teoria.",
+              "ri": "Líder → CONTROLADO (padrões simples). Seguidor → CONTROLADO (espelho — a aprender, não a testar)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Construir o Gyaku-tsuki",
+          "time": "0:10–0:22",
+          "mins": 12,
+          "drills": [
+            {
+              "ref": "002",
+              "name": "Gyaku-tsuki — Linha de Potência",
+              "mins": 12,
+              "notes": "A técnica mais importante da WKF. Cadeia cinética completa: calcanhar de trás → anca → ombro → punho. O escudo de corpo absorve o impacto — os iniciantes precisam de sentir a técnica conectar. 4 × 8 reps/lado. Verifica o recuo da anca, não os deixes socar só com o braço.",
+              "ri": "Atleta → CONTROLADO (constrói a cadeia corretamente antes de adicionar velocidade). Quem segura o escudo → LEVE (segura estável, absorve)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Construir o Kizami-tsuki",
+          "time": "0:22–0:32",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "001",
+              "name": "Kizami-tsuki — Entrada Deslizante",
+              "mins": 10,
+              "notes": "Adaptação para iniciantes: começa parado (sem deslize). Soco de kamae para a luva a jodan. Com a forma limpa, acrescenta o deslize do pé de trás. Ação de estalo conduzida pelo ombro, não rotação total da anca. 5 × 8 reps/lado.",
+              "ri": "Atleta → CONTROLADO (forma primeiro, depois acrescenta o deslize). Quem segura a luva → LEVE (luva parada a jodan)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Primeira Combinação",
+          "time": "0:32–0:42",
+          "mins": 10,
+          "drills": [
+            {
+              "ref": "003",
+              "name": "Kizami → Gyaku — Soco Duplo",
+              "mins": 10,
+              "notes": "Ritmo lento. Kizami à luva a jodan, pausa, gyaku à luva a chudan. Com os dois tempos limpos, tira a pausa — faz disso uma ação contínua. O kizami abre a porta, o gyaku atravessa-a.",
+              "ri": "Atleta → CONTROLADO (ritmo lento, constrói até ao fluxo). Quem segura a luva → LEVE (alvos parados a jodan + chudan)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Primeiro Contra-Ataque",
+          "time": "0:42–0:50",
+          "mins": 8,
+          "drills": [
+            {
+              "ref": "011",
+              "name": "Contra-ataque Nagashi-uke → Gyaku-tsuki",
+              "mins": 8,
+              "notes": "O atacante lança kizami-tsuki muito lento e telegrafado. O defensor pratica o desvio nagashi-uke e o gyaku-tsuki como passos separados primeiro, depois liga-os. 4 × 6 reps/lado. Primeiro contra — mantém-no simples, fá-lo funcionar.",
+              "ri": "Atacante → LEVE (lento, telegrafado. Os iniciantes precisam de o ver chegar). Defensor → CONTROLADO (aprende a mecânica antes de adicionar velocidade)."
+            }
+          ]
+        },
+        {
+          "slot": "FINAL",
+          "time": "0:50–0:56",
+          "mins": 6,
+          "drills": [
+            {
+              "ref": "021",
+              "name": "Técnica Chamada — Fogo Rápido",
+              "mins": 6,
+              "notes": "Turma toda. Só 3 técnicas: 'kizami!', 'gyaku!', 'mawashi!'. 3 × rondas de 90s. Conjunto pequeno de técnicas — os iniciantes precisam de repetição, não de variedade. Energia em cima, pressão em baixo.",
+              "ri": "Todos os atletas → CONTROLADO. Técnica limpa sob pressão moderada — ainda não a velocidade de combate."
+            }
+          ]
+        },
+        {
+          "slot": "RETORNO À CALMA",
+          "time": "0:56–1:00",
+          "mins": 4,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Revisão de técnica + alongamento",
+              "mins": 4,
+              "notes": "Reúne. 'O que aprendemos hoje?' (kizami, gyaku, a combinação, o contra). 2 min de alongamento estático. Saudação de saída.",
+              "ri": "Todos → LEVE."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Condicionamento Anaeróbico — Técnica Sob Fadiga",
+      "params": {
+        "Duração": "60 min",
+        "Nível": "Todos os níveis",
+        "Tipo": "Condicionamento / Anaeróbico",
+        "Época": "Pré-época",
+        "Foco": "Físico — VO2 Max",
+        "Tamanho": "Qualquer tamanho (pares)"
+      },
+      "color": "var(--accent-red)",
+      "blocks": [
+        {
+          "slot": "BLOCO 1 — Rondas de Técnica (Esquerda e Direita)",
+          "time": "0:00–0:20",
+          "mins": 20,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Rondas de Kizami-Zuki",
+              "mins": 5,
+              "notes": "Pares. Rondas de 45 segundos cada à intensidade máxima. Ambos os lados, esquerdo e direito. O Atleta Cooperante segura patas ou recebe com guarda. Reposição completa entre rondas.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO (absorver e reposicionar)."
+            },
+            {
+              "ref": "—",
+              "name": "Rondas de Gyaku-Zuki",
+              "mins": 5,
+              "notes": "Mesmo formato. Rondas de 45 segundos à intensidade máxima, ambos os lados. Foco na rotação da anca e comprometimento total apesar da fadiga acumulada.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            },
+            {
+              "ref": "—",
+              "name": "Rondas de Mawashi-Geri Chudan",
+              "mins": 5,
+              "notes": "Mesmo formato. Rondas de 45 segundos, ambos os lados. O Atleta Cooperante pode segurar escudo corporal ou absorver com guarda. Manter altura e snap do chuto sob fadiga.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            },
+            {
+              "ref": "—",
+              "name": "Rondas de Ura-Mawashi",
+              "mins": 5,
+              "notes": "Mesmo formato. Rondas de 45 segundos, ambos os lados. A qualidade técnica vai degradar sob fadiga — o treinador monitoriza para quebra de forma perigosa e manda descansar se necessário.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            }
+          ]
+        },
+        {
+          "slot": "DESCANSO",
+          "time": "0:20–0:25",
+          "mins": 5,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Recuperação ativa",
+              "mins": 5,
+              "notes": "Caminhar, hidratar, alongamento ligeiro. Não sentar — manter o sangue a circular.",
+              "ri": "Todos → LIGEIRO."
+            }
+          ]
+        },
+        {
+          "slot": "BLOCO 2 — Rondas de Técnica (Esquerda e Direita)",
+          "time": "0:25–0:40",
+          "mins": 15,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Rondas de Mawashi-Geri Jodan",
+              "mins": 5,
+              "notes": "Mesmo formato de rondas de 45 segundos, ambos os lados. Intensidade máxima. A altura deve manter-se jodan — se os chutos caírem para chudan, o treinador reinicia a ronda.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            },
+            {
+              "ref": "—",
+              "name": "Rondas de Yoko-Geri",
+              "mins": 5,
+              "notes": "Mesmo formato. Rondas de 45 segundos, ambos os lados. Foco em manter o impulso da anca e penetração apesar da fadiga nas pernas dos blocos anteriores.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            },
+            {
+              "ref": "—",
+              "name": "Rondas de Combinação Kizami–Gyaku",
+              "mins": 5,
+              "notes": "Mesmo formato. Rondas de 45 segundos, ambos os lados. A combinação deve manter-se nítida — dois impactos distintos, não um duplo desleixado. Qualidade sob fadiga é o teste.",
+              "ri": "Atleta Ativo → MÁXIMO. Atleta Cooperante → CONTROLADO."
+            }
+          ]
+        },
+        {
+          "slot": "FINALIZAÇÃO — Combates Rápidos",
+          "time": "0:40–1:00",
+          "mins": 20,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Combates de 1 Minuto — Treinador Arbitra",
+              "mins": 20,
+              "notes": "Um par combate de cada vez. Combates de 1 minuto. O treinador arbitra com chamadas WKF completas. Os restantes atletas recuperam e observam. Rodar por todos os pares. O objetivo é aplicar técnica sob fadiga genuína — é aqui que o condicionamento encontra a competição.",
+              "ri": "Par em combate → COMBATE. Atletas a descansar → LIGEIRO (observação ativa)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Antecipação e Destruição — Progressão Reativa",
+      "params": {
+        "Duração": "60 min",
+        "Nível": "Todos os níveis",
+        "Tipo": "Reação / Antecipação",
+        "Época": "Meio da época",
+        "Foco": "Tático + Reação",
+        "Tamanho": "Qualquer tamanho (pares)"
+      },
+      "color": "var(--accent-purple)",
+      "blocks": [
+        {
+          "slot": "AQUECIMENTO — Ativação com Alvo",
+          "time": "0:00–0:15",
+          "mins": 15,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Aquecimento com Ataque a Alvo",
+              "mins": 15,
+              "notes": "O Atleta Cooperante coloca a mão como alvo. O Atleta Ativo ataca: primeiro com técnicas de braço, depois com chutos. Aumentar intensidade gradualmente — isto é ativação neural, não condicionamento. Incluir alongamento dinâmico e deslocamento entre rondas de alvo.",
+              "ri": "Atleta Ativo → CONTROLADO subindo para COMBATE. Atleta Cooperante → LIGEIRO (apresentar alvos limpos)."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Progressão de Antecipação",
+          "time": "0:15–0:29",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Antecipação Nível 1 — Entrada Sem Ataque",
+              "mins": 7,
+              "notes": "O Atleta Cooperante entra sem atacar. O Atleta Ativo lê a entrada e antecipa com gyaku-zuki. Foco em ler a transferência de peso, não adivinhar.",
+              "ri": "Atleta Ativo → COMBATE (antecipar na leitura). Atleta Cooperante → CONTROLADO (entradas genuínas, não telegrafadas)."
+            },
+            {
+              "ref": "—",
+              "name": "Antecipação Nível 2 — Entrada com Gyaku",
+              "mins": 7,
+              "notes": "O Atleta Cooperante entra com gyaku-zuki. O Atleta Ativo antecipa com gyaku-zuki, disparando antes da técnica do Atleta Cooperante se completar. Timing é tudo — demasiado cedo é adivinhar, demasiado tarde é contra-ataque.",
+              "ri": "Atleta Ativo → COMBATE (disparar no comprometimento, não no palpite). Atleta Cooperante → CONTROLADO (entradas comprometidas a 70–80%)."
+            }
+          ]
+        },
+        {
+          "slot": "RECUPERAÇÃO",
+          "time": "0:29–0:31",
+          "mins": 2,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Recuperação ativa",
+              "mins": 2,
+              "notes": "Caminhar, hidratar, soltar as pernas. Manter-se de pé.",
+              "ri": "Todos → LIGEIRO."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Progressão de Destruição",
+          "time": "0:31–0:45",
+          "mins": 14,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Destruição Nível 1 — Entrada Kizami, Destruir com Yoko",
+              "mins": 7,
+              "notes": "O Atleta Cooperante entra com kizami-zuki. O Atleta Ativo destrói a entrada com yoko geri — parando o ataque antes de se desenvolver. O yoko deve chegar quando o Atleta Cooperante se compromete, não depois.",
+              "ri": "Atleta Ativo → COMBATE (yoko explosivo no comprometimento). Atleta Cooperante → CONTROLADO (entradas genuínas de kizami)."
+            },
+            {
+              "ref": "—",
+              "name": "Antecipação Nível 3 — Entrada Kizami, Antecipação com Ura Mawashi",
+              "mins": 7,
+              "notes": "O Atleta Cooperante entra com kizami-zuki. O Atleta Ativo antecipa com ura mawashi geri. Maior risco, maior recompensa — o ura mawashi deve ser comprometido mas controlado.",
+              "ri": "Atleta Ativo → COMBATE (ura mawashi comprometido na leitura). Atleta Cooperante → CONTROLADO (entradas genuínas de kizami)."
+            }
+          ]
+        },
+        {
+          "slot": "RECUPERAÇÃO",
+          "time": "0:45–0:47",
+          "mins": 2,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Recuperação ativa",
+              "mins": 2,
+              "notes": "Caminhar, hidratar, soltar as pernas. Manter-se de pé.",
+              "ri": "Todos → LIGEIRO."
+            }
+          ]
+        },
+        {
+          "slot": "PRINCIPAL — Destruição Combinada",
+          "time": "0:47–0:54",
+          "mins": 7,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Destruição Nível 2 — Defesa de Mawashi para Contra de Braço",
+              "mins": 7,
+              "notes": "O Atleta Cooperante ataca com mawashi-geri chudan. O Atleta Ativo defende, deriva ou destrói o chuto e imediatamente ataca com técnica de braço. O contra deve chegar enquanto o Atleta Cooperante ainda está a recuperar do chuto.",
+              "ri": "Atleta Ativo → COMBATE (defender + contra numa ação). Atleta Cooperante → CONTROLADO (mawashi comprometido a 70–80%)."
+            }
+          ]
+        },
+        {
+          "slot": "FINALIZAÇÃO — Piscinas com Técnica",
+          "time": "0:54–1:00",
+          "mins": 6,
+          "drills": [
+            {
+              "ref": "—",
+              "name": "Corridas com Técnica",
+              "mins": 6,
+              "notes": "Fecho cardio de alta intensidade. Os atletas correm o comprimento da área de treino, executam uma técnica atribuída no final, depois correm de volta. Contínuo até o treinador parar. Sem andar, sem meia velocidade — o objetivo é execução técnica sob stress cardiovascular.",
+              "ri": "Todos → MÁXIMO. Sprint-técnica-sprint. Sem gestão de esforço."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

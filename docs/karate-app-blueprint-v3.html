@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karate Coach App — Blueprint v3</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0e0e10;color:#e8e6e3;font-family:'DM Sans',sans-serif;line-height:1.6}
+#root{max-width:1000px;margin:0 auto}
+::-webkit-scrollbar{height:4px;width:4px}
+::-webkit-scrollbar-thumb{background:#2a2a32;border-radius:4px}
+code{font-family:'Space Mono',monospace;font-size:0.72rem;background:#222228;padding:0.1rem 0.3rem;border-radius:3px;color:#f4a261}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}
+th{font-family:'Space Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:#8a8a96;text-align:left;padding:0.4rem 0.6rem;border-bottom:1px solid #2a2a32}
+td{padding:0.4rem 0.6rem;border-bottom:1px solid rgba(42,42,50,0.4);vertical-align:top}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState}=React;
+
+/* ─── ROLE INTENSITY SCALE ─── */
+const RI_SCALE={
+  "light":{label:"Light",range:"30–50%",color:"#2a9d8f",desc:"Feeding, cooperating. Predictable, controlled output so the active athlete can build."},
+  "controlled":{label:"Controlled",range:"50–70%",color:"#f4a261",desc:"Realistic but measured. Enough pressure to be honest, not enough to disrupt learning."},
+  "match":{label:"Match",range:"80–100%",color:"#e63946",desc:"Competition speed and intent. Full commitment within WKF rules."},
+  "max":{label:"Max",range:"100%+",color:"#9b5de5",desc:"Supramaximal bursts. Short duration, explosive, beyond normal competition output."}
+};
+
+const DRILLS=[
+{id:"001",name:"Kizami-tsuki Slide Entry",type:"OFF",level:["intermediate","advanced"],season:"any",intensity:"moderate",focus:["technical","speed"],format:"pairs",slot:"main",duration:"8–10 min",equipment:"Focus mitts",score:"Kizami-tsuki = ~44% of all scored hand techniques in WKF. Primary YUKO weapon.",desc:"From free kamae at long maai, pull rear foot behind lead foot (gaining distance without telegraphing) and fire kizami-tsuki jodan in a single action. The slide 'buys a pace' — the punch arrives before the opponent registers forward movement. Shoulder-driven snap, not full hip rotation. Partner holds focus mitt at jodan and moves backward unpredictably.",sets:"5 × 10 reps/side, 30s rest",
+roles:[{role:"Athlete",int:"match",cue:"Full speed slide + snap. Sell the distance steal."},{role:"Pad holder",int:"controlled",cue:"Move backward unpredictably. Give a live target, not a stationary one."}]},
+
+{id:"002",name:"Gyaku-tsuki Power Line",type:"OFF",level:["beginner","intermediate"],season:"pre-season / any",intensity:"moderate",focus:["technical","physical"],format:"pairs",slot:"main",duration:"10 min",equipment:"Body shield",score:"Gyaku-tsuki = ~58% of WAZA-ARI in competition. Clean power mechanics non-negotiable.",desc:"Drive off rear leg, rotate hip fully, deliver gyaku-tsuki chudan to body shield. Full kinetic chain: rear heel push → hip rotation → shoulder extension → fist. Must show zanshin for 1 full second after impact before resetting.",sets:"4 × 8 reps/side, 45s rest",
+roles:[{role:"Athlete",int:"match",cue:"Full kinetic chain. Land with authority."},{role:"Shield holder",int:"light",cue:"Brace shield at chudan. Absorb, don't resist."}]},
+
+{id:"003",name:"Kizami → Gyaku Double-Punch",type:"OFF",level:["intermediate","advanced"],season:"any",intensity:"high",focus:["speed","tactical"],format:"pairs",slot:"main",duration:"8 min",equipment:"Focus mitts × 2",score:"Highest-percentage scoring combination in WKF. Second punch scores because the first disrupts guard.",desc:"Kizami-tsuki jodan draws guard up → immediately gyaku-tsuki chudan as hands rise. One continuous action — kizami is the door opener, gyaku is the score. Must cover distance during kizami so gyaku lands without a second step. Progression: partner adds random lateral movement.",sets:"5 × 8 reps, 30s rest",
+roles:[{role:"Athlete",int:"match",cue:"One continuous action. Cover distance on kizami."},{role:"Pad holder",int:"controlled",cue:"Present targets jodan + chudan. Add lateral movement in progression."}]},
+
+{id:"004",name:"Gyaku-tsuki → Chudan Mawashi-geri",type:"OFF",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["speed","tactical"],format:"pairs",slot:"main",duration:"10 min",equipment:"Body shield + mitt",score:"YUKO setup into WAZA-ARI finisher. Hand-to-leg transition is where most athletes telegraph.",desc:"Gyaku-tsuki chudan draws guard low → immediately chudan mawashi-geri off rear leg. Punch and kick in one exhale — not two counts. Coach holds shield for punch, pivots to present open side for kick. Hands stay up between techniques.",sets:"4 × 6 reps/side, 45s rest",
+roles:[{role:"Athlete",int:"match",cue:"One exhale. Punch-kick, not punch… kick."},{role:"Pad holder",int:"controlled",cue:"Shield for punch, pivot to present open side for kick. Smooth transition."}]},
+
+{id:"005",name:"Kizami → Front-leg Jodan Mawashi-geri",type:"OFF",level:["advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["speed","tactical"],format:"pairs",slot:"main",duration:"10 min",equipment:"Focus mitts",score:"YUKO setup into IPPON finish. Front-leg jodan mawashi = highest-value technique in WKF (3 points).",desc:"Lead-hand kizami-tsuki draws guard up → immediately front-leg mawashi-geri jodan to exposed side of head. Kick comes off same side as punch — arm pulls back as leg fires, using hip rotation to chain. Kick must arrive before opponent resets guard.",sets:"4 × 6 reps/side, 45s rest",
+roles:[{role:"Athlete",int:"match",cue:"Kizami must be convincing — sell the jab or the kick never lands."},{role:"Pad holder",int:"controlled",cue:"Hold mitt at jodan. React to kizami as if in fight."}]},
+
+{id:"006",name:"Feint Mae-geri → Jodan Mawashi-geri",type:"OFF",level:["advanced","elite"],season:"mid-season / peak",intensity:"moderate–high",focus:["tactical"],format:"pairs",slot:"main",duration:"10 min",equipment:"None",score:"Converts a WAZA-ARI threat into an IPPON score. Without the feint, jodan mawashi has low hit rate.",desc:"Show clear mae-geri chamber (knee lift, hip drive) to provoke low guard shift, then convert same lift into jodan mawashi-geri without putting foot down. Decision point is at knee height. Progression: partner learns to read the feint, athlete must make chamber more convincing.",sets:"3 × 8 reps/side, 60s rest",
+roles:[{role:"Athlete",int:"match",cue:"Chamber must be indistinguishable from real mae-geri."},{role:"Partner",int:"controlled",cue:"React honestly to the feint. If you can read it, say so — that's the feedback loop."}]},
+
+{id:"007",name:"Long Gyaku-tsuki Lunge",type:"OFF",level:["advanced","elite"],season:"pre-season / early-comp",intensity:"high–max",focus:["speed","physical"],format:"pairs",slot:"main",duration:"10 min",equipment:"Head guards",score:"The 'hail mary' YUKO — scores senshu in the first exchange if timed correctly.",desc:"Maximum-reach lunging gyaku-tsuki jodan. Rear leg drives, hip rotates fully, lead shoulder reaches forward for extra centimetres. Drilled against partner retreating at random speed. Must commit through the target line. Sun-dome control: arrive at WKF distance (2cm seniors, 5cm cadets).",sets:"3 × 10 reps, 60s rest",
+roles:[{role:"Athlete",int:"max",cue:"Full commitment through the line. Maximum reach."},{role:"Partner",int:"controlled",cue:"Retreat at random speed. Be a moving target, not a punching bag."}]},
+
+{id:"008",name:"Switch-step Mae-geri → Kizami-tsuki",type:"OFF",level:["intermediate","advanced"],season:"any",intensity:"moderate",focus:["technical","tactical"],format:"pairs",slot:"main",duration:"8 min",equipment:"Body shield",score:"Stance-switching disrupts pattern reading. Mae-geri = WAZA-ARI, follow-up kizami = YUKO.",desc:"From mirrored kamae, switch lead leg (rear comes forward, lead goes back), immediately mae-geri chudan off new lead leg, follow with kizami-tsuki on same line. Progression: add gyaku-tsuki chudan for 3-hit chain.",sets:"4 × 6 reps/side, 30s rest",
+roles:[{role:"Athlete",int:"match",cue:"Switch + kick is one action. No pause between stance change and technique."},{role:"Shield holder",int:"light",cue:"Hold shield at chudan. Stable base."}]},
+
+{id:"009",name:"Slide Gyaku → Mawashi-geri Jodan Exit",type:"OFF",level:["intermediate","advanced"],season:"mid-season / peak",intensity:"high",focus:["speed","technical"],format:"pairs",slot:"main",duration:"8 min",equipment:"Body shield + mitt",score:"YUKO body punch into IPPON head kick. Exit discipline prevents opponent equalizing.",desc:"Slide into range with gyaku-tsuki chudan to body → immediately front-leg mawashi-geri jodan as gyaku arm pulls back (waist rotation loads the kick). Punch and kick in one exhale. After kick, step back out to safe maai.",sets:"3 × 6 reps/side, 60s rest",
+roles:[{role:"Athlete",int:"match",cue:"Punch-kick-EXIT. Score and leave. Lingering gets equalized."},{role:"Pad holder",int:"controlled",cue:"Shield for body, mitt at jodan. Present both targets in sequence."}]},
+
+{id:"010",name:"Push-off Retreat Mawashi-geri",type:"TRN",level:["intermediate","advanced"],season:"any",intensity:"moderate",focus:["technical","tactical"],format:"pairs",slot:"main",duration:"8 min",equipment:"None",score:"Converts dead-range stalls into IPPON from an unexpected angle.",desc:"After a stalled close-range exchange, push off opponent's body/shoulder with lead hand, create one step of distance, fire mawashi-geri jodan off the retreating lead leg. Both legs, both sides. Addresses the WKF-specific problem of chest-range dead zones.",sets:"4 × 5 reps/side, 30s rest",
+roles:[{role:"Athlete",int:"match",cue:"Push creates distance. Kick fills it. One rhythm."},{role:"Partner",int:"controlled",cue:"Provide realistic chest-range pressure. Don't collapse or assist the push-off."}]},
+
+{id:"011",name:"Nagashi-uke → Gyaku-tsuki Counter",type:"CTR",level:["intermediate","advanced"],season:"any",intensity:"moderate",focus:["tactical","technical"],format:"pairs",slot:"main",duration:"12 min",equipment:"None (light contact)",score:"Go-no-sen counter. First clean technique of an exchange scores — counter must arrive before attacker resets.",desc:"Partner attacks kizami-tsuki jodan. Defender uses nagashi-uke (deflecting parry) with lead hand to redirect punch past centreline, simultaneously shifting weight to rear leg. As punch passes, fire gyaku-tsuki chudan to open body. Parry and counter are one action. Hold zanshin 1 full second.",sets:"5 × 8 reps/side, 30s rest",
+roles:[{role:"Attacker (feeder)",int:"controlled",cue:"Committed, honest kizami-tsuki. Not slow enough to be fake, not fast enough to overwhelm the learning."},{role:"Defender (active)",int:"match",cue:"Parry and counter are ONE action. Full speed on the counter."}]},
+
+{id:"012",name:"Tai-sabaki Interception vs Jodan Mawashi",type:"CTR",level:["advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["speed","tactical"],format:"pairs",slot:"main",duration:"10 min",equipment:"Head guards",score:"Converts opponent's IPPON attempt into your YUKO. If interception arrives first, their kick is nullified.",desc:"Attacker chambers jodan mawashi-geri. Defender reads knee lift, shifts diagonally forward-inside (tai-sabaki), fires kizami-tsuki to head as kick is still travelling. Sen-no-sen — simultaneous with attack. Diagonal step goes inside kick's arc where it has no power.",sets:"3 × 6 reps/side, 60s rest",
+roles:[{role:"Attacker",int:"match",cue:"Real jodan mawashi chamber. If you telegraph less, the defender learns more."},{role:"Defender (active)",int:"match",cue:"Read the knee. Move INTO the kick arc. Courage drill."}]},
+
+{id:"013",name:"Step-back Counter Mawashi-geri",type:"CTR",level:["intermediate","advanced"],season:"any",intensity:"moderate–high",focus:["tactical","speed"],format:"pairs",slot:"main",duration:"10 min",equipment:"Head guards",score:"Converts YUKO attack into IPPON counter. Head kick off retreat = high-percentage because attacker's momentum prevents recovery.",desc:"Attacker enters with gyaku-tsuki chudan. Defender steps back, deflects with rear-hand nagashi-uke, immediately fires front-leg mawashi-geri jodan on the swivel — no reset, no pause. Step back creates kicking distance; swivel uses backward momentum to load hip.",sets:"4 × 6 reps/side, 45s rest",
+roles:[{role:"Attacker (feeder)",int:"controlled",cue:"Enter with committed gyaku-tsuki. Enough intent to be real, enough control to let the counter develop."},{role:"Defender (active)",int:"match",cue:"Step back, deflect, kick — no pause. Use the backward momentum."}]},
+
+{id:"014",name:"Triangle Block → Angled Gyaku-tsuki",type:"CTR",level:["advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["tactical","mental"],format:"pairs",slot:"main",duration:"10 min",equipment:"Head guards + body shield",score:"Nullifies opponent's IPPON attempt and creates YUKO from an undefendable angle.",desc:"Attacker throws jodan mawashi-geri. Defender steps inside the kick's arc (toward kicking leg), covers head with both forearms forming triangle on kicking side. From inside, pivot to angle and fire gyaku-tsuki chudan to open body. Requires courage.",sets:"3 × 6 reps/side, 60s rest",
+roles:[{role:"Attacker",int:"match",cue:"Real jodan mawashi. Controlled power — this is head-height contact."},{role:"Defender (active)",int:"match",cue:"Step INTO the arc. Triangle first, counter second. Courage is the training variable."}]},
+
+{id:"015",name:"Uraken-uchi Slip Counter",type:"CTR",level:["intermediate","advanced"],season:"any",intensity:"moderate–high",focus:["tactical","speed"],format:"pairs",slot:"main",duration:"10 min",equipment:"Head guards",score:"Uraken-uchi scores as YUKO (uchi category). Arrives from blind angle — high success rate vs committed attackers.",desc:"Attacker commits gyaku-tsuki chudan. Defender slips off centreline (lead shoulder drops, weight shifts laterally), lets punch pass, fires uraken-uchi jodan to temple during attacker's committed rotation. Must arrive during recovery phase, not after reset.",sets:"4 × 8 reps/side, 30s rest",
+roles:[{role:"Attacker (feeder)",int:"controlled",cue:"Committed gyaku-tsuki. Don't pull it — the defender needs to learn to read commitment."},{role:"Defender (active)",int:"match",cue:"Slip is the setup. Uraken arrives during their recovery, not after."}]},
+
+{id:"016",name:"Counter-Counter Flow (Kaeshi)",type:"CTR",level:["advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["tactical","mental"],format:"pairs",slot:"main",duration:"12 min",equipment:"Full WKF gear",score:"Elite bouts are decided in the counter-counter layer. Only the first clean technique of an exchange scores.",desc:"From free maai: (A) attacks with committed kizami-tsuki → (B) parries and counters with gyaku-tsuki → (A) defends the counter and delivers second-wave counter. Three-link chain. Both commit fully. Rotate roles every 5 exchanges. Progression: open technique choice.",sets:"5 exchanges × 5 rounds/role, 60s rest",
+roles:[{role:"Both athletes",int:"match",cue:"Both commit fully. Three-link chain requires honest intent at every link."}]},
+
+{id:"017",name:"Gyaku-tsuki Pad Reaction",type:"REA",level:["intermediate","advanced","elite"],season:"any",intensity:"high",focus:["speed","mental"],format:"pairs",slot:"main",duration:"16 min",equipment:"Focus mitts",score:"Decreased response time → senshu advantage in the opening exchange.",desc:"Coach holds focus mitt at random positions/intervals. Athlete maintains kamae with pulse footwork. When pad appears, fire gyaku-tsuki with minimum reaction delay. Coach varies height (chudan/jodan), angle, timing (regular → irregular → with feints).",sets:"4 × 3-min rounds, 1-min rest",
+roles:[{role:"Athlete",int:"match",cue:"Fire on sight. Minimum reaction delay."},{role:"Coach / pad holder",int:"controlled",cue:"Vary height, angle, timing. Add feints in later rounds. YOU control the difficulty."}]},
+
+{id:"018",name:"Multi-Pad Decision Drill",type:"REA",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"high–max",focus:["speed","mental"],format:"pairs",slot:"finisher",duration:"10 min",equipment:"Multiple pads",score:"WKF bouts require choosing the right weapon. Builds weapon selection under time pressure.",desc:"Coach holds multiple pads at varied heights/angles. Pads appear unpredictably — athlete selects correct weapon: kizami for jodan, gyaku for chudan, mawashi for lateral, uraken for angled. Decision-speed, not just reaction-speed.",sets:"4 × 90s rounds, 60s rest",
+roles:[{role:"Athlete",int:"max",cue:"Decision AND execution at maximum speed. This is the ceiling drill."},{role:"Coach / pad holder",int:"controlled",cue:"Vary pad position, timing, and angle. Create real decision pressure."}]},
+
+{id:"019",name:"Ball-Drop Reaction Drill",type:"REA",level:["kids","cadet","beginner"],season:"any",intensity:"low–moderate",focus:["speed","mental"],format:"pairs",slot:"warm-up",duration:"8 min",equipment:"Tennis ball",score:"Builds the reaction base all WKF scoring depends on. Fun for kids, developmental for cadets.",desc:"Partner holds tennis ball at shoulder height, drops without warning. Athlete executes kizami-tsuki to intercept before it hits floor. Progression: lower drop height; two balls, only one drops — must read which.",sets:"3 × 15 drops, 30s rest",
+roles:[{role:"Athlete",int:"match",cue:"React to the drop. Intercept before it hits the floor."},{role:"Partner (dropper)",int:"light",cue:"Hold at shoulder height. Drop without warning — no tells."}]},
+
+{id:"020",name:"Mirror Footwork Drill",type:"DEF",level:["beginner","intermediate","advanced"],season:"any",intensity:"low–moderate",focus:["tactical"],format:"pairs",slot:"warm-up",duration:"9 min",equipment:"None",score:"Maai control is prerequisite to every score in WKF. Can't land at sun-dome range without it.",desc:"Two athletes in kamae. One leads with footwork (slide in/out, lateral cut, diagonal pivot, feints). Other mirrors in real time with zero lag. Roles switch every 60s. Progression: leader adds kizami-tsuki at random — follower must parry without breaking rhythm.",sets:"6 × 60s rounds, 30s rest",
+roles:[{role:"Leader",int:"controlled",cue:"Set the pace. Footwork variety — forward, back, lateral, diagonal. Add kizami in progression."},{role:"Follower (active)",int:"match",cue:"Zero lag. Mirror instantly. Parry without breaking rhythm in progression."}]},
+
+{id:"021",name:"Called-Technique Rapid Fire",type:"REA",level:["beginner","intermediate","advanced"],season:"any",intensity:"moderate–high",focus:["speed","mental"],format:"full-class",slot:"main",duration:"10 min",equipment:"None / mitts optional",score:"Builds technique-selection speed. 'Jogai!' addition trains impulse control under pressure.",desc:"Coach calls technique names randomly ('kizami!', 'mawashi!', 'ura-mawashi!', 'uraken!'). Athlete executes from kamae as fast as possible. Progression: add 'jogai!' calls where athlete steps laterally instead of striking.",sets:"4 × 90s rounds, 60s rest",
+roles:[{role:"All athletes",int:"match",cue:"Execute from kamae as fast as possible. No telegraphing, no wind-up."}]},
+
+{id:"022",name:"Moving Focus-Mitt Accuracy",type:"OFF",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"moderate–high",focus:["speed","technical"],format:"pairs",slot:"main",duration:"12 min",equipment:"Focus mitts",score:"WKF scoring requires correct distance on a moving target. Builds live-tracking accuracy.",desc:"Coach holds mitts and moves constantly — forward, backward, laterally, pivoting. Small targets. Athlete tracks, closes distance, lands clean kizami or gyaku on moving mitt. Coach varies speed and applies light pressure between presentations.",sets:"3 × 3-min rounds, 1-min rest",
+roles:[{role:"Athlete",int:"match",cue:"Track, close, land. Accuracy on a moving target."},{role:"Coach / pad holder",int:"controlled",cue:"Move unpredictably. Small targets. Apply shoulder checks between presentations."}]},
+
+{id:"023",name:"Kabe Kumite (Wall Sparring)",type:"DEF",level:["advanced","elite"],season:"mid-season / peak",intensity:"high–max",focus:["mental","tactical"],format:"pairs",slot:"finisher",duration:"12 min",equipment:"Full WKF gear",score:"WKF's 8m tatami means the edge is always close. Fighting off the wall avoids jogai and creates counter-scoring.",desc:"Defender stands heels against wall/tatami edge. Attacker free-attacks. Defender cannot retreat — must use tai-sabaki, nagashi-uke, or sen-no-sen counters. Builds skill of fighting with nowhere to go.",sets:"6 × 60s rounds (3/role), 60s rest",
+roles:[{role:"Attacker",int:"match",cue:"Full offensive pressure. Pin and score."},{role:"Defender (active)",int:"match",cue:"No retreat. Tai-sabaki, counter, or eat it. Pressure is the teacher."}]},
+
+{id:"024",name:"U-Drill (Angle-Cutting Pressure)",type:"POS",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"moderate",focus:["tactical"],format:"pairs",slot:"main",duration:"8 min",equipment:"None",score:"Ring-cutting forces opponent toward tatami edge (jogai). Positional dominance creates scoring without raw speed.",desc:"Athlete follows U-shaped path: forward pressure → lateral cut → forward pressure on new line. Partner retreats straight — the U cuts off their angle. First footwork only, then kizami at each direction change, then free technique choice.",sets:"4 × 4 U-patterns/dir, 30s rest",
+roles:[{role:"Athlete (presser)",int:"match",cue:"Own the angles. Cut off retreat lines."},{role:"Partner (retreater)",int:"light",cue:"Retreat in straight lines. Be the training dummy for angle-cutting — don't fight it."}]},
+
+{id:"025",name:"Pulse Footwork Drill",type:"POS",level:["beginner","intermediate","advanced"],season:"any",intensity:"low–moderate",focus:["technical","physical"],format:"solo / full-class",slot:"warm-up",duration:"8 min",equipment:"None",score:"The pulse is the foundation of all WKF movement. Without it, every technique starts from a dead stop.",desc:"Maintain on-the-balls-of-the-feet pulse rhythm in kamae — constant micro-bounce keeping body loaded for any direction. Phase 1: pulse only (2 min). Phase 2: add kizami at random (2 min). Phase 3: add mawashi at random (2 min).",sets:"3 × 2-min phases, 30s rest",
+roles:[{role:"All athletes",int:"controlled",cue:"Rhythm first, speed second. Stay on the balls of the feet."}]},
+
+{id:"026",name:"Circle Belt Drill",type:"POS",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"moderate–high",focus:["tactical","mental"],format:"small-group",slot:"main",duration:"12 min",equipment:"Belt + WKF gear",score:"Trains 360-degree spatial awareness inside the WKF ring boundary.",desc:"Belt laid in circle on tatami. 3–4 athletes work footwork around circle maintaining kamae and pulse. At coach's signal, any athlete can attack any other. Must maintain 360° awareness.",sets:"4 × 2-min rounds, 1-min rest",
+roles:[{role:"All athletes",int:"match",cue:"360° awareness. Attack on signal, defend on instinct."}]},
+
+{id:"027",name:"Happo Kumite (8-Direction)",type:"REA",level:["advanced","elite"],season:"mid-season / peak",intensity:"high–max",focus:["tactical","mental","physical"],format:"small-group",slot:"finisher",duration:"15 min",equipment:"Full WKF gear",score:"Replicates multi-threat cognitive load of WKF competition.",desc:"Defender in centre. 4–8 attackers at compass points. Each attacks with single committed technique at random intervals. Defender responds with appropriate counter (varying each time). 30s for cadets, up to 2 min for elite.",sets:"3–4 rounds/defender, 90s rest",
+roles:[{role:"Defender (centre)",int:"max",cue:"Every direction is live. Respond with the right counter every time."},{role:"Attackers (ring)",int:"controlled",cue:"Single committed technique. Honest intent but not trying to overwhelm — one at a time."}]},
+
+{id:"028",name:"Corner Escape Drill",type:"POS",level:["advanced","elite"],season:"mid-season / peak",intensity:"high",focus:["tactical","mental"],format:"pairs",slot:"main",duration:"12 min",equipment:"Full WKF gear",score:"Cornered athlete who escapes and scores wins. Presser who seals forces jogai.",desc:"Two athletes free-spar, one driven into tatami corner. Cornered athlete practises: pivot off back foot, diagonal slide off corner, sen-no-sen counter on incoming pressure. Reverse roles every 60s.",sets:"6 × 60s rounds (3/role), 60s rest",
+roles:[{role:"Presser",int:"match",cue:"Seal the corner. Force jogai or score."},{role:"Cornered (active)",int:"match",cue:"Escape and score. Pivot, slide, or counter — but get out."}]},
+
+{id:"029",name:"Jiyu Kumite Line Drill",type:"TRN",level:["intermediate","advanced","elite"],season:"mid-season / peak",intensity:"moderate–high",focus:["tactical","mental"],format:"full-class",slot:"main",duration:"15 min",equipment:"Full WKF gear",score:"Senshu (first score) wins draws. Trains winning the opening exchange — most valuable tactical asset.",desc:"Two lines face off. Athletes step to maai, take kamae. One exchange only — first clean technique scores. Rotate to end of opposite line. Coach calls YAME after each exchange, identifies scoring technique.",sets:"15–20 exchanges/athlete, continuous",
+roles:[{role:"Both athletes",int:"match",cue:"One exchange, first clean technique wins. Full commitment from the first step."}]},
+
+{id:"030",name:"Resistance-Band Dynamic Warm-Up",type:"WU",level:["intermediate","advanced","elite"],season:"any",intensity:"moderate",focus:["physical","speed"],format:"solo / full-class",slot:"warm-up",duration:"12 min",equipment:"Resistance band (~10% BW)",score:"Peer-reviewed: ~7.3% faster punch reaction time vs body-weight-only warm-up.",desc:"12-minute protocol with wearable resistance band at ~10% body-mass tension. Dynamic stretching, kumite-specific movement patterns (slides, pivots, level changes), technique shadows under resistance.",sets:"Continuous 12-min protocol",
+roles:[{role:"All athletes",int:"controlled",cue:"Focus on movement quality under resistance. Not a conditioning drill — it's a primer."}]}
+];
+
+const SESSIONS=[
+{id:"S1",title:"Mid-Season Cadets — Counter-Attack & Reaction",params:{Duration:"60 min",Level:"Cadet (12–17)",Type:"Counter + Reactive",Season:"Mid-season",Focus:"Tactical + Speed",Size:"12–16 athletes"},color:"#f4a261",blocks:[
+{slot:"WARM-UP",time:"0:00–0:12",mins:12,drills:[
+{ref:"025",name:"Pulse Footwork Drill",mins:5,notes:"Two lines. Pure pulse rhythm in kamae — no techniques yet. Coach walks lines correcting flat feet.",ri:"All athletes → CONTROLLED. Rhythm, not speed."},
+{ref:"019",name:"Ball-Drop Reaction Drill",mins:5,notes:"Pair up. Tennis ball drops from shoulder height. Intercept with kizami-tsuki. Make it competitive — who gets the most catches in 15 drops?",ri:"Athlete → MATCH (react fully). Dropper → LIGHT (hold and release, no tells)."},
+{ref:"—",name:"Dynamic stretching",mins:2,notes:"Hip circles, leg swings, arm rotations. Keep moving, no static holds.",ri:"All → LIGHT."}
+]},
+{slot:"MAIN — Reading & Mirroring",time:"0:12–0:22",mins:10,drills:[
+{ref:"020",name:"Mirror Footwork Drill",mins:5,notes:"Pairs. Leader moves, follower mirrors. Zero lag. Switch roles at 60s. 3 rounds.",ri:"Leader → CONTROLLED (set the pace). Follower → MATCH (zero lag mirror)."},
+{ref:"020",name:"Mirror Footwork + Attack",mins:5,notes:"Same drill — leader adds kizami-tsuki at random. Follower must parry without breaking mirror rhythm. Bridge from reading to reacting.",ri:"Leader → CONTROLLED (footwork + occasional kizami). Follower → MATCH (mirror + parry)."}
+]},
+{slot:"MAIN — Counter Mechanics",time:"0:22–0:36",mins:14,drills:[
+{ref:"011",name:"Nagashi-uke → Gyaku-tsuki Counter",mins:7,notes:"Cadet adaptation: attacker throws committed but readable kizami-tsuki. Deflect with nagashi-uke, counter gyaku-tsuki. 5 reps then switch. Coach: parry and punch are ONE action, not two.",ri:"Attacker → CONTROLLED (honest attack, not overwhelming). Defender → MATCH (full speed counter)."},
+{ref:"013",name:"Step-back Counter Mawashi-geri",mins:7,notes:"Cadet adaptation: attacker enters gyaku-tsuki at controlled pace. Step back, deflect, swivel into front-leg mawashi-geri chudan (not jodan — control first). Build speed only once form is clean.",ri:"Attacker → CONTROLLED (enters with intent, 60-70% speed). Defender → MATCH on the counter, but CHUDAN only for cadets."}
+]},
+{slot:"MAIN — Reaction Under Pressure",time:"0:36–0:46",mins:10,drills:[
+{ref:"021",name:"Called-Technique Rapid Fire",mins:5,notes:"Full class in lines. Coach calls 'kizami!', 'mawashi!', 'gyaku!'. Execute from kamae instantly. Add 'jogai!' — step laterally instead of striking. Builds impulse control.",ri:"All athletes → MATCH. Full speed execution."},
+{ref:"017",name:"Gyaku-tsuki Pad Reaction (simplified)",mins:5,notes:"One mitt, presented at random. Fire gyaku-tsuki on sight. 3 × 90s rounds. One weapon, one target, build speed.",ri:"Athlete → MATCH (fire on sight). Pad holder → CONTROLLED (vary timing, not trying to trick)."}
+]},
+{slot:"FINISHER — Counter-Only Sparring",time:"0:46–0:55",mins:9,drills:[
+{ref:"—",name:"Counter-only jiyu kumite",mins:9,notes:"Attacker initiates freely, defender can ONLY score with counters. No first-strike scoring for defender. 3 × 2-min rounds, switch roles. Coach watches for constraint-cheating — the discipline IS the drill.",ri:"Attacker → MATCH (free initiative, real attacks). Defender → MATCH (counter only — the constraint is the difficulty, not the effort)."}
+]},
+{slot:"COOL-DOWN",time:"0:55–1:00",mins:5,drills:[
+{ref:"—",name:"Technical review + stretching",mins:5,notes:"Gather in. Coach demos one counter that worked well and one common mistake. 2 min static stretching. Bow out.",ri:"All → LIGHT."}
+]}
+]},
+{id:"S2",title:"Elite Peak — Offensive Pressure",params:{Duration:"60 min",Level:"Elite",Type:"Offensive",Season:"Peak (1–2 wks to comp)",Focus:"Speed + Tactical",Size:"6–8 athletes"},color:"#e63946",blocks:[
+{slot:"WARM-UP",time:"0:00–0:12",mins:12,drills:[
+{ref:"030",name:"Resistance-Band Dynamic Warm-Up",mins:12,notes:"Full 12-min protocol. Resistance band at ~10% bodyweight. Dynamic stretching → kumite patterns under resistance → technique shadows. 7.3% faster punch reaction time. Non-negotiable before peak sessions.",ri:"All → CONTROLLED. Primer, not conditioning. Quality under resistance."}
+]},
+{slot:"MAIN — Primary Combination",time:"0:12–0:22",mins:10,drills:[
+{ref:"003",name:"Kizami → Gyaku Double-Punch",mins:10,notes:"Competition speed from rep 1. Two mitts — jodan + chudan. Cover distance on kizami so gyaku lands without second step. After 3 sets, partner adds lateral movement. Bread-and-butter YUKO chain — sharpen, don't build.",ri:"Athlete → MATCH (competition speed from rep 1). Pad holder → CONTROLLED (present targets, add lateral movement in progression)."}
+]},
+{slot:"MAIN — IPPON Hunting",time:"0:22–0:32",mins:10,drills:[
+{ref:"005",name:"Kizami → Front-leg Jodan Mawashi-geri",mins:10,notes:"The money technique. Kizami draws guard, front-leg jodan mawashi arrives before guard resets. 4 × 6 reps. If the kizami isn't convincing, the mawashi won't land in competition. Make them sell the jab.",ri:"Athlete → MATCH (the kizami must be convincing at competition speed). Pad holder → CONTROLLED (react to kizami as if in fight, present jodan mitt)."}
+]},
+{slot:"MAIN — Exit Discipline",time:"0:32–0:40",mins:8,drills:[
+{ref:"009",name:"Slide Gyaku → Mawashi-geri Jodan Exit",mins:8,notes:"Score and leave. Gyaku to body, immediate front-leg mawashi jodan, step OUT to safe maai. Elite athletes who linger at close range get equalized. One exhale: punch-kick-exit.",ri:"Athlete → MATCH (punch-kick-EXIT in one exhale). Pad holder → CONTROLLED (shield for body, mitt at jodan)."}
+]},
+{slot:"MAIN — Live Tracking",time:"0:40–0:48",mins:8,drills:[
+{ref:"022",name:"Moving Focus-Mitt Accuracy",mins:8,notes:"Coach moves unpredictably. Small targets. Track and land kizami/gyaku on moving mitts. Coach applies shoulder checks between presentations. Accuracy under chaos.",ri:"Athlete → MATCH (track and land). Coach → CONTROLLED (move unpredictably, apply pressure between presentations)."}
+]},
+{slot:"FINISHER — Kabe Kumite (Offensive)",time:"0:48–0:56",mins:8,drills:[
+{ref:"023",name:"Kabe Kumite — Attacker Focus",mins:8,notes:"Inverted: ATTACKER is focus. Pin defender to wall and score within 15s. If no score, reset. 4 × 60s rounds per attacker. Builds offensive closing pressure.",ri:"Attacker (focus) → MATCH (pin and score within 15s). Defender → MATCH (fight back — don't be a volunteer)."}
+]},
+{slot:"COOL-DOWN",time:"0:56–1:00",mins:4,drills:[
+{ref:"—",name:"Light shadow + stretching",mins:4,notes:"2 min free shadow at 30% — let the nervous system unwind. 2 min static stretching. No coaching — just recover.",ri:"All → LIGHT (30% shadow). Nervous system unwind."}
+]}
+]},
+{id:"S3",title:"Beginners — All-Purpose Foundation",params:{Duration:"60 min",Level:"Beginner (adult novice)",Type:"All-purpose",Season:"Any / Pre-season",Focus:"Technical",Size:"12–20 athletes"},color:"#2a9d8f",blocks:[
+{slot:"WARM-UP",time:"0:00–0:10",mins:10,drills:[
+{ref:"025",name:"Pulse Footwork Drill",mins:5,notes:"Whole class in lines. Pulse rhythm in kamae — on the balls of the feet, constant micro-bounce. Coach demos first, then walks lines.",ri:"All → CONTROLLED. Rhythm and form, not speed."},
+{ref:"020",name:"Mirror Footwork Drill",mins:5,notes:"Pair up. Leader moves (simple: in, out, lateral). Follower mirrors. Switch every 60s. 3 rounds. Learn maai through imitation before theory.",ri:"Leader → CONTROLLED (simple patterns). Follower → CONTROLLED (mirror — learning, not testing)."}
+]},
+{slot:"MAIN — Building the Gyaku-tsuki",time:"0:10–0:22",mins:12,drills:[
+{ref:"002",name:"Gyaku-tsuki Power Line",mins:12,notes:"The single most important technique in WKF. Full kinetic chain: rear heel → hip → shoulder → fist. Body shield absorbs impact — beginners need to feel the technique connect. 4 × 8 reps/side. Check hip recoil, don't let them arm-punch.",ri:"Athlete → CONTROLLED (build the chain correctly before adding speed). Shield holder → LIGHT (hold stable, absorb)."}
+]},
+{slot:"MAIN — Building the Kizami-tsuki",time:"0:22–0:32",mins:10,drills:[
+{ref:"001",name:"Kizami-tsuki Slide Entry",mins:10,notes:"Beginner adaptation: start stationary (no slide). Punch from kamae to jodan mitt. Once form is clean, add the rear-foot slide. Snapping shoulder-driven action, not full hip rotation. 5 × 8 reps/side.",ri:"Athlete → CONTROLLED (form first, then add slide). Pad holder → LIGHT (stationary mitt at jodan)."}
+]},
+{slot:"MAIN — First Combination",time:"0:32–0:42",mins:10,drills:[
+{ref:"003",name:"Kizami → Gyaku Double-Punch",mins:10,notes:"Slow tempo. Kizami to jodan mitt, pause, gyaku to chudan mitt. Once two-count is clean, remove the pause — make it one continuous action. The kizami opens the door, the gyaku walks through it.",ri:"Athlete → CONTROLLED (slow tempo, build to flow). Pad holder → LIGHT (stationary targets at jodan + chudan)."}
+]},
+{slot:"MAIN — First Counter",time:"0:42–0:50",mins:8,drills:[
+{ref:"011",name:"Nagashi-uke → Gyaku-tsuki Counter",mins:8,notes:"Attacker throws very slow, telegraphed kizami-tsuki. Defender practises nagashi-uke deflection and gyaku-tsuki as separate steps first, then connects them. 4 × 6 reps/side. First counter — keep it simple, make it work.",ri:"Attacker → LIGHT (slow, telegraphed. Beginners need to see it coming). Defender → CONTROLLED (learn the mechanics before adding speed)."}
+]},
+{slot:"FINISHER",time:"0:50–0:56",mins:6,drills:[
+{ref:"021",name:"Called-Technique Rapid Fire",mins:6,notes:"Full class. Only 3 techniques: 'kizami!', 'gyaku!', 'mawashi!'. 3 × 90s rounds. Small technique pool — beginners need repetition, not variety. Energy up, pressure down.",ri:"All athletes → CONTROLLED. Clean technique under moderate pressure — not match speed yet."}
+]},
+{slot:"COOL-DOWN",time:"0:56–1:00",mins:4,drills:[
+{ref:"—",name:"Technique review + stretching",mins:4,notes:"Gather in. 'What did we learn today?' (kizami, gyaku, the combination, the counter). 2 min static stretching. Bow out.",ri:"All → LIGHT."}
+]}
+]}
+];
+
+const TC={"OFF":"#e63946","DEF":"#457b9d","CTR":"#f4a261","REA":"#9b5de5","TRN":"#2a9d8f","POS":"#e9c46a","WU":"#8a8a96","—":"#8a8a96"};
+const TL={"OFF":"Offensive","DEF":"Defensive","CTR":"Counter","REA":"Reactive","TRN":"Transition","POS":"Positional","WU":"Warm-up","—":"Warm-up"};
+
+function Tag({children,color}){return <span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",padding:"0.12rem 0.38rem",borderRadius:3,background:color+"18",color,display:"inline-block",margin:"0.08rem 0.12rem"}}>{children}</span>}
+
+function RoleRow({r}){
+const ri=RI_SCALE[r.int]||RI_SCALE["controlled"];
+return <div style={{display:"flex",alignItems:"flex-start",gap:"0.5rem",padding:"0.35rem 0",borderBottom:"1px solid rgba(42,42,50,0.3)"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",fontWeight:700,color:ri.color,minWidth:60,flexShrink:0,padding:"0.12rem 0.38rem",borderRadius:3,background:ri.color+"18",textAlign:"center"}}>{ri.label.toUpperCase()}</span>
+<span style={{fontSize:"0.78rem",color:"#e8e6e3",fontWeight:600,minWidth:100,flexShrink:0}}>{r.role}</span>
+<span style={{fontSize:"0.76rem",color:"#8a8a96"}}>{r.cue}</span>
+</div>}
+
+function DrillCard({d,open,toggle}){
+const c=TC[d.type]||"#8a8a96";
+return <div onClick={toggle} style={{background:"#18181c",border:"1px solid #2a2a32",borderLeft:"4px solid "+c,borderRadius:8,padding:"0.9rem 1.1rem",marginBottom:"0.4rem",cursor:"pointer"}}>
+<div style={{display:"flex",alignItems:"center",gap:"0.5rem",flexWrap:"wrap"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",fontWeight:700,color:c}}>{d.id}</span>
+<span style={{fontWeight:700,fontSize:"0.85rem"}}>{d.name}</span>
+<Tag color={c}>{TL[d.type]}</Tag>
+<span style={{marginLeft:"auto",fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",color:"#8a8a96"}}>{d.duration}</span>
+<span style={{fontSize:"0.65rem",color:"#8a8a96",transform:open?"rotate(180deg)":"rotate(0)",transition:"transform 0.2s"}}>▼</span>
+</div>
+{open&&<div style={{marginTop:"0.7rem",paddingTop:"0.7rem",borderTop:"1px solid #2a2a32"}}>
+<p style={{fontSize:"0.8rem",lineHeight:1.6,marginBottom:"0.7rem"}}>{d.desc}</p>
+<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(180px,1fr))",gap:"0.4rem",marginBottom:"0.6rem"}}>
+{[["Level",d.level,"#e63946"],["Season",d.season,"#f4a261"],["Intensity",d.intensity,"#2a9d8f"],["Focus",d.focus,"#9b5de5"],["Format",d.format,"#457b9d"],["Slot",d.slot,"#e9c46a"]].map(([l,v,cl])=>
+<div key={l}><span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",color:"#8a8a96",textTransform:"uppercase",letterSpacing:"0.05em"}}>{l}</span><br/>{Array.isArray(v)?v.map(x=><Tag key={x} color={cl}>{x}</Tag>):<Tag color={cl}>{v}</Tag>}</div>
+)}
+</div>
+<div style={{display:"flex",gap:"0.8rem",flexWrap:"wrap",fontSize:"0.78rem",marginBottom:"0.5rem"}}>
+<div><strong style={{color:"#8a8a96",fontSize:"0.62rem",fontFamily:"'Space Mono',monospace"}}>SETS:</strong> {d.sets}</div>
+<div><strong style={{color:"#8a8a96",fontSize:"0.62rem",fontFamily:"'Space Mono',monospace"}}>EQUIP:</strong> {d.equipment}</div>
+</div>
+{d.roles&&d.roles.length>0&&<div style={{background:"#1a1a20",border:"1px solid #2a2a32",borderRadius:6,padding:"0.6rem 0.8rem",marginBottom:"0.5rem"}}>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",color:"#8a8a96",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"0.35rem"}}>Role Intensity</div>
+{d.roles.map((r,i)=><RoleRow key={i} r={r}/>)}
+</div>}
+<div style={{padding:"0.5rem 0.7rem",background:"#222228",borderRadius:5,fontSize:"0.75rem",color:"#2a9d8f"}}>
+<strong style={{fontSize:"0.58rem",fontFamily:"'Space Mono',monospace",letterSpacing:"0.05em"}}>WKF SCORING: </strong>{d.score}
+</div>
+</div>}
+</div>}
+
+function SessionBlock({s}){
+return <div style={{marginBottom:"2rem"}}>
+<div style={{borderLeft:"4px solid "+s.color,paddingLeft:"0.9rem",marginBottom:"1rem"}}>
+<h3 style={{color:s.color,marginBottom:"0.2rem",fontSize:"0.95rem"}}>{s.title}</h3>
+<div style={{display:"flex",gap:"0.6rem",flexWrap:"wrap"}}>
+{Object.entries(s.params).map(([k,v])=><span key={k} style={{fontSize:"0.7rem",color:"#8a8a96"}}><span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",textTransform:"uppercase",letterSpacing:"0.05em"}}>{k}: </span>{v}</span>)}
+</div>
+</div>
+{s.blocks.map((b,i)=>{
+const sc=b.slot.includes("WARM")?"#2a9d8f":b.slot.includes("COOL")?"#8a8a96":b.slot.includes("FINISH")?"#e63946":"#457b9d";
+return <div key={i} style={{background:"#18181c",border:"1px solid #2a2a32",borderRadius:8,padding:"0.9rem 1.1rem",marginBottom:"0.4rem"}}>
+<div style={{display:"flex",alignItems:"center",gap:"0.5rem",marginBottom:"0.5rem",flexWrap:"wrap"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",fontWeight:700,padding:"0.12rem 0.38rem",borderRadius:3,background:sc+"18",color:sc}}>{b.slot}</span>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",color:"#8a8a96"}}>{b.time}</span>
+<span style={{marginLeft:"auto",fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",color:"#8a8a96"}}>{b.mins} min</span>
+</div>
+<table><thead><tr><th style={{width:40}}>Ref</th><th>Drill</th><th style={{width:50}}>Min</th><th>Notes</th><th style={{minWidth:160}}>Role Intensity</th></tr></thead><tbody>
+{b.drills.map((dr,j)=><tr key={j}>
+<td><code>{dr.ref}</code></td>
+<td style={{fontWeight:500}}>{dr.name}</td>
+<td>{dr.mins}</td>
+<td style={{color:"#8a8a96",fontSize:"0.78rem"}}>{dr.notes}</td>
+<td style={{fontSize:"0.74rem",color:"#f4a261",fontFamily:"'Space Mono',monospace"}}>{dr.ri||"—"}</td>
+</tr>)}
+</tbody></table>
+</div>})}
+</div>}
+
+const TABS=[{id:"plan",l:"Plan"},{id:"tax",l:"Taxonomy"},{id:"tpl",l:"Template"},{id:"logic",l:"Session Logic"},{id:"dec",l:"Decisions"},{id:"lib",l:"Demo Library"},{id:"sess",l:"Demo Sessions"}];
+
+const TAXONOMY=[
+{t:"Athlete Level",b:"Dim 1 — Single select",r:[["kids","Under-12. Game-based, safety-first."],["cadet","12–17. Building fundamentals, early competition."],["beginner","Adult novices. Base techniques, distance management."],["intermediate","Comfortable sparring. Regional/national."],["advanced","Reads and exploits patterns. National/international."],["elite","International. Fine-tuning, high cognitive load."]]},
+{t:"Combat Type",b:"Dim 2 — Single select",r:[["offensive","Initiating attack. Combinations, pressure, closing distance."],["defensive","Avoiding/neutralizing. Deflection, evasion, distance."],["counter","Responding with scoring technique. Sen-no-sen, go-no-sen."],["reactive","Reading stimulus. Decision-speed, visual cue response."],["transition","Switching modes — attack↔defense↔counter."],["positional","Controlling space. Ring management, cornering, angles."]]},
+{t:"Season Phase",b:"Dim 3 — Single select",r:[["pre-season","Volume over specificity. Conditioning + fundamentals."],["early-comp","Tactical specificity begins. Sharpening timing."],["mid-season","Active calendar. Maintaining, correcting patterns."],["peak","1–2 weeks to major comp. Low volume, high specificity."],["off-season","Recovery. Exploratory, playful."],["any","Season-agnostic. Foundational."]]},
+{t:"Exercise Intensity",b:"Dim 4 — Single select · session-curve ceiling",r:[["low","Technical focus. Slow, form emphasis. Session-builder uses for warm-up / recovery slots."],["moderate","Working pace. Sustainable for longer sets. Bulk of main-block drills."],["high","Competition-realistic. Full speed, tactical pressure. Peak of session curve."],["max","Explosive. Short bursts, supramaximal output. Finisher-slot only."]]},
+{t:"Training Focus",b:"Dim 5 — Up to 2 tags",r:[["technical","Form, precision, mechanical execution."],["tactical","Decision-making, reading opponents, strategy."],["physical","Conditioning, endurance, strength-endurance."],["speed","Velocity, reaction time, combination speed."],["mental","Pressure management, focus under fatigue."]]},
+{t:"Group Format",b:"Dim 6 — Single select",r:[["solo","Individual. Shadow, bag, solo drills."],["pairs","Two athletes. Attacker/defender roles."],["small-group","3–5 athletes. Rotations, multi-attacker."],["full-class","Entire group. Line drills, coordinated."]]},
+{t:"Session Slot",b:"Dim 7 — Single select",r:[["warm-up","First 10–15 min. Activation, primers."],["main","Core block. Session focus lives here."],["finisher","Last 10–15 min. High-fatigue application."],["cool-down","Recovery. Light review, stretching."],["any-slot","Flexible placement."]]},
+{t:"Role Intensity",b:"Dim 8 — Per-role · array of {role, level, cue}",hl:true,r:[["light","30–50%. Feeding, cooperating. Predictable, controlled output so the active athlete can build."],["controlled","50–70%. Realistic but measured. Enough pressure to be honest, not enough to disrupt learning."],["match","80–100%. Competition speed and intent. Full commitment within WKF rules."],["max","100%+. Supramaximal bursts. Short duration, explosive, beyond normal competition output."]]},
+];
+
+const PHASES=[
+{c:"#8a8a96",n:"Phase 0",t:"Taxonomy Lock",tm:"~2 sessions",tasks:[["tommy","Draft full taxonomy schema"],["pedro","Review against coaching intuition"],["both","Iterate once. Lock."]],del:"Locked taxonomy schema"},
+{c:"#e63946",n:"Phase 1",t:"Exercise Template Design",tm:"~1 session",tasks:[["tommy","Design standard exercise card format"],["pedro","Could you fill this from a 10-min interview? If no, simplify."]],del:"Exercise entry template"},
+{c:"#f4a261",n:"Phase 2",t:"Pilot Batch — 10 Exercises",tm:"~2–3 interviews",tasks:[["pedro","Sit with Ricardo + Pedro Gomes. Record 10 exercises."],["tommy","Standardize + tag."],["pedro","Review with coaches."],["both","Adjust taxonomy if needed."]],del:"10 fully tagged exercises"},
+{c:"#2a9d8f",n:"Phase 3",t:"Full Library Build",tm:"~4–6 weeks",tasks:[["pedro","Schedule remaining interviews."],["tommy","Standardize + tag each batch."],["pedro","Spot-check every 10."]],del:"30–40 exercise library"},
+{c:"#457b9d",n:"Phase 4",t:"Session Generation Logic",tm:"~2 sessions",tasks:[["tommy","Design session builder rules"],["both","Test with sample inputs"],["both","Tune until sessions make sense"]],del:"Session generation logic"},
+{c:"#9b5de5",n:"Phase 5",t:"App / Interface",tm:"TBD",tasks:[["both","Decide format (web app, Claude project, etc.)"],["tommy","Build the interface"],["pedro","Share with coaching circle"]],del:"Working tool"},
+];
+
+function App(){
+const[tab,setTab]=useState("plan");
+const[exp,setExp]=useState(null);
+const[flt,setFlt]=useState("ALL");
+const filtered=flt==="ALL"?DRILLS:DRILLS.filter(d=>d.type===flt);
+const wc={pedro:{bg:"rgba(230,57,70,0.12)",c:"#e63946"},tommy:{bg:"rgba(42,157,143,0.12)",c:"#2a9d8f"},both:{bg:"rgba(244,162,97,0.12)",c:"#f4a261"}};
+
+return <div>
+<div style={{textAlign:"center",padding:"2rem 1.5rem 1.2rem",borderBottom:"1px solid #2a2a32",position:"relative"}}>
+<div style={{position:"absolute",top:"0.3rem",right:"1rem",fontSize:"2.5rem",opacity:0.04,fontWeight:700}}>道場</div>
+<h1 style={{fontFamily:"'Space Mono',monospace",fontSize:"1.4rem",color:"#e63946",letterSpacing:"-0.02em"}}>KARATE COACH APP</h1>
+<p style={{fontSize:"0.84rem",color:"#8a8a96",maxWidth:500,margin:"0.3rem auto 0"}}>AI-powered session builder for WKF kumite coaches</p>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",color:"#9b5de5",marginTop:"0.3rem"}}>v3.0 — Role Intensity update</div>
+</div>
+
+<div style={{display:"flex",borderBottom:"1px solid #2a2a32",overflowX:"auto",WebkitOverflowScrolling:"touch",position:"sticky",top:0,zIndex:100,background:"#0e0e10"}}>
+{TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",textTransform:"uppercase",letterSpacing:"0.06em",color:tab===t.id?"#e63946":"#8a8a96",background:"none",border:"none",padding:"0.8rem 0.85rem",cursor:"pointer",whiteSpace:"nowrap",borderBottom:tab===t.id?"2px solid #e63946":"2px solid transparent",flexShrink:0}}>{t.l}</button>)}
+</div>
+
+<div style={{padding:"1.5rem 1.5rem 4rem",maxWidth:960,margin:"0 auto"}}>
+
+{tab==="plan"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 1</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Project Plan</h2>
+<p style={{color:"#8a8a96",fontSize:"0.82rem",marginBottom:"1rem"}}>Single-thread. One deliverable per phase. No parallelism tax.</p>
+{PHASES.map((p,i)=><div key={i} style={{background:"#18181c",border:"1px solid #2a2a32",borderRadius:8,padding:"1.1rem",marginBottom:"0.6rem",borderLeft:"4px solid "+p.c}}>
+<div style={{display:"flex",alignItems:"center",gap:"0.5rem",marginBottom:"0.5rem",flexWrap:"wrap"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",fontWeight:700,padding:"0.15rem 0.4rem",borderRadius:3,background:p.c+"18",color:p.c}}>{p.n}</span>
+<span style={{fontWeight:700,fontSize:"0.92rem"}}>{p.t}</span>
+<span style={{marginLeft:"auto",fontFamily:"'Space Mono',monospace",fontSize:"0.65rem",color:"#8a8a96"}}>{p.tm}</span>
+</div>
+<ul style={{listStyle:"none"}}>
+{p.tasks.map(([w,txt],j)=><li key={j} style={{padding:"0.3rem 0",borderBottom:j<p.tasks.length-1?"1px solid rgba(42,42,50,0.6)":"none",display:"flex",alignItems:"flex-start",gap:"0.4rem",fontSize:"0.8rem"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",textTransform:"uppercase",padding:"0.1rem 0.3rem",borderRadius:3,flexShrink:0,marginTop:"0.1rem",background:wc[w].bg,color:wc[w].c}}>{w}</span>{txt}
+</li>)}
+</ul>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.7rem",color:"#2a9d8f",marginTop:"0.5rem",paddingTop:"0.35rem",borderTop:"1px dashed #2a2a32"}}>→ {p.del}</div>
+</div>)}
+<div style={{background:"#18181c",borderLeft:"3px solid #f4a261",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.82rem",marginTop:"0.8rem"}}><strong style={{color:"#f4a261"}}>ADHD guardrail:</strong> Only task right now = review the taxonomy. Everything else is future-Pedro's problem.</div>
+</div>}
+
+{tab==="tax"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 2</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Tagging Taxonomy</h2>
+<p style={{color:"#8a8a96",fontSize:"0.82rem",marginBottom:"1.2rem"}}>Eight dimensions. WKF 2026 terminology throughout.</p>
+{TAXONOMY.map((dim,i)=><div key={i} style={{marginBottom:"1.3rem"}}>
+<h3 style={{display:"flex",alignItems:"center",gap:"0.4rem",fontSize:"0.92rem"}}>{dim.t} <span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",padding:"0.1rem 0.35rem",borderRadius:3,background:dim.hl?"#9b5de518":"#222228",color:dim.hl?"#9b5de5":"#8a8a96"}}>{dim.b}</span>{dim.hl&&<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.5rem",padding:"0.1rem 0.3rem",borderRadius:3,background:"#e6394618",color:"#e63946"}}>NEW in v3</span>}</h3>
+<table><thead><tr><th>Tag</th><th>Description</th></tr></thead><tbody>
+{dim.r.map(([tag,desc],j)=><tr key={j}><td><code>{tag}</code></td><td style={{color:"#8a8a96"}}>{desc}</td></tr>)}
+</tbody></table>
+</div>)}
+<div style={{background:"#18181c",borderLeft:"3px solid #9b5de5",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.8rem",marginTop:"1rem"}}><strong style={{color:"#9b5de5"}}>v3 change — Role Intensity:</strong> Dim 4 (Exercise Intensity) stays as the session-curve ceiling — the AI uses it to build the low→peak→taper arc. Dim 8 (Role Intensity) is new: per-role execution directives so the coach knows exactly who goes how hard. In paired drills, the feeder and the active athlete almost always operate at different levels. Without this, "intensity: moderate" tells you nothing about the asymmetry.</div>
+</div>}
+
+{tab==="tpl"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 3</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Exercise Entry Template</h2>
+<p style={{color:"#8a8a96",fontSize:"0.82rem",marginBottom:"0.8rem"}}>What every exercise looks like once standardized. Updated with role intensity fields.</p>
+<div style={{background:"#18181c",border:"1px solid #2a2a32",borderRadius:8,padding:"1.1rem"}}>
+{[["ID","EX-027"],["Name","Mirror Counter Drill"],["Source Coach","Ricardo Gomes"],["Description","Attacker initiates kizami-tsuki from long range. Defender reads shoulder rotation, shifts off centre line, scores gyaku-tsuki to body as attacker's momentum carries forward. Reset. Switch every 5 reps."],["Athlete Level","intermediate · advanced"],["Combat Type","counter"],["Season Phase","mid-season · peak"],["Exercise Intensity","moderate → high"],["Training Focus","tactical · speed"],["Group Format","pairs"],["Session Slot","main"],["Duration","8–12 min"],["Sets × Reps","3 × 5 reps/side, 30s rest"],["Equipment","None (body shield for progression)"],["Role 1","Attacker (feeder) · CONTROLLED · \"Committed kizami. Honest intent, 60-70% speed.\""],["Role 2","Defender (active) · MATCH · \"Full speed counter from the read. Parry + strike = one action.\""],["Variations","① Add second attack if no score on first counter. ② Attacker varies kizami-tsuki / mawashi-geri."],["Coach Notes","\"Counter must come FROM the stimulus, not before it.\" — R. Gomes"]].map(([l,v],i)=>
+<div key={i} style={{display:"grid",gridTemplateColumns:"130px 1fr",gap:"0.4rem",padding:"0.4rem 0",borderBottom:i<16?"1px solid rgba(42,42,50,0.4)":"none",fontSize:"0.82rem"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.62rem",color:(l.startsWith("Role"))?"#9b5de5":"#8a8a96",textTransform:"uppercase"}}>{l}</span><span>{v}</span>
+</div>)}
+</div>
+<div style={{background:"#18181c",borderLeft:"3px solid #9b5de5",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.8rem",marginTop:"1rem"}}><strong style={{color:"#9b5de5"}}>Template change (v3):</strong> "Intensity" renamed to "Exercise Intensity" (session-curve tag). Added Role 1/2/N fields: each carries role name, intensity level (light/controlled/match/max), and a one-line coaching cue. Roles replace ad-hoc session notes like "attacker at 70% speed."</div>
+</div>}
+
+{tab==="logic"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 4</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Session Generation Logic</h2>
+<h3>Coach Inputs</h3>
+<table style={{marginBottom:"1.2rem"}}><thead><tr><th>Parameter</th><th>Example</th></tr></thead><tbody>
+{[["duration","60 min"],["athlete_level","intermediate"],["combat_type","counter"],["season_phase","mid-season"],["training_focus","tactical (optional)"],["group_size","12 (optional)"]].map(([p,e],i)=><tr key={i}><td><code>{p}</code></td><td>{e}</td></tr>)}
+</tbody></table>
+<h3>Generation Flow</h3>
+<div style={{display:"flex",flexDirection:"column",gap:"0.35rem",marginTop:"0.6rem"}}>
+{["Parse coach inputs into tag filters","Query library: exercises matching level + type + season","Allocate: warm-up (10–15m) → main (30–40m) → finisher (10m) → cool-down (5m)","Fill blocks respecting slot tags + exercise intensity curve (low → build → peak → taper)","Resolve role intensity per block: adapt role levels to athlete level (beginners = feeder drops to LIGHT; elite = feeder rises to MATCH)","Validate: no duplicates, duration ±5 min, format compatible with class size","Output session plan with names, descriptions, durations, sets, role intensity directives, notes"].map((s,i)=><div key={i}>
+<div style={{display:"flex",alignItems:"center",gap:"0.5rem",padding:"0.45rem 0.7rem",background:"#18181c",border:"1px solid #2a2a32",borderRadius:6,fontSize:"0.8rem"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",fontWeight:700,color:i===4?"#9b5de5":"#e63946"}}>0{i+1}</span>{s}</div>
+{i<6&&<div style={{textAlign:"center",color:"#8a8a96",fontSize:"0.7rem"}}>↓</div>}
+</div>)}
+</div>
+<div style={{background:"#18181c",borderLeft:"3px solid #9b5de5",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.8rem",marginTop:"1rem"}}><strong style={{color:"#9b5de5"}}>v3 addition — Step 05:</strong> The session builder now resolves role intensity per block. The exercise stores default roles, but the builder adapts them based on athlete level: beginner sessions drop feeders to LIGHT and active athletes to CONTROLLED; elite sessions can push both roles to MATCH. This replaces ad-hoc notes like "cadet adaptation: 70% speed."</div>
+</div>}
+
+{tab==="dec"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 5</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Open Decisions</h2>
+{[{n:1,t:"Kids split?",c:"#e63946",txt:"Split into kids-intro (6–9) and kids-comp (10–12)? Ask Ricardo."},
+{n:2,t:"Kata or kumite only?",c:"#f4a261",txt:"Kumite-only for v1. Cleaner."},
+{n:3,t:"Language?",c:"#2a9d8f",txt:"Portuguese first, translate later if it grows."},
+{n:4,t:"App format?",c:"#457b9d",txt:"Claude project with library as knowledge files = zero-cost MVP."},
+{n:5,t:"Exercise level: single or multi?",c:"#9b5de5",txt:"Allow up to 2 levels — most drills span adjacent tiers."},
+{n:6,t:"Role intensity: coach interview or inferred?",c:"#9b5de5",txt:"Ask coaches for explicit role intensity during interviews, or infer from drill description? Recommendation: ask directly — \"how hard should the feeder go?\" is a 5-second question that saves guesswork."}
+].map(d=><div key={d.n} style={{background:"#18181c",border:"1px solid #2a2a32",borderLeft:"4px solid "+d.c,borderRadius:8,padding:"0.9rem 1.1rem",marginBottom:"0.4rem"}}>
+<div style={{display:"flex",alignItems:"center",gap:"0.5rem",marginBottom:"0.3rem"}}>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem",fontWeight:700,padding:"0.12rem 0.38rem",borderRadius:3,background:d.c+"18",color:d.c}}>Decision {d.n}</span>
+<span style={{fontWeight:700,fontSize:"0.88rem"}}>{d.t}</span>
+</div>
+<p style={{fontSize:"0.82rem",margin:0}}>{d.txt}</p>
+</div>)}
+</div>}
+
+{tab==="lib"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 6</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Demo Library — 30 WKF Kumite Drills</h2>
+<p style={{color:"#8a8a96",fontSize:"0.82rem",marginBottom:"0.8rem"}}>Research-seeded. All WKF terminology. Click to expand. Each drill now includes per-role intensity directives. To be replaced by coach-sourced exercises.</p>
+<div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.8rem"}}>
+{[["ALL","#e8e6e3"],["OFF","#e63946"],["DEF","#457b9d"],["CTR","#f4a261"],["REA","#9b5de5"],["TRN","#2a9d8f"],["POS","#e9c46a"]].map(([f,c])=>
+<button key={f} onClick={()=>setFlt(f)} style={{fontFamily:"'Space Mono',monospace",fontSize:"0.55rem",textTransform:"uppercase",padding:"0.25rem 0.5rem",borderRadius:4,border:"1px solid "+(flt===f?c:"#2a2a32"),background:flt===f?c+"18":"none",color:flt===f?c:"#8a8a96",cursor:"pointer"}}>{f==="ALL"?"All (30)":TL[f]+" ("+DRILLS.filter(d=>d.type===f).length+")"}</button>)}
+</div>
+{filtered.map(d=><DrillCard key={d.id} d={d} open={exp===d.id} toggle={()=>setExp(exp===d.id?null:d.id)}/>)}
+<div style={{background:"#18181c",borderLeft:"3px solid #f4a261",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.8rem",marginTop:"1rem"}}><strong style={{color:"#f4a261"}}>Gaps for coach interviews:</strong> Kids-specific, cool-down, off-season, de-ashi-barai, ushiro-geri drills.</div>
+</div>}
+
+{tab==="sess"&&<div>
+<div style={{fontFamily:"'Space Mono',monospace",fontSize:"0.6rem",textTransform:"uppercase",letterSpacing:"0.12em",color:"#e63946",marginBottom:"0.4rem"}}>Part 7</div>
+<h2 style={{fontSize:"1.2rem",marginBottom:"0.6rem"}}>Demo Sessions — AI-Generated</h2>
+<p style={{color:"#8a8a96",fontSize:"0.82rem",marginBottom:"1.2rem"}}>Three 1-hour sessions from the demo library. Now with explicit role intensity per drill. This is what the tool produces.</p>
+{SESSIONS.map(s=><SessionBlock key={s.id} s={s}/>)}
+<div style={{background:"#18181c",borderLeft:"3px solid #2a9d8f",padding:"0.7rem 0.9rem",borderRadius:"0 6px 6px 0",fontSize:"0.8rem"}}><strong style={{color:"#2a9d8f"}}>What this proves:</strong> 30 tagged exercises with role intensity → coherent, level-appropriate sessions where every participant knows how hard to go. Compare S1 (feeders at CONTROLLED for cadets) vs S3 (feeders at LIGHT for beginners) — same drill, different execution demands. With 40+ coach-sourced exercises, output will be significantly richer.</div>
+</div>}
+
+</div>
+<div style={{textAlign:"center",padding:"1.2rem",borderTop:"1px solid #2a2a32",color:"#8a8a96",fontSize:"0.7rem"}}>
+Built for the coaches of Braga. Knowledge shared freely.<br/>
+<span style={{fontFamily:"'Space Mono',monospace",fontSize:"0.58rem"}}>Blueprint v3.0 — May 2026 · Role Intensity update</span>
+</div>
+</div>}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
