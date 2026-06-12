@@ -402,8 +402,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{outline:2px s
 /* === Phase 14R: belt bar accent glow === */
 .beltbar{box-shadow:0 0 12px -4px var(--accent)}
 
-/* === Phase 14R: exam multi-target chips === */
-.exam-chips{display:flex;flex-wrap:wrap;gap:.4rem}
 
 /* === Phase 14R: mobile kanji ghost sizing === */
 @media(max-width:639px){
@@ -4268,7 +4266,7 @@ function ExamDetailView({grade,onNav,onMenu,onHome}){
   const weaponExists=(wg,id)=>{const g=WEAPONS_DATA.find(w=>w.id===wg);return !!(g&&g.items.some(x=>x.id===id));};
   const kihonSectionExists=(id)=>KIHON_SECTIONS.some(s=>s.id===id);
   // Resolve a syllabus line to zero or more link targets.
-  // Returns array of {target, label}. label is the number string for multi-target chips, or null for single whole-row rows.
+  // Returns array of {target, label}. label is the number string (for multi-target rows), or null.
   const resolveTargets=(secTitle,txt)=>{
     if(!txt||typeof txt!=="string")return [];
     const t=txt.toLowerCase();const st=(secTitle||"").toLowerCase();
@@ -4308,22 +4306,28 @@ function ExamDetailView({grade,onNav,onMenu,onHome}){
     }
     return out;
   };
+  // One uniform row — whole-row tap + › chevron, matching Ohyo/Kihon everywhere.
+  const renderRow=(key,label,target,desc)=>{
+    const clickable=!!(target&&onNav);
+    return <div key={key} onClick={clickable?()=>onNav(target):undefined} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid rgba(255,255,255,0.04)",borderRadius:14,padding:"1rem",marginBottom:"0.45rem",cursor:clickable?"pointer":"default"}}>
+      <div style={{fontWeight:700,fontSize:"var(--text-base)",color:"var(--text-primary)",display:"flex",alignItems:"center",gap:"0.4rem"}}>
+        <span>{label}</span>
+        {target&&<span style={{fontSize:"var(--text-sm)",color:ex.color}}>{"›"}</span>}
+      </div>
+      {desc&&<div style={{fontSize:"var(--text-base)",color:"var(--text-muted)",marginTop:"0.15rem",lineHeight:1.5}}>{desc}</div>}
+    </div>;
+  };
   const renderItem=(item,ii,secTitle)=>{
     const isObj=item&&typeof item==="object";const txt=isObj?item.t:item;
     const kataId=findKata(txt);
     const targets=kataId?[{target:{type:"kataDetail",id:kataId},label:null}]:resolveTargets(secTitle,txt);
-    const single=targets.length===1;const multi=targets.length>1;
-    const rowClick=(single&&onNav)?()=>onNav(targets[0].target):undefined;
-    return <div key={ii} onClick={rowClick} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid rgba(255,255,255,0.04)",borderRadius:14,padding:"1rem",marginBottom:"0.45rem",cursor:single?"pointer":"default"}}>
-      <div style={{fontWeight:700,fontSize:"var(--text-base)",color:"var(--text-primary)",display:"flex",alignItems:"center",flexWrap:"wrap",gap:"0.4rem"}}>
-        <span>{txt}</span>
-        {single&&<span style={{fontSize:"var(--text-sm)",color:ex.color}}>{"›"}</span>}
-        {multi&&<span className="exam-chips" style={{display:"flex",flexWrap:"wrap",gap:"0.4rem"}}>
-          {targets.map((tg,ci)=><button key={ci} onClick={(e)=>{e.stopPropagation();if(onNav)onNav(tg.target);}} style={{minHeight:"44px",padding:"0.4rem 0.85rem",borderRadius:8,border:"1px solid "+ex.color,background:"transparent",color:ex.color,fontFamily:mono,fontWeight:700,fontSize:"var(--text-sm)",cursor:"pointer",display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{tg.label||"›"}</button>)}
-        </span>}
-      </div>
-      {isObj&&item.d&&<div style={{fontSize:"var(--text-base)",color:"var(--text-muted)",marginTop:"0.15rem",lineHeight:1.5}}>{item.d}</div>}
-    </div>;
+    if(targets.length>1){
+      // Split a multi-target line (e.g. "Jodan Uke 2 & 3") into one chevron row per form.
+      const base=((txt.match(/^(.*?)\s*\d/)||[null,txt])[1]||txt).trim();
+      return targets.map((tg,ci)=>renderRow(ii+"-"+ci,(base?base+" ":"")+tg.label,tg.target,null));
+    }
+    const single=targets.length===1?targets[0].target:null;
+    return renderRow(ii,txt,single,isObj?item.d:null);
   };
   return <PageShell title={glabel(ex.grade)} subtitle={(ex.belt||"")+(LANG==='pt'?" cinto":" belt")+(ex.min?" · "+ex.min:"")} accent={ex.color} onMenu={onMenu} onHome={onHome}>
     {ex.sections.map((sec,si)=><div key={si} style={{marginTop:"1rem"}}><h3 style={{fontSize:"var(--text-md)",fontWeight:700,color:ex.color,marginBottom:"0.6rem"}}>{sec.title}</h3>
