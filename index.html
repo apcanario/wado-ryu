@@ -15,7 +15,7 @@
 html,body{overscroll-behavior-x:none}html{font-size:112.5%}
 :root{
 --bg:#0a0d0e;--bg-card:#121618;--bg-card-hover:#181c20;--border:#1c2125;--border-active:#282d32;--bg-code:#0e1214;--bg-glass:rgba(10,13,14,0.92);
---text-primary:#f0eeeb;--text-secondary:#b8b5b0;--text-muted:#797e83;--text-dim:#5e6368;--text-ghost: #5a5f64;
+--text-primary:#f0eeeb;--text-secondary:#b8b5b0;--text-muted:#8a9097;--text-dim:#82888f;--text-ghost: #7b818a;
 --accent-red:#FF1943;--accent-aqua:#00d4e8;--accent-orange:#f4a261;--accent-teal:#2a9d8f;--accent-blue:#4d83a5;--accent-purple:#9b5de5;--accent-gold:#e9c46a;
 --logo-body:#f0eeeb;--selection:rgba(255,25,67,0.25);
 --accent-red-faint:rgba(255,25,67,0.10);--accent-orange-faint:rgba(244,162,97,0.12);--accent-teal-faint:rgba(42,157,143,0.12);--accent-blue-faint:rgba(69,123,157,0.12);--accent-purple-faint:rgba(155,93,229,0.12);--accent-gold-faint:rgba(233,196,106,0.12);--accent-aqua-faint:rgba(0,212,232,0.12);
@@ -54,7 +54,7 @@ html,body{overscroll-behavior-x:none}html{font-size:112.5%}
 }
 [data-theme="light"]{
 --bg:#f7f5f0;--bg-card:#ffffff;--bg-card-hover:#f0ede7;--border:#e6e2db;--border-active:#d4d0c8;--bg-code:#f0ede7;--bg-glass:rgba(247,245,240,0.92);
---text-primary:#1a1a1a;--text-secondary:#4a4a4a;--text-muted:#746f6a;--text-dim:#928d87;--text-ghost:#d0ccc5;
+--text-primary:#1a1a1a;--text-secondary:#4a4a4a;--text-muted:#746f6a;--text-dim:#726d67;--text-ghost:#726d67;
 --accent-red:#c41230;--accent-aqua:#0b7580;--accent-orange:#a65f1c;--accent-teal:#1e7a6f;--accent-blue:#356280;--accent-purple:#7b42c0;--accent-gold:#876d1f;
 --logo-body:#1a1a1a;--selection:rgba(196,18,48,0.20);
 --accent-red-faint:rgba(196,18,48,0.08);--accent-orange-faint:rgba(196,125,58,0.10);--accent-teal-faint:rgba(30,122,111,0.10);--accent-blue-faint:rgba(53,98,128,0.10);--accent-purple-faint:rgba(123,66,192,0.10);--accent-gold-faint:rgba(165,139,61,0.10);--accent-aqua-faint:rgba(11,117,128,0.10);
@@ -77,12 +77,12 @@ html,body{overscroll-behavior-x:none}html{font-size:112.5%}
 }
 [data-theme="light"] .subpage-hero h1,
 [data-theme="light"] h1[style*="-0.02em"] {
-  background: linear-gradient(120deg, #c41230 0%, #1e7a6f 50%, #c41230 100%) !important;
-  background-size: 220% 220% !important;
+  background: linear-gradient(110deg, var(--accent), var(--text-primary) 45%, var(--accent) 90%) !important;
+  background-size: 220% 100% !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  animation: titleFlow 14s ease-in-out infinite !important;
+  animation: titleFlow 9s ease-in-out infinite !important;
 }
 @keyframes titleFlow {
   0% { background-position: 0% 50%; }
@@ -238,8 +238,8 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 [data-theme="light"] .tile-belt-dan { background: linear-gradient(160deg, rgba(40,40,45,0.12) 0%, var(--surface-bg) 50%, rgba(200,200,200,0.04) 100%); }
 
 
-.subpage-hero{text-align:center;padding:3rem 1rem 2rem}
-.subpage-hero h1{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.02em;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#f0eeeb,#c0bfbb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0}
+.subpage-hero{text-align:center;padding:3rem 1rem 2rem;position:relative;overflow:hidden}
+.subpage-hero h1{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.02em;font-family:'DM Sans',sans-serif;background:linear-gradient(110deg,var(--accent),var(--text-primary) 45%,var(--accent) 90%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:titleFlow 9s ease-in-out infinite;margin:0;position:relative;z-index:1}
 .subpage-hero-subtitle{font-family:'DM Sans',sans-serif;font-size:var(--text-base,1rem);color:var(--text-secondary);line-height:1.7;max-width:600px;margin:1rem auto 0}
 .subpage-hero-stats{font-family:'Space Mono',monospace;font-size:var(--text-xs,0.75rem);color:var(--text-muted);letter-spacing:0.05em;margin-top:1rem}
 
@@ -248,6 +248,67 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 
 .tile-header{display:flex;align-items:center;gap:0.5rem}
 @media(max-width:599px){.tile-header{flex-direction:column;align-items:flex-start;gap:0.35rem}}
+
+/* === Phase 14R: per-section accent system (red / teal / gold only) === */
+:root{--accent:#FF1943;--accent-ink:#ff4d6b;}
+html[data-accent="teal"]{--accent:#2a9d8f;--accent-ink:#3fb8a8;}
+html[data-accent="gold"]{--accent:#e9c46a;--accent-ink:#e9c46a;}
+[data-theme="light"]{--accent:#c41230;--accent-ink:#c41230;}
+[data-theme="light"][data-accent="teal"], html[data-accent="teal"][data-theme="light"]{--accent:#1e7a6f;--accent-ink:#1e7a6f;}
+[data-theme="light"][data-accent="gold"], html[data-accent="gold"][data-theme="light"]{--accent:#876d1f;--accent-ink:#876d1f;}
+
+/* === Phase 14R: kanji ghosts (system CJK serif only) === */
+html[data-kanji] .subpage-hero::before{
+  position:absolute; right:.4rem; top:50%; transform:translateY(-50%);
+  writing-mode:vertical-rl;
+  font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP','Noto Serif CJK JP',serif;
+  font-size:clamp(4rem,16vw,7.5rem); line-height:1; color:var(--accent); opacity:.07;
+  pointer-events:none; z-index:0; animation:kanjiIn .9s ease both;}
+[data-theme="light"] html[data-kanji] .subpage-hero::before,
+html[data-kanji][data-theme="light"] .subpage-hero::before{opacity:.05;}
+html[data-kanji="型"] .subpage-hero::before{content:"型";}
+html[data-kanji="基本"] .subpage-hero::before{content:"基本";}
+html[data-kanji="組手"] .subpage-hero::before{content:"組手";}
+html[data-kanji="武"] .subpage-hero::before{content:"武";}
+html[data-kanji="体"] .subpage-hero::before{content:"体";}
+html[data-kanji="試合"] .subpage-hero::before{content:"試合";}
+html[data-kanji="歴史"] .subpage-hero::before{content:"歴史";}
+html[data-kanji="道"] .subpage-hero::before{content:"道";}
+html[data-kanji="語"] .subpage-hero::before{content:"語";}
+html[data-kanji="段"] .subpage-hero::before{content:"段";}
+html[data-kanji="礼"] .subpage-hero::before{content:"礼";}
+html[data-kanji="技"] .subpage-hero::before{content:"技";}
+@keyframes kanjiIn{from{opacity:0;transform:translateY(-46%);}to{opacity:.07;transform:translateY(-50%);}}
+
+/* === Phase 14R: card sheen sweep + springy hovers === */
+.nav-tile,.content-card,.expand-card{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.34,1.56,.64,1),border-color .3s ease,box-shadow .3s ease;}
+.nav-tile::after,.content-card::after,.expand-card::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease;z-index:2;}
+@media(hover:hover){
+  .nav-tile:hover,.content-card:hover,.expand-card:hover{transform:translateY(-3px);border-color:rgba(255,25,67,.35);}
+  .nav-tile:hover::after,.content-card:hover::after,.expand-card:hover::after{transform:translateX(220%);}
+  .tile-icon{transition:transform .45s cubic-bezier(.34,1.56,.64,1);}
+  .nav-tile:hover .tile-icon{transform:rotate(-6deg) scale(1.08);}
+}
+@supports (border-color:color-mix(in srgb,red 45%,transparent)){
+  @media(hover:hover){.nav-tile:hover,.content-card:hover,.expand-card:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent);}}
+}
+
+/* === Phase 14R: scroll progress bar === */
+#wrh-scrollbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:1200;transition:background .4s ease;pointer-events:none;}
+
+/* === Phase 14R: scroll reveal === */
+.rv{opacity:0;transform:translateY(14px);}
+.rv.in{opacity:1;transform:none;transition:opacity .5s ease,transform .65s cubic-bezier(.22,1,.36,1);}
+
+/* === Phase 14R: View Transitions === */
+::view-transition-old(root){animation:vtOut .18s ease both;}
+::view-transition-new(root){animation:vtIn .26s ease both;}
+@keyframes vtOut{to{opacity:0;transform:translateY(6px);}}
+@keyframes vtIn{from{opacity:0;transform:translateY(-6px);}}
+html.vt .view-fade{animation:none;}
+
+/* === Phase 14R: focus visibility === */
+a:focus-visible,button:focus-visible,[role="button"]:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;border-radius:4px;}
 </style>
 <script>try{var _t=localStorage.getItem('wrh-theme');if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);}catch(e){}</script>
 <style>
@@ -256,7 +317,7 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 @media(min-width:768px){.responsive-container{width:90%;max-width:960px;padding:0 24px}}
 @media(min-width:1024px){.responsive-container{width:88%;max-width:1400px;padding:0 32px}}
 .prose-content{max-width:800px;margin:0 auto}
-.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}.hero::before,.hero::after{content:"";position:absolute;inset:-30%;z-index:0;pointer-events:none;filter:blur(50px);will-change:transform;border-radius:50%}.hero::before{background:radial-gradient(circle,rgba(255,107,107,0.32) 0%,transparent 55%);animation:hero-blob1 22s ease-in-out infinite}.hero::after{background:radial-gradient(circle,rgba(42,157,143,0.26) 0%,transparent 55%);animation:hero-blob2 28s ease-in-out infinite}[data-theme="light"] .hero{background:var(--bg-card)}[data-theme="light"] .hero::before{background:radial-gradient(circle,rgba(196,18,48,0.34) 0%,transparent 55%)}[data-theme="light"] .hero::after{background:radial-gradient(circle,rgba(30,122,111,0.30) 0%,transparent 55%)}@keyframes hero-blob1{0%,100%{transform:translate(-14%,-10%) scale(1.0)}33%{transform:translate(20%,14%) scale(1.2)}66%{transform:translate(-8%,24%) scale(0.95)}}@keyframes hero-blob2{0%,100%{transform:translate(20%,14%) scale(1.1)}33%{transform:translate(-14%,-10%) scale(0.95)}66%{transform:translate(16%,-20%) scale(1.2)}}@media(prefers-reduced-motion:reduce){.hero::before,.hero::after{animation:none}}.hero-topo{opacity:0.08}
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}.hero::before,.hero::after{content:"";position:absolute;inset:-30%;z-index:0;pointer-events:none;filter:blur(50px);will-change:transform;border-radius:50%}.hero::before{background:radial-gradient(circle,rgba(255,25,67,0.32) 0%,transparent 55%);animation:hero-blob1 22s ease-in-out infinite}.hero::after{background:radial-gradient(circle,rgba(42,157,143,0.26) 0%,transparent 55%);animation:hero-blob2 28s ease-in-out infinite}[data-theme="light"] .hero{background:var(--bg-card)}[data-theme="light"] .hero::before{background:radial-gradient(circle,rgba(196,18,48,0.34) 0%,transparent 55%)}[data-theme="light"] .hero::after{background:radial-gradient(circle,rgba(30,122,111,0.30) 0%,transparent 55%)}@keyframes hero-blob1{0%,100%{transform:translate(-14%,-10%) scale(1.0)}33%{transform:translate(20%,14%) scale(1.2)}66%{transform:translate(-8%,24%) scale(0.95)}}@keyframes hero-blob2{0%,100%{transform:translate(20%,14%) scale(1.1)}33%{transform:translate(-14%,-10%) scale(0.95)}66%{transform:translate(16%,-20%) scale(1.2)}}@media(prefers-reduced-motion:reduce){.hero::before,.hero::after{animation:none}}.hero-topo{opacity:0.08}
 [data-theme="light"] .hero-glow{display:none}.wpgrid{display:grid;grid-template-columns:1fr;gap:0.75rem;align-items:stretch}@media(min-width:768px){.wpgrid{grid-template-columns:1fr 1fr}}.wpgrid>*{transition:border-color .15s ease,transform .15s ease}.wpgrid>*:hover{border-color:var(--border-active);transform:translateY(-2px)}
 .lvgrid{display:grid;grid-template-columns:1fr;gap:0.75rem;align-items:stretch}
 @media(min-width:768px){.lvgrid{grid-template-columns:1fr 1fr}}@media(min-width:1100px){.lvgrid{grid-template-columns:1fr 1fr 1fr}}
@@ -307,8 +368,8 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 .lvgrid>*,.wgrid>*,.home-2>*,.home-tech>*{animation:fadeSlideUp 0.28s ease-out backwards;transition:border-color 0.15s,transform 0.15s}
 .lvgrid>*:nth-child(1),.wgrid>*:nth-child(1),.home-2>*:nth-child(1),.home-tech>*:nth-child(1){animation-delay:0.02s}.lvgrid>*:nth-child(2),.wgrid>*:nth-child(2),.home-2>*:nth-child(2),.home-tech>*:nth-child(2){animation-delay:0.04s}.lvgrid>*:nth-child(3),.wgrid>*:nth-child(3),.home-2>*:nth-child(3),.home-tech>*:nth-child(3){animation-delay:0.06s}.lvgrid>*:nth-child(4),.wgrid>*:nth-child(4),.home-2>*:nth-child(4),.home-tech>*:nth-child(4){animation-delay:0.08s}.lvgrid>*:nth-child(5),.wgrid>*:nth-child(5),.home-2>*:nth-child(5),.home-tech>*:nth-child(5){animation-delay:0.10s}.lvgrid>*:nth-child(6),.wgrid>*:nth-child(6),.home-2>*:nth-child(6),.home-tech>*:nth-child(6){animation-delay:0.12s}.lvgrid>*:nth-child(7),.wgrid>*:nth-child(7),.home-2>*:nth-child(7),.home-tech>*:nth-child(7){animation-delay:0.14s}.lvgrid>*:nth-child(8),.wgrid>*:nth-child(8),.home-2>*:nth-child(8),.home-tech>*:nth-child(8){animation-delay:0.16s}.lvgrid>*:nth-child(9),.wgrid>*:nth-child(9),.home-2>*:nth-child(9),.home-tech>*:nth-child(9){animation-delay:0.18s}.lvgrid>*:nth-child(10),.wgrid>*:nth-child(10),.home-2>*:nth-child(10),.home-tech>*:nth-child(10){animation-delay:0.20s}
 @media(hover:hover){.lvgrid>*:hover,.wgrid>*:hover{border-color:var(--border-active)}}
-.backlink{background:none;border:none;padding:0;margin:0 0 0.9rem;cursor:pointer;color:var(--accent-red);font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.03em;display:inline-block}
-.backlink:hover{opacity:0.75}
+.backlink{border:none;padding:.55rem 0;margin:0 0 0.6rem;cursor:pointer;color:var(--accent-ink);font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;min-height:44px;background-color:transparent;background-image:linear-gradient(var(--accent-ink),var(--accent-ink));background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .3s ease}
+.backlink:hover,.backlink:focus-visible{background-size:100% 1px;opacity:1}
 .bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 .bgfx-topo,.bgfx-topo2{position:absolute;color:var(--text-primary);will-change:transform}
 .bgfx-topo{inset:-12%;width:124%;height:124%;opacity:0.05;animation:topoDrift 18s ease-in-out infinite alternate}
@@ -320,6 +381,44 @@ input, button, select, textarea { font-family: 'DM Sans', sans-serif; }
 @keyframes topoDrift2{0%{transform:translate(2.2%,1.2%) rotate(0.5deg)}50%{transform:translate(-2.4%,-1.6%) rotate(-0.6deg)}100%{transform:translate(2.2%,1.2%) rotate(0.5deg)}}
 @media(max-width:768px){.bgfx-topo{opacity:0.04}.bgfx-topo2{display:none}.bgfx-bird{height:80vh;right:-30%;opacity:0.035}}
 @media(prefers-reduced-motion:reduce){.bgfx-topo,.bgfx-topo2{animation:none}.view-fade,.home-fade,.lvgrid>*,.wgrid>*,.home-2>*,.home-tech>*{animation:none}}
+
+/* === Phase 14R: ambient accent glow on background layer === */
+.bgfx::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(900px 480px at 82% -8%, rgba(255,25,67,.09), transparent 60%);transition:background .8s ease;}
+@supports (background:color-mix(in srgb,red 9%,transparent)){
+  .bgfx::after{background:radial-gradient(900px 480px at 82% -8%, color-mix(in srgb,var(--accent) 9%,transparent), transparent 60%);}
+}
+
+/* === Phase 14R: card-interactive sheen + spring === */
+.card-interactive{position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.34,1.56,.64,1),border-color .3s ease,box-shadow .3s ease}
+.card-interactive::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease;z-index:2}
+@media(hover:hover){
+  .card-interactive:hover{transform:translateY(-3px);border-color:rgba(255,25,67,.35)}
+  .card-interactive:hover::after{transform:translateX(220%)}
+}
+@supports (border-color:color-mix(in srgb,red 45%,transparent)){
+  @media(hover:hover){.card-interactive:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}}
+}
+
+/* === Phase 14R: belt bar accent glow === */
+.beltbar{box-shadow:0 0 12px -4px var(--accent)}
+
+/* === Phase 14R: exam multi-target chips === */
+.exam-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* === Phase 14R: mobile kanji ghost sizing === */
+@media(max-width:639px){
+  html[data-kanji] .subpage-hero::before{font-size:clamp(3rem,22vw,5rem);right:.1rem}
+}
+
+/* === Phase 14R: reduced-motion master switch === */
+@media (prefers-reduced-motion: reduce){
+  .subpage-hero h1{animation:none!important}
+  html[data-kanji] .subpage-hero::before{animation:none!important}
+  .nav-tile,.content-card,.expand-card,.card-interactive,.tile-icon{transition:none!important}
+  .nav-tile::after,.content-card::after,.expand-card::after,.card-interactive::after{display:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none!important}
+}
 </style>
 
 <script>document.fonts.ready.then(function(){document.documentElement.classList.add("fonts-loaded")});</script>
@@ -2803,7 +2902,7 @@ function PageShell({title,subtitle,accent,onMenu,onHome,children}){
       </div>
       <BackLink/>
       {children}
-      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1.5rem 0 0.5rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
@@ -2811,7 +2910,7 @@ function PageShell({title,subtitle,accent,onMenu,onHome,children}){
 function HeroHeader(){
   return <div className="hero" style={{borderRadius:16,padding:"2rem 1.2rem 1.8rem",textAlign:"center",paddingTop:"5rem",paddingBottom:"4rem"}}>
     <div className="bgfx-topo hero-topo" style={{zIndex:0}} dangerouslySetInnerHTML={{__html:TOPO_SVG}}/>
-    <div style={{position:"relative",zIndex:1,display:"flex",justifyContent:"center",marginBottom:"0.6rem"}}><div className="hero-glow" style={{position:"absolute",width:400,height:400,top:"50%",left:"50%",transform:"translate(-50%,-50%)",background:"radial-gradient(ellipse, rgba(255,107,107,0.035) 0%, transparent 55%)",pointerEvents:"none"}}/><div style={{animation:"pulse-glow 3s ease-in-out infinite",display:"inline-block"}}><Logo size={180}/></div></div>
+    <div style={{position:"relative",zIndex:1,display:"flex",justifyContent:"center",marginBottom:"0.6rem"}}><div className="hero-glow" style={{position:"absolute",width:400,height:400,top:"50%",left:"50%",transform:"translate(-50%,-50%)",background:"radial-gradient(ellipse, rgba(255,25,67,0.035) 0%, transparent 55%)",pointerEvents:"none"}}/><div style={{animation:"pulse-glow 3s ease-in-out infinite",display:"inline-block"}}><Logo size={180}/></div></div>
     <h1 style={{position:"relative",zIndex:1,fontFamily:"'DM Sans',sans-serif",fontWeight:800,fontSize:"clamp(2.5rem, 5vw, 3.5rem)",letterSpacing:"0.08em",background:"linear-gradient(135deg, #f0eeeb, #c0bfbb)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1.2}}>{LANG==="pt"?"MANUAL DE WADO-RYŪ":"WADO-RYŪ HANDBOOK"}</h1>
     <p style={{position:"relative",zIndex:1,fontSize:"var(--text-base)",fontWeight:700,letterSpacing:"0.15em",textTransform:"uppercase",color:"var(--text-secondary)",marginTop:"0.7rem",maxWidth:560,marginLeft:"auto",marginRight:"auto",lineHeight:1.6,fontFamily:"'DM Sans',system-ui,sans-serif"}}>{LANG==='pt'?"Manual interativo de Karate para atletas e treinadores de Wado-Ryū tradicional e Kumite WKF":"Interactive Karate Handbook for Athletes and Coaches of Traditional Wado-Ryū and WKF Kumite Karate"}</p>
   </div>;
@@ -2876,7 +2975,7 @@ function Home({onNav,onMenu}){
       </div>
       
 
-      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"1rem 0 0.4rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>;
 }
@@ -3325,7 +3424,7 @@ function KumiteDrillsLibrary({onMenu,onHome}){
           {d.description&&sec(LANG==='pt'?"DESCRIÇÃO":"DESCRIPTION",<p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.6,margin:0}}>{L(d.description)}</p>)}
           {d.key_points&&d.key_points.length>0&&sec(LANG==='pt'?"PONTOS-CHAVE":"KEY POINTS",<ul style={{margin:0,paddingLeft:"1.1rem",display:"flex",flexDirection:"column",gap:"0.3rem"}}>{d.key_points.map(function(kp,i){return <li key={i} style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.5}}>{L(kp)}</li>;})}</ul>)}
           {d.common_error&&sec(LANG==='pt'?"ERRO COMUM":"COMMON ERROR",<p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.6,margin:0}}>{L(d.common_error)}</p>)}
-          {d.levels&&d.levels.length>0&&sec(LANG==='pt'?"NÍVEIS DE PROGRESSÃO":"PROGRESSION LEVELS",<div style={{display:"flex",flexDirection:"column",gap:"0.5rem"}}>{d.levels.map(function(lv,i){return <div key={i} style={{display:"flex",gap:"0.6rem",alignItems:"flex-start"}}><span style={{fontFamily:mono,fontSize:"var(--text-xs)",fontWeight:700,color:"var(--accent-red)",background:"rgba(255,107,107,0.10)",borderRadius:4,padding:"2px 7px",minWidth:18,textAlign:"center",flexShrink:0,marginTop:2}}>{lv.level}</span><p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.5,margin:0}}>{L(lv.description)}</p></div>;})}</div>)}
+          {d.levels&&d.levels.length>0&&sec(LANG==='pt'?"NÍVEIS DE PROGRESSÃO":"PROGRESSION LEVELS",<div style={{display:"flex",flexDirection:"column",gap:"0.5rem"}}>{d.levels.map(function(lv,i){return <div key={i} style={{display:"flex",gap:"0.6rem",alignItems:"flex-start"}}><span style={{fontFamily:mono,fontSize:"var(--text-xs)",fontWeight:700,color:"var(--accent-red)",background:"rgba(255,25,67,0.10)",borderRadius:4,padding:"2px 7px",minWidth:18,textAlign:"center",flexShrink:0,marginTop:2}}>{lv.level}</span><p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.5,margin:0}}>{L(lv.description)}</p></div>;})}</div>)}
           {d.variations&&sec(LANG==='pt'?"VARIAÇÕES":"VARIATIONS",<p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.6,margin:0}}>{L(d.variations)}</p>)}
           {d.duration_or_reps&&sec(LANG==='pt'?"DURAÇÃO / REPETIÇÕES":"DURATION / REPS",<p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.6,margin:0}}>{L(d.duration_or_reps)}</p>)}
           {equip.length>0&&sec(LANG==='pt'?"EQUIPAMENTO":"EQUIPMENT",<p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.6,margin:0}}>{equip.join(", ")}</p>)}
@@ -3428,7 +3527,7 @@ function StrengthLibrary({onMenu,onHome}){
               {e.readiness_criteria&&smSec(LANG==='pt'?"CRITÉRIOS DE PRONTIDÃO":"READINESS CRITERIA",col,smPara(smL(e.readiness_criteria)))}
               {e.no_bar_alternative&&smSec(LANG==='pt'?"ALTERNATIVA SEM BARRA":"NO-BAR ALTERNATIVE",col,smPara(smL(e.no_bar_alternative)))}
               {(e.min_age!=null)&&smSec(LANG==='pt'?"IDADE MÍNIMA":"MINIMUM AGE",col,smPara((LANG==='pt'?"A partir dos ":"From age ")+e.min_age))}
-              {e.contraindications&&smNote(LANG==='pt'?"CONTRAINDICAÇÕES":"CONTRAINDICATIONS","var(--belt-red)","rgba(255,107,107,0.06)","rgba(255,107,107,0.25)",smL(e.contraindications))}
+              {e.contraindications&&smNote(LANG==='pt'?"CONTRAINDICAÇÕES":"CONTRAINDICATIONS","var(--belt-red)","rgba(255,25,67,0.06)","rgba(255,25,67,0.25)",smL(e.contraindications))}
               {e.masters_note&&smNote(LANG==='pt'?"NOTA PARA MASTERS":"MASTERS NOTE","var(--accent-gold)","rgba(212,175,55,0.06)","rgba(212,175,55,0.25)",smL(e.masters_note))}
           </ExpandableCard>;
         })}</div>
@@ -3525,7 +3624,7 @@ function MobilityLibrary({onMenu,onHome}){
               {e.common_error&&smSec(LANG==='pt'?"ERRO COMUM":"COMMON ERROR",col,smPara(smL(e.common_error)))}
               {e.no_bar_alternative&&smSec(LANG==='pt'?"ALTERNATIVA SEM BARRA":"NO-BAR ALTERNATIVE",col,smPara(smL(e.no_bar_alternative)))}
               {(e.min_age!=null)&&smSec(LANG==='pt'?"IDADE MÍNIMA":"MINIMUM AGE",col,smPara((LANG==='pt'?"A partir dos ":"From age ")+e.min_age))}
-              {e.contraindications&&smNote(LANG==='pt'?"CONTRAINDICAÇÕES":"CONTRAINDICATIONS","var(--belt-red)","rgba(255,107,107,0.06)","rgba(255,107,107,0.25)",smL(e.contraindications))}
+              {e.contraindications&&smNote(LANG==='pt'?"CONTRAINDICAÇÕES":"CONTRAINDICATIONS","var(--belt-red)","rgba(255,25,67,0.06)","rgba(255,25,67,0.25)",smL(e.contraindications))}
               {e.masters_note&&smNote(LANG==='pt'?"NOTA PARA MASTERS":"MASTERS NOTE","var(--accent-gold)","rgba(212,175,55,0.06)","rgba(212,175,55,0.25)",smL(e.masters_note))}
           </ExpandableCard>;
         })}</div>
@@ -4084,7 +4183,7 @@ function GlossaryView({onMenu,onHome}){
       {g.terms.map((t,j)=><div key={j} style={{padding:"0.4rem 0",borderTop:j===0?"none":"1px solid var(--border)"}}><div style={{fontWeight:700,fontSize:"var(--text-base)",color:"var(--text-primary)"}}>{t.jp}</div><div style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",marginTop:"0.1rem",lineHeight:1.5}}>{t.en}</div></div>)}
     </div>)}</div>
     {total===0&&<p style={{color:"var(--text-muted)",textAlign:"center",padding:"2rem 0",fontSize:"var(--text-base)"}}>No terms match your search.</p>}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 function CategoryView({name,onMenu,onHome}){
@@ -4099,7 +4198,7 @@ function CategoryView({name,onMenu,onHome}){
     {showSearch&&<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Filter..." autoFocus style={{width:"100%",background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid var(--border-active)",borderRadius:14,padding:"0.6rem 0.9rem",color:"var(--text-primary)",fontSize:"var(--text-md)",fontFamily:"'DM Sans',sans-serif",marginBottom:"0.6rem",outline:"none"}}/>}
     {subs.length>2&&<div style={{display:"flex",gap:"0.3rem",overflowX:"auto",WebkitOverflowScrolling:"touch",paddingBottom:"0.5rem",marginBottom:"0.45rem"}}>{subs.map(s=><button key={s} onClick={()=>setSub(s)} style={{fontFamily:mono,fontWeight:500,fontSize:"var(--text-xs)",padding:"0.4rem 0.7rem",minHeight:36,borderRadius:14,border:"1px solid "+(sub===s?color:"var(--border)"),background:sub===s?color+"18":"transparent",color:sub===s?color:"var(--text-muted)",cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}}>{s}</button>)}</div>}
     <div className="lvgrid">{filtered.map((ex,i)=>{const isOpen=exp===i;return <div key={i} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid "+(isOpen?"var(--border-active)":"var(--border)"),borderRadius:14}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left",display:"flex",alignItems:"center",gap:"0.5rem"}}><div style={{width:6,height:6,borderRadius:14,background:color,flexShrink:0,opacity:0.6}}/><span style={{flex:1,fontWeight:700,fontSize:"var(--text-md)",color:isOpen?"var(--text-primary)":"var(--text-secondary)",lineHeight:1.4}}>{ex.name}</span><span style={{fontSize:"var(--text-sm)",color:"var(--text-dim)",transform:isOpen?"rotate(180deg)":"none",transition:"transform 0.15s"}}>▼</span></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}</div>
-    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -4111,7 +4210,7 @@ function SearchView({query,onMenu,onHome}){
     <BackLink/><input value={q} onChange={e=>setQ(e.target.value)} autoFocus placeholder={t('searchPlaceholder')} style={{width:"100%",background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid var(--border-active)",borderRadius:14,padding:"1rem",color:"var(--text-primary)",fontSize:"var(--text-md)",fontFamily:"'DM Sans',sans-serif",margin:"1rem 0",outline:"none"}} />
     <div style={{fontFamily:mono,fontWeight:500,fontSize:"var(--text-sm)",color:monoLight,marginBottom:"0.6rem"}}>{results.length} result{results.length!==1?"s":""}</div>
     {results.map((ex,i)=>{const isOpen=exp===i;const eColor=CM.find(m=>m[0]===ex._cat)?.[2]||"var(--accent-red)";return <div key={i} className="content-card" style={{marginBottom:"0.6rem"}}><button onClick={()=>setExp(isOpen?null:i)} style={{width:"100%",background:"transparent",border:"none",padding:"1rem",cursor:"pointer",textAlign:"left"}}><div style={{fontWeight:700,fontSize:"var(--text-md)",color:"var(--text-primary)"}}>{ex.name}</div><div style={{fontSize:"var(--text-sm)",color:eColor,fontFamily:mono,fontWeight:500,marginTop:"0.1rem"}}>{ex._cat}</div></button>{isOpen&&<div style={{padding:"0 0.9rem 0.9rem"}}><p style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",lineHeight:1.7}}>{ex.desc}</p></div>}</div>})}
-    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+    <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
   </div></div>
 }
 
@@ -4123,7 +4222,7 @@ function SyllabusView({onNav,onMenu,onHome}){
       <div style={{padding:"1rem 0 0.5rem"}}><h1 style={{fontSize:"var(--text-xl)",fontWeight:700,fontFamily:mono,color:"var(--accent-red)"}}>{tL("WIKF Syllabus")}</h1><p style={{fontSize:"var(--text-base)",color:"var(--text-muted)",marginTop:"0.2rem"}}>{tL("Complete reference text. For structured content, use the dedicated sections below.")}</p></div><BackLink/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0.4rem",marginBottom:"1.2rem"}}>{[{icon:"dry_cleaning",name:"Kata",v:{type:"kata"}},{icon:"sports_martial_arts",name:"Kihon",v:{type:"kihon"}},{icon:"sports_martial_arts",name:"Kumite Forms",v:{type:"kumiteForms"}},{icon:"swords",name:"Weapons",v:{type:"weapons"}},{icon:"account_balance",name:"History",v:{type:"history"}},{icon:"contrast",name:"Principles",v:{type:"principles"}}].map(s=><button key={s.name} onClick={()=>onNav(s.v)} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid rgba(255,255,255,0.04)",borderRadius:14,padding:"0.7rem",cursor:"pointer",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",gap:"0.4rem"}}>{MI({name:s.icon,size:18})}<span style={{fontSize:"var(--text-base)",color:"var(--text-secondary)",fontWeight:700}}>{tL(s.name)}</span></button>)}</div>
       <div ref={ref} className="syl" style={{paddingBottom:"2rem"}} />
-      <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v72 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
+      <div style={{textAlign:"center",padding:"0.8rem",color:"var(--text-dim)",fontSize:"var(--text-xs)",fontFamily:mono}}>Wado-Ryū Handbook v73 · AWIKP (EN+PT)<br/><span style={{color:"var(--text-ghost)"}}>{LANG==='pt'?"Projeto criado e desenvolvido por Pedro Canário":"Project created and curated by Pedro Canário"}</span></div>
     </div>
   </div>
 }
@@ -4167,29 +4266,65 @@ function ExamDetailView({grade,onNav,onMenu,onHome}){
   const findKata=(txt)=>{if(!txt||typeof txt!=="string")return null;const t=txt.toLowerCase().replace("yodan","yondan");return kataLookup[t]||null;};
   const formExists=(gk,id)=>{const g=KUMITE_FORMS[gk];return !!(g&&g.items.some(x=>x.id===id));};
   const weaponExists=(wg,id)=>{const g=WEAPONS_DATA.find(w=>w.id===wg);return !!(g&&g.items.some(x=>x.id===id));};
-  const findFormTarget=(secTitle,txt)=>{
-    if(!txt||typeof txt!=="string")return null;
+  const kihonSectionExists=(id)=>KIHON_SECTIONS.some(s=>s.id===id);
+  // Resolve a syllabus line to zero or more link targets.
+  // Returns array of {target, label}. label is the number string for multi-target chips, or null for single whole-row rows.
+  const resolveTargets=(secTitle,txt)=>{
+    if(!txt||typeof txt!=="string")return [];
     const t=txt.toLowerCase();const st=(secTitle||"").toLowerCase();
-    const m=txt.match(/\((\d+)\)/);const num=m?parseInt(m[1],10):null;
-    if(num){
-      if(st.includes("tanto")&&weaponExists("tanto-dori","tanto-"+num))return{type:"weaponDetail",weaponGroup:"tanto-dori",id:"tanto-"+num};
-      if(st.includes("idori")&&weaponExists("idori","idori-"+num))return{type:"weaponDetail",weaponGroup:"idori",id:"idori-"+num};
-      if(st.includes("tachi")&&weaponExists("tachi-dori","tachi-"+num))return{type:"weaponDetail",weaponGroup:"tachi-dori",id:"tachi-"+num};
-      if(st.includes("ohyo")&&formExists("ohyo","ohyo-"+num))return{type:"kumiteFormDetail",groupKey:"ohyo",id:"ohyo-"+num};
-      if(st.includes("kihon")&&(st.includes("kumite")||st.includes("kumite"))&&formExists("kihon","kihon-"+num))return{type:"kumiteFormDetail",groupKey:"kihon",id:"kihon-"+num};
-      if(st.includes("sanbon")){let sid=null;if(t.includes("jodan uke"))sid="jodan-uke-"+num;else if(t.includes("maegeri"))sid="maegeri-uke-"+num;if(sid&&formExists("sanbon",sid))return{type:"kumiteFormDetail",groupKey:"sanbon",id:sid};}
-    }
+    // Hard exclusions — these never link.
+    if(st.includes("renraku"))return [];
+    if(st.includes("jiyu")||st.includes("jiyū")||st.includes("written"))return [];
+    if(t.includes("ji yu")||t.includes("jiyu")||t.includes("jiyū")||t.includes("free spar"))return [];
+    const nums=(txt.match(/\d+/g)||[]).map(n=>parseInt(n,10));
+    const out=[];
+    const push=(target,label)=>{if(target)out.push({target,label:label});};
+    // Weapons (per number)
+    if(st.includes("tanto")){nums.forEach(n=>{const id="tanto-"+n;if(weaponExists("tanto-dori",id))push({type:"weaponDetail",weaponGroup:"tanto-dori",id:id},String(n));});return out;}
+    if(st.includes("idori")){nums.forEach(n=>{const id="idori-"+n;if(weaponExists("idori",id))push({type:"weaponDetail",weaponGroup:"idori",id:id},String(n));});return out;}
+    if(st.includes("tachi")){nums.forEach(n=>{const id="tachi-"+n;if(weaponExists("tachi-dori",id))push({type:"weaponDetail",weaponGroup:"tachi-dori",id:id},String(n));});return out;}
+    // Ohyo Kumite
+    if(st.includes("ohyo")){nums.forEach(n=>{const id="ohyo-"+n;if(formExists("ohyo",id))push({type:"kumiteFormDetail",groupKey:"ohyo",id:id},String(n));});return out;}
+    // Kihon Kumite (numbered forms)
+    if(st.includes("kihon")&&st.includes("kumite")){nums.forEach(n=>{const id="kihon-"+n;if(formExists("kihon",id))push({type:"kumiteFormDetail",groupKey:"kihon",id:id},String(n));});return out;}
+    // Sanbon Kumite
     if(st.includes("sanbon")){
-      if(t.includes("chudan soto uke")&&formExists("sanbon","chudan-soto-uke"))return{type:"kumiteFormDetail",groupKey:"sanbon",id:"chudan-soto-uke"};
-      if(t.includes("chudan uchi uke")&&formExists("sanbon","chudan-uchi-uke"))return{type:"kumiteFormDetail",groupKey:"sanbon",id:"chudan-uchi-uke"};
+      if(t.includes("jodan")){nums.forEach(n=>{const id="jodan-uke-"+n;if(formExists("sanbon",id))push({type:"kumiteFormDetail",groupKey:"sanbon",id:id},String(n));});return out;}
+      if(t.includes("maegeri")){nums.forEach(n=>{const id="maegeri-uke-"+n;if(formExists("sanbon",id))push({type:"kumiteFormDetail",groupKey:"sanbon",id:id},String(n));});return out;}
+      if(t.includes("chudan soto uke")&&formExists("sanbon","chudan-soto-uke")){push({type:"kumiteFormDetail",groupKey:"sanbon",id:"chudan-soto-uke"},null);return out;}
+      if(t.includes("chudan uchi uke")&&formExists("sanbon","chudan-uchi-uke")){push({type:"kumiteFormDetail",groupKey:"sanbon",id:"chudan-uchi-uke"},null);return out;}
+      return out;
     }
-    return null;
+    // Kihon technique sections (basics / ukes / tsuki & keri) -> Kihon reference section
+    if(st.includes("kihon")||st.includes("ukes")||st.includes("tsuki & keri")){
+      if(t.includes("any "))return out;
+      let kid=null;
+      if(t.includes("uke"))kid="blocks";
+      else if(t.includes("geri")||t.includes("sokuto")||t.includes("fumikomi"))kid="kicks";
+      else if(t.includes("zuki")||t.includes("tsuki"))kid="punches";
+      else if(t.includes("uchi"))kid="strikes";
+      if(kid&&kihonSectionExists(kid))push({type:"kihonSection",id:kid},null);
+      return out;
+    }
+    return out;
   };
-  const renderItem=(item,ii,secTitle)=>{const isObj=item&&typeof item==="object";const txt=isObj?item.t:item;const kataId=findKata(txt);const target=kataId?{type:"kataDetail",id:kataId}:findFormTarget(secTitle,txt);
-    return <div key={ii} onClick={target&&onNav?()=>onNav(target):undefined} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid rgba(255,255,255,0.04)",borderRadius:14,padding:"1rem",marginBottom:"0.45rem",cursor:target?"pointer":"default"}}>
-      <div style={{fontWeight:700,fontSize:"var(--text-base)",color:"var(--text-primary)",display:"flex",alignItems:"center",gap:"0.4rem"}}>{txt}{target&&<span style={{fontSize:"var(--text-sm)",color:ex.color}}>{"›"}</span>}</div>
+  const renderItem=(item,ii,secTitle)=>{
+    const isObj=item&&typeof item==="object";const txt=isObj?item.t:item;
+    const kataId=findKata(txt);
+    const targets=kataId?[{target:{type:"kataDetail",id:kataId},label:null}]:resolveTargets(secTitle,txt);
+    const single=targets.length===1;const multi=targets.length>1;
+    const rowClick=(single&&onNav)?()=>onNav(targets[0].target):undefined;
+    return <div key={ii} onClick={rowClick} style={{background:"linear-gradient(160deg, rgba(255,25,67,0.03) 0%, #131316 40%, #111114 100%)",border:"1px solid rgba(255,255,255,0.04)",borderRadius:14,padding:"1rem",marginBottom:"0.45rem",cursor:single?"pointer":"default"}}>
+      <div style={{fontWeight:700,fontSize:"var(--text-base)",color:"var(--text-primary)",display:"flex",alignItems:"center",flexWrap:"wrap",gap:"0.4rem"}}>
+        <span>{txt}</span>
+        {single&&<span style={{fontSize:"var(--text-sm)",color:ex.color}}>{"›"}</span>}
+        {multi&&<span className="exam-chips" style={{display:"flex",flexWrap:"wrap",gap:"0.4rem"}}>
+          {targets.map((tg,ci)=><button key={ci} onClick={(e)=>{e.stopPropagation();if(onNav)onNav(tg.target);}} style={{minHeight:"44px",padding:"0.4rem 0.85rem",borderRadius:8,border:"1px solid "+ex.color,background:"transparent",color:ex.color,fontFamily:mono,fontWeight:700,fontSize:"var(--text-sm)",cursor:"pointer",display:"inline-flex",alignItems:"center",justifyContent:"center"}}>{tg.label||"›"}</button>)}
+        </span>}
+      </div>
       {isObj&&item.d&&<div style={{fontSize:"var(--text-base)",color:"var(--text-muted)",marginTop:"0.15rem",lineHeight:1.5}}>{item.d}</div>}
-    </div>};
+    </div>;
+  };
   return <PageShell title={glabel(ex.grade)} subtitle={(ex.belt||"")+(LANG==='pt'?" cinto":" belt")+(ex.min?" · "+ex.min:"")} accent={ex.color} onMenu={onMenu} onHome={onHome}>
     {ex.sections.map((sec,si)=><div key={si} style={{marginTop:"1rem"}}><h3 style={{fontSize:"var(--text-md)",fontWeight:700,color:ex.color,marginBottom:"0.6rem"}}>{sec.title}</h3>
       {sec.note&&<p style={{color:"var(--text-muted)",fontSize:"var(--text-sm)",fontFamily:mono,margin:"0 0 0.6rem",lineHeight:1.5}}>{sec.note}</p>}
@@ -4372,13 +4507,13 @@ function hashToView(hash){
 
 function App(){
   const [view,setView]=useState(()=>hashToView(window.location.hash));const [drawer,setDrawer]=useState(false);const [,setLangTick]=useState(0);
-  const go=useCallback((v)=>{setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);},[]);
-  const navTo=useCallback((v)=>{setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);},[]);
+  const vt=useCallback((fn)=>{if(!document.startViewTransition||window.matchMedia('(prefers-reduced-motion: reduce)').matches){fn();return;}document.documentElement.classList.add('vt');let t;try{t=document.startViewTransition(()=>{ReactDOM.flushSync(fn);});}catch(e){document.documentElement.classList.remove('vt');fn();return;}t.finished.finally(()=>document.documentElement.classList.remove('vt'));},[]);const go=useCallback((v)=>{vt(()=>{setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);});},[vt]);
+  const navTo=useCallback((v)=>{vt(()=>{setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);});},[vt]);
   const menu=useCallback(()=>setDrawer(true),[]);
-  const home=useCallback(()=>{const v={type:"home"};setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);},[]);
+  const home=useCallback(()=>{vt(()=>{const v={type:"home"};setView(v);window.history.pushState(null,"",viewToHash(v));window.scrollTo(0,0);});},[vt]);
   useSwipeBack(()=>window.history.back(), view.type!=="home");
-  useEffect(()=>{const onHash=()=>{setView(hashToView(window.location.hash));window.scrollTo(0,0);};window.addEventListener("hashchange",onHash);return()=>window.removeEventListener("hashchange",onHash);},[]);useEffect(()=>{const onLang=()=>setLangTick(x=>x+1);window.addEventListener("langchange",onLang);return()=>window.removeEventListener("langchange",onLang);},[]);
-  const mp={onMenu:menu,onHome:home};
+  useEffect(()=>{const onHash=()=>{vt(()=>{setView(hashToView(window.location.hash));window.scrollTo(0,0);});};window.addEventListener("hashchange",onHash);return()=>window.removeEventListener("hashchange",onHash);},[vt]);useEffect(()=>{const onLang=()=>setLangTick(x=>x+1);window.addEventListener("langchange",onLang);return()=>window.removeEventListener("langchange",onLang);},[]);
+  useEffect(()=>{const ACC={home:"red",kata:"red",kataDetail:"red",kihon:"red",kihonSection:"red",kumiteForms:"red",kumiteFormDetail:"red",sportKumite:"red",sportKumiteSessions:"red",kumiteDrills:"red",wkfRules:"red",wkfRuleDetail:"red",wkfGestures:"red",exams:"red",exam:"red",syllabus:"red",credits:"red",strengthMobility:"teal",strengthLibrary:"teal",mobilityLibrary:"teal",warmupLibrary:"teal",library:"teal",category:"teal",search:"teal",glossary:"teal",history:"gold",historyDetail:"gold",principles:"gold",principleDetail:"gold",weapons:"gold",weaponDetail:"gold"};const KJ={kata:"型",kataDetail:"型",kihon:"基本",kihonSection:"基本",kumiteForms:"組手",kumiteFormDetail:"組手",weapons:"武",weaponDetail:"武",strengthMobility:"体",strengthLibrary:"体",mobilityLibrary:"体",warmupLibrary:"体",library:"体",sportKumite:"試合",sportKumiteSessions:"試合",kumiteDrills:"試合",wkfRules:"試合",wkfRuleDetail:"試合",wkfGestures:"試合",history:"歴史",historyDetail:"歴史",principles:"道",principleDetail:"道",glossary:"語",exams:"段",exam:"段",syllabus:"段",credits:"礼",category:"技",search:"技"};const d=document.documentElement;d.setAttribute("data-accent",ACC[view.type]||"red");if(KJ[view.type])d.setAttribute("data-kanji",KJ[view.type]);else d.removeAttribute("data-kanji");},[view]);const mp={onMenu:menu,onHome:home};
   return <>
     <BackgroundFX/>
     <NavDrawer open={drawer} onClose={()=>setDrawer(false)} onNav={navTo} />
@@ -4418,6 +4553,24 @@ function App(){
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+<script>
+(function(){
+"use strict";
+var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* scroll progress */
+var bar=document.createElement('div');bar.id='wrh-scrollbar';document.body.appendChild(bar);
+var tick=false;
+function upd(){tick=false;var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});upd();
+/* scroll reveal */
+if(!rm&&'IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
+  function scan(){document.querySelectorAll('.content-card,.expand-card').forEach(function(el,i){if(el.dataset.rv)return;el.dataset.rv='1';var r=el.getBoundingClientRect();if(r.top<window.innerHeight*.9){return;}el.classList.add('rv');el.style.transitionDelay=Math.min(i%6*60,300)+'ms';io.observe(el);});}
+  scan();
+  new MutationObserver(function(){requestAnimationFrame(scan);}).observe(document.getElementById('root')||document.body,{childList:true,subtree:true});
+}
+})();
 </script>
 </body>
 </html>
